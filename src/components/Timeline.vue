@@ -13,7 +13,7 @@ export default {
   components: {},
 
   props: {
-    foo: String
+    foo: String,
   },
 
   data () {
@@ -22,6 +22,6 @@ export default {
 
   watch: {},
 
-  methods: {}
+  methods: {},
 }
 </script>

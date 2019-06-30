@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, } from 'vuex'
 
 export default {
   name: 'Home',
@@ -43,39 +43,39 @@ export default {
       presetLengths: [
         {
           title: '8 hours',
-          value: 480
+          value: 480,
         },
         {
           title: '10 hours',
-          value: 600
+          value: 600,
         },
         {
           title: '12 hours',
-          value: 720
+          value: 720,
         },
         {
           title: '24 hours',
-          value: 1440
+          value: 1440,
         },
         {
           title: 'Custom',
-          value: 0
-        }
-      ]
+          value: null,
+        },
+      ],
     }
   },
 
   computed: {
     ...mapState([
-      'savedMarathons'
-    ])
+      'savedMarathons',
+    ]),
   },
 
   methods: {
     ...mapMutations({
-      setMarathonLength: 'SET_MARATHON_LENGTH'
-    })
-  }
+      setMarathonLength: 'SET_MARATHON_LENGTH',
+    }),
+  },
 }
 </script>
 

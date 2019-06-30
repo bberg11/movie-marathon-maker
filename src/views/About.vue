@@ -15,8 +15,8 @@ export default {
 
   data () {
     return {
-      foo: 'baz'
+      foo: 'baz',
     }
-  }
+  },
 }
 </script>

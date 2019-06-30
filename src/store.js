@@ -5,20 +5,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    marathonLength: 1440,
-    startDate: '',
-    startTime: '',
-    endTime: '',
+    marathonLength: null,
+    startDate: null,
+    startTime: null,
+    endTime: null,
     savedMarathons: [
       {
         name: 'NYE Marathon',
-        data: {}
+        data: {},
       },
       {
         name: 'Star Wars',
-        data: {}
-      }
-    ]
+        data: {},
+      },
+    ],
   },
 
   mutations: {
@@ -36,10 +36,10 @@ export default new Vuex.Store({
 
     SET_END_TIME (state, value) {
       state.endTime = value
-    }
+    },
   },
 
   actions: {
 
-  }
+  },
 })

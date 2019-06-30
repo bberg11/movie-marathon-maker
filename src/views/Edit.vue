@@ -1,3 +1,6 @@
+<script>
+
+</script>
 <template>
   <v-app>
     <section>
@@ -61,7 +64,7 @@
         </v-time-picker>
       </v-dialog>
     </section>
-    <section>
+    <section v-if="marathonLength === null">
       <h2 class="subheading">Choose End time</h2>
       <v-dialog
         ref="endTimeDialog"
@@ -92,22 +95,22 @@
     </section>
 
     <section>
-      <timeline
+      <time-line
         foo="bar"
-      ></timeline>
+      ></time-line>
     </section>
   </v-app>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import Timeline from '@/components/Timeline.vue'
+import { mapState, mapMutations } from 'vuex';
+import TimeLine from '@/components/TimeLine.vue';
 
 export default {
-  name: 'TimelineView',
+  name: 'Edit',
 
   components: {
-    Timeline
+    TimeLine
   },
 
   data () {
@@ -127,6 +130,12 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState([
+      'marathonLength',
+    ]),
+  },
+
   methods: {
     ...mapMutations({
       setStartDate: 'SET_START_DATE',
@@ -137,7 +146,7 @@ export default {
     updateDateTimes (data) {
       this.$refs[data.dialog].save(data.value)
       this[data.mutation](data.value)
-    }
+    },
   }
 }
 </script>
