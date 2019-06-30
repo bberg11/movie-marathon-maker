@@ -1,5 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-app>
+    <div>About View</div>
+    <div>Foo: {{ foo }}</div>
+  </v-app>
 </template>
+
+<script>
+// import HelloWorld from './components/HelloWorld'
+
+export default {
+  name: 'About',
+
+  components: {},
+
+  data () {
+    return {
+      foo: 'baz'
+    }
+  }
+}
+</script>
