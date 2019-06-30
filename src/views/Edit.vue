@@ -143,6 +143,18 @@ export default {
     updateDateTimes (data) {
       this.$refs[data.dialog].save(data.value);
       this[data.mutation](data.value);
+
+      if (this.shouldAutoSetEndTime(data.dialog)) {
+        // const endTime = data.value + this.marathonLength;
+        
+        // this.setEndTime(endTime);
+      }
+    },
+
+    shouldAutoSetEndTime (dialog) {
+      if (this.marathonLength === null) { return false; }
+
+      return dialog === 'startTimeDialog';
     },
   },
 };
