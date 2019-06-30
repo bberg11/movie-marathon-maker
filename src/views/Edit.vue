@@ -1,6 +1,3 @@
-<script>
-
-</script>
 <template>
   <v-app>
     <section>
@@ -110,7 +107,7 @@ export default {
   name: 'Edit',
 
   components: {
-    TimeLine
+    TimeLine,
   },
 
   data () {
@@ -120,14 +117,14 @@ export default {
       startTime: null,
       startTimeModal: false,
       endTime: null,
-      endTimeModal: false
-    }
+      endTimeModal: false,
+    };
   },
 
   watch: {
     startTime (newValue) {
-      this.setStartTime(newValue)
-    }
+      this.setStartTime(newValue);
+    },
   },
 
   computed: {
@@ -140,13 +137,13 @@ export default {
     ...mapMutations({
       setStartDate: 'SET_START_DATE',
       setStartTime: 'SET_START_TIME',
-      setEndTime: 'SET_END_TIME'
+      setEndTime: 'SET_END_TIME',
     }),
 
     updateDateTimes (data) {
-      this.$refs[data.dialog].save(data.value)
-      this[data.mutation](data.value)
+      this.$refs[data.dialog].save(data.value);
+      this[data.mutation](data.value);
     },
-  }
-}
+  },
+};
 </script>

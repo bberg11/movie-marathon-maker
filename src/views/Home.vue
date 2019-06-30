@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, } from 'vuex'
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Home',
@@ -62,7 +62,7 @@ export default {
           value: null,
         },
       ],
-    }
+    };
   },
 
   computed: {
@@ -76,7 +76,7 @@ export default {
       setMarathonLength: 'SET_MARATHON_LENGTH',
     }),
   },
-}
+};
 </script>
 
 <style lang="scss">

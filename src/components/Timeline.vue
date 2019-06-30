@@ -17,11 +17,11 @@ export default {
   },
 
   data () {
-    return {}
+    return {};
   },
 
   watch: {},
 
   methods: {},
-}
+};
 </script>

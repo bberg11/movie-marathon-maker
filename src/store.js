@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -23,23 +23,23 @@ export default new Vuex.Store({
 
   mutations: {
     SET_MARATHON_LENGTH (state, length) {
-      state.marathonLength = length
+      state.marathonLength = length;
     },
 
     SET_START_DATE (state, value) {
-      state.startDate = value
+      state.startDate = value;
     },
 
     SET_START_TIME (state, value) {
-      state.startTime = value
+      state.startTime = value;
     },
 
     SET_END_TIME (state, value) {
-      state.endTime = value
+      state.endTime = value;
     },
   },
 
   actions: {
 
   },
-})
+});
