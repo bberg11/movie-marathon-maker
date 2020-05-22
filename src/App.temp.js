@@ -9,9 +9,20 @@ const TMDB_BASE_API_URL = 'https://api.themoviedb.org/3';
 const TMDB_BASE_IMAGE_URL = '//image.tmdb.org/t/p';
 const API_KEY = 'c61ec07a6f7727aa86819578ff11a754';
 
+// const API_KEY = 'e3312355';
+// const OMDB_BASE_API_URL = 'http://www.omdbapi.com/';
+
 function App() {
   const [query, setQuery] = useState('');
+  // const [enhancedResults, setEnhancedResults] = useState();
   const [results, setResults] = useState();
+
+  // const enhanceDetails = ({ data }) => {
+  //   setResults({
+  //     ...results,
+  //     [data.id]: data,
+  //   });
+  // };
 
   const formatResults = async ({ data }) => {
     let enhancedResults = [];
@@ -28,24 +39,55 @@ function App() {
     enhancedResults = fullDetailResponses.map((response) => response.data);
 
     setResults(enhancedResults);
+
+    // await fullDetailResponses.forEach((fullDetailResponse) => {
+    //   console.log(fullDetailResponse.data);
+    //   setResults({
+    //     ...results,
+    //     [fullDetailResponse.data.id]: fullDetailResponse.data,
+    //   });
+    // });
+
+    // setResults(enhancedResults);
+
+    // data.results.forEach(async (movie) => {
+    //   const fullDetails = await axios.get(
+    //     `${TMDB_BASE_API_URL}/movie/${movie.id}?api_key=${API_KEY}`
+    //   );
+
+    //   formattedResults = {
+    //     ...formattedResults,
+    //     [movie.id]: fullDetails.data,
+    //   };
+    // });
+
+    // setResults(formattedResults);
   };
 
-  const getMovies = () => {
-    return axios.get(
-      `${TMDB_BASE_API_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-    );
-  };
+  // useEffect(() => {
+  //   if (results) {
+  //     Object.keys(results).forEach((id) => {
+  //       if (results[id].runtime) {
+  //         return;
+  //       }
 
-  const handleChange = (event) => {
-    setQuery(event.target.value);
+  //       // axios
+  //       //   .get(`${TMDB_BASE_API_URL}/movie/${id}?api_key=${API_KEY}`)
+  //       //   .then(enhanceDetails);
+  //     });
+  //   }
+  // }, [results]);
 
-    getMovies().then(({ data: { results: movies } }) => setResults(movies));
-  };
+  const handleChange = (event) => setQuery(event.target.value);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    getMovies().then(formatResults);
+    axios
+      .get(
+        `${TMDB_BASE_API_URL}/search/movie?api_key=${API_KEY}&query=${query}`
+      )
+      .then(formatResults);
   };
 
   return (
