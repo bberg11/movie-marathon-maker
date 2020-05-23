@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { movies } from 'propTypes';
 import 'Components/Autocomplete/Autocomplete.styles.css';
-
-const TMDB_BASE_IMAGE_URL = '//image.tmdb.org/t/p';
+import MovieList from 'Components/MovieList/MovieList.component';
 
 const Autocomplete = ({ results }) => {
   if (!results) {
@@ -12,23 +13,16 @@ const Autocomplete = ({ results }) => {
 
   return (
     <div className="dropdown-content">
-      {Object.values(results).map((movie) => (
-        <div key={movie.id}>
-          {movie.poster_path ? (
-            <img
-              src={`${TMDB_BASE_IMAGE_URL}/w185${movie.poster_path}`}
-              alt={`${movie.title} Movie Poster`}
-            />
-          ) : (
-            ''
-          )}
-          <p>{movie.title}</p>
-          <p>{movie.overview}</p>
-          <p>{movie.runtime}</p>
-        </div>
-      ))}
+      <MovieList />
     </div>
   );
+};
+
+Autocomplete.defaultProps = {
+  results: {},
+};
+Autocomplete.propTypes = {
+  results: PropTypes.shape(movies),
 };
 
 function mapStateToProps(state) {

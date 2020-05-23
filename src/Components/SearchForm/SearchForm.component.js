@@ -14,7 +14,7 @@ const SearchForm = ({ fetchMovies }) => {
     if (query.length > 0) {
       fetchMovies(query);
     }
-  }, [query]);
+  }, [query, fetchMovies]);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
