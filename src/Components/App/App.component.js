@@ -14,14 +14,16 @@ function App() {
     <div>
       <Header />
 
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/auth" exact component={AuthPage} />
-        <Route path="/account" exact component={AccountPage} />
-        <Route path="/timeline" exact component={TimelinePage} />
-        <Route path="/search" exact component={SearchResultsPage} />
-        <Route path="/movie/:id" exact component={MovieDetailPage} />
-      </Switch>
+      <main className="container">
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/auth" exact component={AuthPage} />
+          <Route path="/account" exact component={AccountPage} />
+          <Route path="/timeline" exact component={TimelinePage} />
+          <Route path="/search" exact component={SearchResultsPage} />
+          <Route path="/movie/:id" exact component={MovieDetailPage} />
+        </Switch>
+      </main>
     </div>
   );
 }
