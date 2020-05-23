@@ -1,7 +1,8 @@
 import React from 'react';
 
-import 'Components/Autocomplete/Autocomplete.styles.css';
 import MovieList from 'Components/MovieList/MovieList.component';
+
+import 'Components/Autocomplete/Autocomplete.styles.css';
 
 const Autocomplete = () => {
   return (

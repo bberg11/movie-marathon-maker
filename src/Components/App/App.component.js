@@ -20,7 +20,7 @@ function App() {
           <Route path="/auth" exact component={AuthPage} />
           <Route path="/account" exact component={AccountPage} />
           <Route path="/timeline" exact component={TimelinePage} />
-          <Route path="/search" exact component={SearchResultsPage} />
+          <Route path="/search/:query" exact component={SearchResultsPage} />
           <Route path="/movie/:id" exact component={MovieDetailPage} />
         </Switch>
       </main>

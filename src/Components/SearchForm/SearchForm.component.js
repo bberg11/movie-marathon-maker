@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import { getResults } from 'Redux/search/search.actions';
 
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 
-const SearchForm = ({ fetchMovies, history }) => {
+const SearchForm = ({ fetchMovies }) => {
   const [query, setQuery] = useState('');
   const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (query.length > 0) {
@@ -27,7 +28,7 @@ const SearchForm = ({ fetchMovies, history }) => {
     event.preventDefault();
 
     setShowAutocomplete(false);
-    history.push('/search');
+    history.push(`/search/${query}`);
   };
 
   return (
@@ -53,13 +54,10 @@ const SearchForm = ({ fetchMovies, history }) => {
 
 SearchForm.propTypes = {
   fetchMovies: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchMovies: (query) => dispatch(getResults(query)),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(SearchForm));
+export default connect(null, mapDispatchToProps)(SearchForm);

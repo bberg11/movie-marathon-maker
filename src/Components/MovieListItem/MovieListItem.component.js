@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { movie as moviePropType } from 'propTypes';
+
 import 'Components/MovieListItem/MovieListItem.styles.css';
 
 const TMDB_BASE_IMAGE_URL = '//image.tmdb.org/t/p';
