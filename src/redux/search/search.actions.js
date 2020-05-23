@@ -9,26 +9,38 @@ export const getResults = (query) => (dispatch) => {
   axios
     .get(`${TMDB_BASE_API_URL}/search/movie?api_key=${API_KEY}&query=${query}`)
     .then(({ data: { results } }) => {
-      results.forEach((movie) => {
-        const payload = {
-          [movie.id]: movie,
-        };
+      let movies = {};
 
+      if (query.length < 2) {
         dispatch({
           type: searchActionTypes.UPDATE_RESULTS,
-          payload,
+          payload: movies,
         });
+
+        return;
+      }
+
+      results.forEach((movie) => {
+        movies = {
+          ...movies,
+          [movie.id]: movie,
+        };
 
         axios
           .get(`${TMDB_BASE_API_URL}/movie/${movie.id}?api_key=${API_KEY}`)
           .then(({ data }) => {
             dispatch({
-              type: searchActionTypes.UPDATE_RESULTS,
+              type: searchActionTypes.UPDATE_RESULT,
               payload: {
                 [data.id]: data,
               },
             });
           });
+      });
+
+      dispatch({
+        type: searchActionTypes.UPDATE_RESULTS,
+        payload: movies,
       });
     });
 };

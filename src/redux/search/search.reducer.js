@@ -9,6 +9,11 @@ const searchReducer = (state = INITIAL_STATE, action) => {
     case searchActionTypes.UPDATE_RESULTS:
       return {
         ...state,
+        results: action.payload,
+      };
+    case searchActionTypes.UPDATE_RESULT:
+      return {
+        ...state,
         results: {
           ...state.results,
           ...action.payload,
