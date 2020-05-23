@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import searchReducer from './search/search.reducer';
+import searchReducer from 'Redux/search/search.reducer';
 
 const reducers = combineReducers({
   search: searchReducer,

@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import searchActionTypes from './search.types';
+import searchActionTypes from 'Redux/search/search.types';
 
 const TMDB_BASE_API_URL = 'https://api.themoviedb.org/3';
 const API_KEY = 'c61ec07a6f7727aa86819578ff11a754';
