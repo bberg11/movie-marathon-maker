@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { getResults } from 'Redux/search/search.actions';
 
+import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
+
 const SearchForm = ({ fetchMovies }) => {
   const [query, setQuery] = useState('');
 
@@ -39,6 +41,8 @@ const SearchForm = ({ fetchMovies }) => {
       <button type="submit" className="hide">
         Search
       </button>
+
+      <Autocomplete />
     </form>
   );
 };
