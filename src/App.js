@@ -1,51 +1,27 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
-/* eslint-disable no-restricted-syntax */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import './App.css';
+import { getResults } from './redux/search/search.actions';
 
-const TMDB_BASE_API_URL = 'https://api.themoviedb.org/3';
 const TMDB_BASE_IMAGE_URL = '//image.tmdb.org/t/p';
-const API_KEY = 'c61ec07a6f7727aa86819578ff11a754';
 
-function App() {
+function App(props) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState();
-
-  const formatResults = async ({ data }) => {
-    let enhancedResults = [];
-    const fullDetailRequests = [];
-
-    for (const movie of data.results) {
-      fullDetailRequests.push(
-        axios.get(`${TMDB_BASE_API_URL}/movie/${movie.id}?api_key=${API_KEY}`)
-      );
-    }
-
-    const fullDetailResponses = await Promise.all(fullDetailRequests);
-
-    enhancedResults = fullDetailResponses.map((response) => response.data);
-
-    setResults(enhancedResults);
-  };
-
-  const getMovies = () => {
-    return axios.get(
-      `${TMDB_BASE_API_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-    );
-  };
 
   const handleChange = (event) => {
     setQuery(event.target.value);
 
-    getMovies().then(({ data: { results: movies } }) => setResults(movies));
+    props.getResults(query);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    getMovies().then(formatResults);
+    props.getResults(query);
   };
 
   return (
@@ -65,8 +41,8 @@ function App() {
         <button type="submit">Search</button>
       </form>
       <div>
-        {results &&
-          results.map((movie) => (
+        {props.results &&
+          Object.values(props.results).map((movie) => (
             <div key={movie.id}>
               {movie.poster_path ? (
                 <img
@@ -86,4 +62,12 @@ function App() {
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return { results: state.search.results };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getResults: (query) => dispatch(getResults(query)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
