@@ -10,6 +10,8 @@ import App from 'Components/App/App.component';
 
 import * as serviceWorker from './serviceWorker';
 
+import './index.css';
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

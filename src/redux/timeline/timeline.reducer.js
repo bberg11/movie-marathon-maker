@@ -3,7 +3,7 @@ import timelineActionTypes from 'Redux/timeline/timeline.types';
 export const INITIAL_STATE = {
   targetLength: 0,
   currentLength: 0,
-  padding: 10,
+  padding: 0,
   movies: [],
 };
 
@@ -38,10 +38,16 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
         movies: [...state.movies, movieToAdd],
       };
     }
-    case timelineActionTypes.REMOVE_MOVIE:
+    case timelineActionTypes.REMOVE_MOVIE: {
+      const updatedMovies = state.movies.filter(
+        (movie) => movie.id !== action.payload
+      );
+
       return {
         ...state,
+        movies: updatedMovies,
       };
+    }
     case timelineActionTypes.SHIFT_MOVIE:
       return {
         ...state,

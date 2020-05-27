@@ -12,6 +12,9 @@ const Header = () => {
         </Link>
         <ul className="right">
           <li>
+            <Link to="/timeline">Timeline</Link>
+          </li>
+          <li>
             <Link to="/account">Account</Link>
           </li>
         </ul>
