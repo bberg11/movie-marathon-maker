@@ -44,3 +44,10 @@ export const getResults = (query) => (dispatch) => {
       });
     });
 };
+
+export const toggleAutocomplete = (shouldShow) => {
+  return {
+    type: searchActionTypes.TOGGLE_AUTOCOMPLETE,
+    payload: shouldShow,
+  };
+};
