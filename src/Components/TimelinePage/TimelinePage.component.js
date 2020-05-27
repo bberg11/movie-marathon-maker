@@ -1,17 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ReactSortable } from 'react-sortablejs';
 
-import { removeMovie } from 'Redux/timeline/timeline.actions';
+import { removeMovie, reorderMovies } from 'Redux/timeline/timeline.actions';
 
 import './Timeline.styles.css';
 
-const TimelinePage = ({ timeline, removeFromTimeline }) => {
+const TimelinePage = ({ timeline, removeMovie, reoderMovies }) => {
   return (
     <div>
       <h1>Timeline Page</h1>
       <p>Target Length: {timeline.targetLength} minutes</p>
       <p>Current Length: {timeline.currentLength} minutes</p>
-      <ul className="timeline">
+      <ReactSortable
+        className="timeline"
+        tag="ul"
+        list={timeline.movies}
+        setList={(newState) => reoderMovies(newState)}
+      >
         {timeline.movies.map((movie, index) => (
           <li
             key={movie.id}
@@ -26,13 +32,13 @@ const TimelinePage = ({ timeline, removeFromTimeline }) => {
             <button
               type="button"
               className="button-reset"
-              onClick={() => removeFromTimeline(movie.id)}
+              onClick={() => removeMovie(movie.id)}
             >
               <i className="material-icons">remove_circle_outline</i>
             </button>
           </li>
         ))}
-      </ul>
+      </ReactSortable>
     </div>
   );
 };
@@ -42,7 +48,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFromTimeline: (id) => dispatch(removeMovie(id)),
+  removeMovie: (id) => dispatch(removeMovie(id)),
+  reoderMovies: (movies) => dispatch(reorderMovies(movies)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelinePage);

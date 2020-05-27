@@ -18,9 +18,9 @@ export const removeMovie = (movieId) => {
   };
 };
 
-export const shiftMovie = (movieId) => {
+export const reorderMovies = (movies) => {
   return {
-    type: timelineActionTypes.SHIFT_MOVIE,
-    payload: movieId,
+    type: timelineActionTypes.REORDER_MOVIES,
+    payload: movies,
   };
 };

@@ -48,9 +48,10 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
         movies: updatedMovies,
       };
     }
-    case timelineActionTypes.SHIFT_MOVIE:
+    case timelineActionTypes.REORDER_MOVIES:
       return {
         ...state,
+        movies: action.payload,
       };
     default:
       return state;
