@@ -8,6 +8,8 @@ import { getResults, toggleAutocomplete } from 'Redux/search/search.actions';
 
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 
+import './SearchForm.styles.css';
+
 const SearchForm = ({ fetchMovies, toggleAutocomplete }) => {
   const [query, setQuery] = useState('');
   const history = useHistory();
@@ -33,18 +35,30 @@ const SearchForm = ({ fetchMovies, toggleAutocomplete }) => {
     history.push(`/search/${query}`);
   };
 
+  const handleClear = (event) => {
+    setQuery('');
+    event.target.blur();
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="section container"
+      className="section container search-form"
       autoComplete="off"
     >
-      <div className="input-field">
+      <div className="input-field search-form__field">
         <input type="text" id="search" value={query} onChange={handleChange} />
         <label htmlFor="search" className="white-text">
           Search
         </label>
       </div>
+      <button
+        type="button"
+        className="button-reset search-form__clear"
+        onClick={handleClear}
+      >
+        <i className="material-icons">close</i>
+      </button>
       <button type="submit" className="hide">
         Search
       </button>
