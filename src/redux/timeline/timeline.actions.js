@@ -24,3 +24,9 @@ export const reorderMovies = (movies) => {
     payload: movies,
   };
 };
+
+export const resetMarathon = () => {
+  return {
+    type: timelineActionTypes.RESET,
+  };
+};

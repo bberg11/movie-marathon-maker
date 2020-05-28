@@ -2,16 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 
-import { removeMovie, reorderMovies } from 'Redux/timeline/timeline.actions';
+import {
+  removeMovie,
+  reorderMovies,
+  resetMarathon,
+} from 'Redux/timeline/timeline.actions';
 
 import './Timeline.styles.css';
 
-const TimelinePage = ({ timeline, removeMovie, reoderMovies }) => {
+const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
   return (
     <div>
       <h1>Timeline Page</h1>
       <p>Target Length: {timeline.targetLength} minutes</p>
       <p>Current Length: {timeline.currentLength} minutes</p>
+      <p>
+        <button className="btn red" type="button" onClick={() => reset()}>
+          Reset
+        </button>
+      </p>
       <ReactSortable
         className="timeline"
         tag="ul"
@@ -50,6 +59,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   removeMovie: (id) => dispatch(removeMovie(id)),
   reoderMovies: (movies) => dispatch(reorderMovies(movies)),
+  reset: () => dispatch(resetMarathon()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelinePage);

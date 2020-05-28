@@ -57,6 +57,12 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
         ...state,
         movies: action.payload,
       };
+    case timelineActionTypes.RESET:
+      return {
+        ...state,
+        currentLength: 0,
+        movies: [],
+      };
     default:
       return state;
   }
