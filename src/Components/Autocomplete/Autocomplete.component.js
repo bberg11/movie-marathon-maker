@@ -12,7 +12,7 @@ const Autocomplete = ({ showAutocomplete }) => {
 
   return (
     <div className="dropdown-content">
-      <MovieList />
+      <MovieList condensed />
     </div>
   );
 };

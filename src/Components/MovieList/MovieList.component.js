@@ -7,9 +7,9 @@ import { getResults } from 'Redux/search/search.actions';
 import { movies } from 'propTypes';
 import MovieListItem from 'Components/MovieListItem/MovieListItem.component';
 
-import 'Components/MovieList/MovieList.styles.css';
+import './MovieList.styles.css';
 
-const MovieList = ({ results, fetchMovies }) => {
+const MovieList = ({ results, fetchMovies, condensed }) => {
   const { query } = useParams();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const MovieList = ({ results, fetchMovies }) => {
   return (
     <ul className="movie-list">
       {Object.values(results).map((movie) => (
-        <MovieListItem movie={movie} key={movie.id} />
+        <MovieListItem movie={movie} key={movie.id} condensed={condensed} />
       ))}
     </ul>
   );

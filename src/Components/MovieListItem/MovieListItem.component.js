@@ -8,39 +8,85 @@ import { movie as moviePropType } from 'propTypes';
 import { addMovie } from 'Redux/timeline/timeline.actions';
 import { toggleAutocomplete } from 'Redux/search/search.actions';
 
-import 'Components/MovieListItem/MovieListItem.styles.css';
+import './MovieListItem.styles.css';
 
 const TMDB_BASE_IMAGE_URL = '//image.tmdb.org/t/p';
 
-const MovieListItem = ({ movie, addMovie, history, toggleAutocomplete }) => {
+const MovieListItem = ({
+  movie,
+  addMovie,
+  history,
+  toggleAutocomplete,
+  condensed,
+}) => {
   const handleAddToTimeline = (movieToAdd) => {
     addMovie(movieToAdd);
     toggleAutocomplete(false);
     history.push('/timeline');
   };
 
+  const releaseYear = (dateString) => {
+    return new Date(dateString).getFullYear();
+  };
+
+  const posterSrc = (posterPath) => {
+    if (posterPath) {
+      return `${TMDB_BASE_IMAGE_URL}/w185${posterPath}`;
+    }
+
+    return 'https://via.placeholder.com/185x278?text=Image%0AUnavailable';
+  };
+
+  if (condensed) {
+    return (
+      <li className="movie-list-item movie-list-item--condensed">
+        <div className="movie-list-item__image-wrap">
+          <img
+            src={posterSrc(movie.poster_path)}
+            alt={`${movie.title} Movie Poster`}
+            className="movie-list-item__image"
+          />
+        </div>
+        <div className="movie-list-item__content">
+          <p className="movie-list-item__title">
+            {movie.title} ({releaseYear(movie.release_date)}) | {movie.runtime}{' '}
+            minutes
+          </p>
+
+          <button
+            className="btn"
+            type="button"
+            onClick={handleAddToTimeline.bind(this, movie)}
+          >
+            Add to marathon
+          </button>
+        </div>
+      </li>
+    );
+  }
+
   return (
-    <li className="movie-list-item">
-      {movie.poster_path ? (
+    <li className="movie-list-item card">
+      <div className="movie-list-item__image-wrap">
         <img
-          src={`${TMDB_BASE_IMAGE_URL}/w185${movie.poster_path}`}
+          src={posterSrc(movie.poster_path)}
           alt={`${movie.title} Movie Poster`}
+          className="movie-list-item__image"
         />
-      ) : (
-        ''
-      )}
-      <p>{movie.title}</p>
-      <p>{movie.overview}</p>
-      <p>{movie.runtime}</p>
-      <p>
-        <button
-          className="btn"
-          type="button"
-          onClick={handleAddToTimeline.bind(this, movie)}
-        >
-          Add to timeline
-        </button>
-      </p>
+      </div>
+      <div className="movie-list-item__content">
+        <p className="movie-list-item__title">{movie.title}</p>
+        <p>{releaseYear(movie.release_date)}</p>
+        <p>{movie.runtime} minutes</p>
+      </div>
+
+      <button
+        className="teal white-text movie-list-item__add"
+        type="button"
+        onClick={handleAddToTimeline.bind(this, movie)}
+      >
+        Add to marathon
+      </button>
     </li>
   );
 };

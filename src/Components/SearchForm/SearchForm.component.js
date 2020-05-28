@@ -30,7 +30,6 @@ const SearchForm = ({ fetchMovies, toggleAutocomplete }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setQuery('');
     toggleAutocomplete(false);
     history.push(`/search/${query}`);
   };
