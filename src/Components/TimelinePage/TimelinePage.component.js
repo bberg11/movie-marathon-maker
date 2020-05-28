@@ -9,12 +9,16 @@ import {
 } from 'Redux/timeline/timeline.actions';
 
 import './Timeline.styles.css';
+import timelineActionTypes from 'Redux/timeline/timeline.types';
 
 const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
   return (
     <div>
       <h1>Timeline Page</h1>
-      <p>Target Length: {timeline.targetLength} minutes</p>
+      <p>
+        Target Length: {timeline.settings.length}{' '}
+        {timeline.settings.lengthMode === 'time' ? 'hours' : 'movies'}
+      </p>
       <p>Current Length: {timeline.currentLength} minutes</p>
       <p>
         <button className="btn red" type="button" onClick={() => reset()}>

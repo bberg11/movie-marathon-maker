@@ -1,7 +1,10 @@
 import timelineActionTypes from 'Redux/timeline/timeline.types';
 
 export const INITIAL_STATE = {
-  targetLength: 0,
+  settings: {
+    lengthMode: 'time',
+    length: 0,
+  },
   currentLength: 0,
   padding: 0,
   movies: [],
@@ -71,6 +74,11 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentLength: 0,
         movies: [],
+      };
+    case timelineActionTypes.UPDATE_SETTINGS:
+      return {
+        ...state,
+        settings: action.payload,
       };
     default:
       return state;

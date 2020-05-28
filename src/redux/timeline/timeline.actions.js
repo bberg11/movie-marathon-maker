@@ -30,3 +30,10 @@ export const resetMarathon = () => {
     type: timelineActionTypes.RESET,
   };
 };
+
+export const updateSettings = (settings) => {
+  return {
+    type: timelineActionTypes.UPDATE_SETTINGS,
+    payload: settings,
+  };
+};
