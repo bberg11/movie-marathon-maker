@@ -21,7 +21,9 @@ const MovieListItem = ({
   existingMovies,
   setQuery,
 }) => {
-  const handleAddToTimeline = (movieToAdd) => {
+  const handleAddToTimeline = (movieToAdd, event) => {
+    event.preventDefault();
+
     addMovie(movieToAdd);
     toggleAutocomplete(false);
     setQuery('');
