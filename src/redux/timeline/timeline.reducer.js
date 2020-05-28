@@ -19,9 +19,18 @@ const calculateCurrentLength = (state, runtime) => {
   return state.currentLength + padding + runtime;
 };
 
+const movieAlreadyExists = (movies, id) => {
+  return movies.some((movie) => movie.id === id);
+};
+
 const timelineReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case timelineActionTypes.ADD_MOVIE: {
+      if (movieAlreadyExists(state.movies, action.payload.movie.id)) {
+        alert(`${action.payload.movie.title} is already in your marathon`);
+        return state;
+      }
+
       const movieToAdd = { ...action.payload.movie };
 
       if (action.payload.start) {

@@ -18,6 +18,7 @@ const MovieListItem = ({
   history,
   toggleAutocomplete,
   condensed,
+  existingMovies,
 }) => {
   const handleAddToTimeline = (movieToAdd) => {
     addMovie(movieToAdd);
@@ -35,6 +36,10 @@ const MovieListItem = ({
     }
 
     return 'https://via.placeholder.com/185x278?text=Image%0AUnavailable';
+  };
+
+  const movieAlreadyExists = (id) => {
+    return existingMovies.some((existingMovie) => existingMovie.id === id);
   };
 
   if (condensed) {
@@ -57,9 +62,15 @@ const MovieListItem = ({
             className="btn"
             type="button"
             onClick={handleAddToTimeline.bind(this, movie)}
+            disabled={movieAlreadyExists(movie.id)}
           >
             Add to marathon
           </button>
+          {movieAlreadyExists(movie.id) ? (
+            <em>Already in your marathon</em>
+          ) : (
+            ''
+          )}
         </div>
       </li>
     );
@@ -81,11 +92,16 @@ const MovieListItem = ({
       </div>
 
       <button
-        className="teal white-text movie-list-item__add"
+        className="teal btn-flat white-text movie-list-item__add"
         type="button"
         onClick={handleAddToTimeline.bind(this, movie)}
+        disabled={movieAlreadyExists(movie.id)}
       >
-        Add to marathon
+        {movieAlreadyExists(movie.id) ? (
+          <em>Already in your marathon</em>
+        ) : (
+          'Add to marathon'
+        )}
       </button>
     </li>
   );
@@ -95,9 +111,15 @@ MovieListItem.propTypes = {
   movie: PropTypes.shape(moviePropType).isRequired,
 };
 
+function mapStateToProps(state) {
+  return { existingMovies: state.timeline.movies };
+}
+
 const mapDispatchToProps = (dispatch) => ({
   addMovie: (movie, start) => dispatch(addMovie(movie, start)),
   toggleAutocomplete: (shouldShow) => dispatch(toggleAutocomplete(shouldShow)),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(MovieListItem));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MovieListItem)
+);
