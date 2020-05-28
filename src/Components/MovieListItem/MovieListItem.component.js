@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { movie as moviePropType } from 'propTypes';
 
@@ -44,7 +44,60 @@ const MovieListItem = ({
 
   if (condensed) {
     return (
-      <li className="movie-list-item movie-list-item--condensed">
+      <li>
+        <Link
+          to={{
+            pathname: `/movie/${movie.id}`,
+            state: {
+              movie,
+            },
+          }}
+          className="movie-list-item movie-list-item--condensed"
+          onClick={() => toggleAutocomplete(false)}
+        >
+          <div className="movie-list-item__image-wrap">
+            <img
+              src={posterSrc(movie.poster_path)}
+              alt={`${movie.title} Movie Poster`}
+              className="movie-list-item__image"
+            />
+          </div>
+          <div className="movie-list-item__content">
+            <p className="movie-list-item__title">
+              {movie.title} ({releaseYear(movie.release_date)}) |{' '}
+              {movie.runtime} minutes
+            </p>
+
+            <button
+              className="btn"
+              type="button"
+              onClick={handleAddToTimeline.bind(this, movie)}
+              disabled={movieAlreadyExists(movie.id)}
+            >
+              Add to marathon
+            </button>
+            {movieAlreadyExists(movie.id) ? (
+              <em>Already in your marathon</em>
+            ) : (
+              ''
+            )}
+          </div>
+        </Link>
+      </li>
+    );
+  }
+
+  return (
+    <li className="card">
+      <Link
+        to={{
+          pathname: `/movie/${movie.id}`,
+          state: {
+            movie,
+          },
+        }}
+        className="movie-list-item"
+      >
         <div className="movie-list-item__image-wrap">
           <img
             src={posterSrc(movie.poster_path)}
@@ -53,56 +106,24 @@ const MovieListItem = ({
           />
         </div>
         <div className="movie-list-item__content">
-          <p className="movie-list-item__title">
-            {movie.title} ({releaseYear(movie.release_date)}) | {movie.runtime}{' '}
-            minutes
-          </p>
+          <p className="movie-list-item__title">{movie.title}</p>
+          <p>{releaseYear(movie.release_date)}</p>
+          <p>{movie.runtime} minutes</p>
+        </div>
 
-          <button
-            className="btn"
-            type="button"
-            onClick={handleAddToTimeline.bind(this, movie)}
-            disabled={movieAlreadyExists(movie.id)}
-          >
-            Add to marathon
-          </button>
+        <button
+          className="teal btn-flat white-text movie-list-item__add"
+          type="button"
+          onClick={handleAddToTimeline.bind(this, movie)}
+          disabled={movieAlreadyExists(movie.id)}
+        >
           {movieAlreadyExists(movie.id) ? (
             <em>Already in your marathon</em>
           ) : (
-            ''
+            'Add to marathon'
           )}
-        </div>
-      </li>
-    );
-  }
-
-  return (
-    <li className="movie-list-item card">
-      <div className="movie-list-item__image-wrap">
-        <img
-          src={posterSrc(movie.poster_path)}
-          alt={`${movie.title} Movie Poster`}
-          className="movie-list-item__image"
-        />
-      </div>
-      <div className="movie-list-item__content">
-        <p className="movie-list-item__title">{movie.title}</p>
-        <p>{releaseYear(movie.release_date)}</p>
-        <p>{movie.runtime} minutes</p>
-      </div>
-
-      <button
-        className="teal btn-flat white-text movie-list-item__add"
-        type="button"
-        onClick={handleAddToTimeline.bind(this, movie)}
-        disabled={movieAlreadyExists(movie.id)}
-      >
-        {movieAlreadyExists(movie.id) ? (
-          <em>Already in your marathon</em>
-        ) : (
-          'Add to marathon'
-        )}
-      </button>
+        </button>
+      </Link>
     </li>
   );
 };

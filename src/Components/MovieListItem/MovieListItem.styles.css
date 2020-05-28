@@ -1,10 +1,6 @@
 .movie-list-item {
-  display: flex;
+  display: flex !important;
   flex-wrap: wrap;
-}
-
-.movie-list-item--condensed {
-  padding: 10px;
 }
 
 .movie-list-item--condensed + .movie-list-item--condensed {
