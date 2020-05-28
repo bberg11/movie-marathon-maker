@@ -6,7 +6,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { movie as moviePropType } from 'propTypes';
 
 import { addMovie } from 'Redux/timeline/timeline.actions';
-import { toggleAutocomplete } from 'Redux/search/search.actions';
+import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
 
 import './MovieListItem.styles.css';
 
@@ -19,11 +19,18 @@ const MovieListItem = ({
   toggleAutocomplete,
   condensed,
   existingMovies,
+  setQuery,
 }) => {
   const handleAddToTimeline = (movieToAdd) => {
     addMovie(movieToAdd);
     toggleAutocomplete(false);
+    setQuery('');
     history.push('/timeline');
+  };
+
+  const handleLinkClick = () => {
+    toggleAutocomplete(false);
+    setQuery('');
   };
 
   const releaseYear = (dateString) => {
@@ -53,7 +60,7 @@ const MovieListItem = ({
             },
           }}
           className="movie-list-item movie-list-item--condensed"
-          onClick={() => toggleAutocomplete(false)}
+          onClick={handleLinkClick}
         >
           <div className="movie-list-item__image-wrap">
             <img
@@ -139,6 +146,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   addMovie: (movie, start) => dispatch(addMovie(movie, start)),
   toggleAutocomplete: (shouldShow) => dispatch(toggleAutocomplete(shouldShow)),
+  setQuery: (query) => dispatch(setQuery(query)),
 });
 
 export default withRouter(

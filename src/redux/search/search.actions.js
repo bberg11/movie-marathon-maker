@@ -51,3 +51,10 @@ export const toggleAutocomplete = (shouldShow) => {
     payload: shouldShow,
   };
 };
+
+export const setQuery = (query) => {
+  return {
+    type: searchActionTypes.SET_QUERY,
+    payload: query,
+  };
+};

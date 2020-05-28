@@ -1,6 +1,7 @@
 import searchActionTypes from 'Redux/search/search.types';
 
 export const INITIAL_STATE = {
+  query: '',
   results: {},
   showAutocomplete: false,
 };
@@ -24,6 +25,11 @@ const searchReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         showAutocomplete: action.payload,
+      };
+    case searchActionTypes.SET_QUERY:
+      return {
+        ...state,
+        query: action.payload,
       };
     default:
       return state;

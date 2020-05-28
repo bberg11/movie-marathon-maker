@@ -1,17 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getResults, toggleAutocomplete } from 'Redux/search/search.actions';
+import {
+  getResults,
+  toggleAutocomplete,
+  setQuery,
+} from 'Redux/search/search.actions';
 
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 
 import './SearchForm.styles.css';
 
-const SearchForm = ({ fetchMovies, toggleAutocomplete }) => {
-  const [query, setQuery] = useState('');
+const SearchForm = ({ fetchMovies, toggleAutocomplete, query, setQuery }) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -30,6 +33,7 @@ const SearchForm = ({ fetchMovies, toggleAutocomplete }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    setQuery('');
     toggleAutocomplete(false);
     history.push(`/search/${query}`);
   };
@@ -71,9 +75,16 @@ SearchForm.propTypes = {
   fetchMovies: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => {
+  return {
+    query: state.search.query,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => ({
   fetchMovies: (query) => dispatch(getResults(query)),
   toggleAutocomplete: (shouldShow) => dispatch(toggleAutocomplete(shouldShow)),
+  setQuery: (query) => dispatch(setQuery(query)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
