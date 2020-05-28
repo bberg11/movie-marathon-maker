@@ -39,12 +39,16 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
       };
     }
     case timelineActionTypes.REMOVE_MOVIE: {
+      const movieToRemove = state.movies.find(
+        (movie) => movie.id === action.payload
+      );
       const updatedMovies = state.movies.filter(
         (movie) => movie.id !== action.payload
       );
 
       return {
         ...state,
+        currentLength: state.currentLength - movieToRemove.runtime,
         movies: updatedMovies,
       };
     }
