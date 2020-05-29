@@ -18,7 +18,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
     setLengthMode(savedSettings.lengthMode);
 
     if (savedSettings.lengthMode === 'time') {
-      if (PRESET_LENGTHS.includes(savedSettings.length)) {
+      if (PRESET_LENGTHS.includes(savedSettings.length / 60)) {
         setLength(savedSettings.length);
       } else {
         setLength('custom');
@@ -67,9 +67,9 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
                 <input
                   name="length"
                   type="radio"
-                  value={presetLength}
+                  value={presetLength * 60}
                   onChange={handleRadioChange}
-                  checked={presetLength === +length}
+                  checked={presetLength * 60 === +length}
                 />
                 <span>{presetLength} Hours</span>
               </label>
@@ -93,7 +93,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
                 id="custom-length"
                 type="number"
                 value={customLength}
-                onChange={(event) => setCustomLength(+event.target.value)}
+                onChange={(event) => setCustomLength(+event.target.value * 60)}
               />
               <label htmlFor="custom-length">Custom Length (in hours)</label>
             </div>
