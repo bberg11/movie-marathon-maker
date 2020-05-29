@@ -8,18 +8,21 @@ import {
   resetMarathon,
 } from 'Redux/timeline/timeline.actions';
 
+import { convertMinutesForDisplay } from 'utilities';
+
 import './Timeline.styles.css';
-import timelineActionTypes from 'Redux/timeline/timeline.types';
 
 const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
   return (
     <div>
       <h1>Timeline Page</h1>
       <p>
-        Target Length: {timeline.settings.length}{' '}
-        {timeline.settings.lengthMode === 'time' ? 'hours' : 'movies'}
+        Target Length:{' '}
+        {timeline.settings.lengthMode === 'time'
+          ? convertMinutesForDisplay(timeline.settings.length)
+          : `${convertMinutesForDisplay(timeline.settings.length)} movies`}
       </p>
-      <p>Current Length: {timeline.currentLength} minutes</p>
+      <p>Current Length: {convertMinutesForDisplay(timeline.currentLength)}</p>
       <p>
         <button className="btn red" type="button" onClick={() => reset()}>
           Reset
