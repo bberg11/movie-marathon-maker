@@ -14,21 +14,30 @@ import Timescale from 'Components/Timescale/Timescale.component';
 
 import './Timeline.styles.css';
 
-const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
+const TimelinePage = ({
+  timeline: {
+    currentLength,
+    movies,
+    settings: { lengthMode, length },
+  },
+  removeMovie,
+  reoderMovies,
+  reset,
+}) => {
   return (
     <div>
       <h1>Timeline Page</h1>
       <p>
         Target Length:{' '}
-        {timeline.settings.lengthMode === 'time'
-          ? convertMinutesForDisplay(timeline.settings.length)
-          : `${timeline.settings.length} movies`}
+        {lengthMode === 'time'
+          ? convertMinutesForDisplay(length)
+          : `${length} movies`}
       </p>
       <p>
         Current Length:{' '}
-        {timeline.settings.lengthMode === 'time'
-          ? convertMinutesForDisplay(timeline.currentLength)
-          : `${timeline.movies.length} movies`}
+        {lengthMode === 'time'
+          ? convertMinutesForDisplay(currentLength)
+          : `${movies.length} movies`}
       </p>
       <p>
         <button className="btn red" type="button" onClick={() => reset()}>
@@ -36,21 +45,18 @@ const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
         </button>
       </p>
 
-      <Timescale
-        lengthMode={timeline.settings.lengthMode}
-        length={timeline.settings.length}
-      />
+      <Timescale lengthMode={lengthMode} length={length} />
 
       <ReactSortable
         className="timeline"
         tag="ul"
-        list={timeline.movies}
+        list={movies}
         setList={(newState) => reoderMovies(newState)}
         style={{
-          marginLeft: timeline.settings.lengthMode === 'time' ? 25 : '',
+          marginLeft: lengthMode === 'time' ? 25 : '',
         }}
       >
-        {timeline.movies.map((movie, index) => (
+        {movies.map((movie, index) => (
           <li
             key={movie.id}
             className={
