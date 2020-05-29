@@ -22,9 +22,14 @@ const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
         Target Length:{' '}
         {timeline.settings.lengthMode === 'time'
           ? convertMinutesForDisplay(timeline.settings.length)
-          : `${convertMinutesForDisplay(timeline.settings.length)} movies`}
+          : `${timeline.settings.length} movies`}
       </p>
-      <p>Current Length: {convertMinutesForDisplay(timeline.currentLength)}</p>
+      <p>
+        Current Length:{' '}
+        {timeline.settings.lengthMode === 'time'
+          ? convertMinutesForDisplay(timeline.currentLength)
+          : `${timeline.movies.length} movies`}
+      </p>
       <p>
         <button className="btn red" type="button" onClick={() => reset()}>
           Reset
