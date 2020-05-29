@@ -4,77 +4,72 @@ export const INITIAL_STATE = {
   settings: {
     lengthMode: 'time',
     length: 0,
+    padding: 0,
   },
   currentLength: 0,
-  padding: 0,
   movies: [],
 };
 
-const startAfterLastMovie = (state) => {
-  const padding = state.movies.length === 0 ? 0 : state.padding;
-
-  return state.currentLength + padding;
+const movieAlreadyExists = (existingMovies, id) => {
+  return existingMovies.some((movie) => movie.id === id);
 };
 
-const calculateCurrentLength = (state, runtime) => {
-  const padding = state.movies.length === 0 ? 0 : state.padding;
+const getCurrentLength = (movies) => {
+  const runtimes = movies.map((movie) => movie.runtime);
 
-  return state.currentLength + padding + runtime;
+  return runtimes.reduce(
+    (accumulator, currentValue) => accumulator + currentValue
+  );
 };
 
-const movieAlreadyExists = (movies, id) => {
-  return movies.some((movie) => movie.id === id);
+const updateStartFinishTimes = (movies) => {
+  return movies;
 };
 
 const timelineReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case timelineActionTypes.ADD_MOVIE: {
       if (movieAlreadyExists(state.movies, action.payload.movie.id)) {
-        alert(`${action.payload.movie.title} is already in your marathon`);
         return state;
       }
 
-      const movieToAdd = { ...action.payload.movie };
-
-      if (action.payload.start) {
-        movieToAdd.start = action.payload.start;
-      } else {
-        movieToAdd.start = startAfterLastMovie(state);
-      }
-
-      movieToAdd.finish = movieToAdd.start + movieToAdd.runtime;
+      const movies = updateStartFinishTimes([
+        ...state.movies,
+        action.payload.movie,
+      ]);
 
       return {
         ...state,
-        currentLength: calculateCurrentLength(state, movieToAdd.runtime),
-        movies: [...state.movies, movieToAdd],
+        currentLength: getCurrentLength(movies),
+        movies,
       };
     }
+
     case timelineActionTypes.REMOVE_MOVIE: {
-      const movieToRemove = state.movies.find(
-        (movie) => movie.id === action.payload
-      );
-      const updatedMovies = state.movies.filter(
-        (movie) => movie.id !== action.payload
-      );
+      let movies = state.movies.filter((movie) => movie.id !== action.payload);
+
+      movies = updateStartFinishTimes(movies);
 
       return {
         ...state,
-        currentLength: state.currentLength - movieToRemove.runtime,
-        movies: updatedMovies,
+        currentLength: getCurrentLength(movies),
+        movies,
       };
     }
+
     case timelineActionTypes.REORDER_MOVIES:
       return {
         ...state,
         movies: action.payload,
       };
+
     case timelineActionTypes.RESET:
       return {
         ...state,
         currentLength: 0,
         movies: [],
       };
+
     case timelineActionTypes.UPDATE_SETTINGS:
       return {
         ...state,
