@@ -20,6 +20,8 @@ const MovieListItem = ({
   condensed,
   existingMovies,
   setQuery,
+  currentLength,
+  targetLength,
 }) => {
   const handleAddToTimeline = (movieToAdd, event) => {
     event.preventDefault();
@@ -51,6 +53,14 @@ const MovieListItem = ({
     return existingMovies.some((existingMovie) => existingMovie.id === id);
   };
 
+  const runtimeExceedsLength = (runtime) => {
+    return currentLength + runtime > targetLength;
+  };
+
+  const buttonColor = (runtime) => {
+    return runtimeExceedsLength(runtime) ? 'red' : 'teal';
+  };
+
   if (condensed) {
     return (
       <li>
@@ -78,13 +88,22 @@ const MovieListItem = ({
             </p>
 
             <button
-              className="btn"
+              className={`btn ${buttonColor(movie.runtime)}`}
               type="button"
               onClick={handleAddToTimeline.bind(this, movie)}
               disabled={movieAlreadyExists(movie.id)}
             >
               Add to marathon
             </button>
+
+            {runtimeExceedsLength(movie.runtime) ? (
+              <em>
+                Adding this movie will extend your marathon beyond its length
+              </em>
+            ) : (
+              ''
+            )}
+
             {movieAlreadyExists(movie.id) ? (
               <em>Already in your marathon</em>
             ) : (
@@ -118,10 +137,20 @@ const MovieListItem = ({
           <p className="movie-list-item__title">{movie.title}</p>
           <p>{releaseYear(movie.release_date)}</p>
           <p>{movie.runtime} minutes</p>
+
+          {runtimeExceedsLength(movie.runtime) ? (
+            <em>
+              Adding this movie will extend your marathon beyond its length
+            </em>
+          ) : (
+            ''
+          )}
         </div>
 
         <button
-          className="teal btn-flat white-text movie-list-item__add"
+          className={`btn-flat white-text movie-list-item__add ${buttonColor(
+            movie.runtime
+          )}`}
           type="button"
           onClick={handleAddToTimeline.bind(this, movie)}
           disabled={movieAlreadyExists(movie.id)}
@@ -142,7 +171,11 @@ MovieListItem.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { existingMovies: state.timeline.movies };
+  return {
+    existingMovies: state.timeline.movies,
+    currentLength: state.timeline.currentLength,
+    targetLength: state.timeline.settings.length,
+  };
 }
 
 const mapDispatchToProps = (dispatch) => ({
