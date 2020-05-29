@@ -10,6 +10,8 @@ import {
 
 import { convertMinutesForDisplay } from 'utilities';
 
+import Timescale from 'Components/Timescale/Timescale.component';
+
 import './Timeline.styles.css';
 
 const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
@@ -28,11 +30,20 @@ const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
           Reset
         </button>
       </p>
+
+      <Timescale
+        lengthMode={timeline.settings.lengthMode}
+        length={timeline.settings.length}
+      />
+
       <ReactSortable
         className="timeline"
         tag="ul"
         list={timeline.movies}
         setList={(newState) => reoderMovies(newState)}
+        style={{
+          marginLeft: timeline.settings.lengthMode === 'time' ? 25 : '',
+        }}
       >
         {timeline.movies.map((movie, index) => (
           <li
@@ -42,7 +53,7 @@ const TimelinePage = ({ timeline, removeMovie, reoderMovies, reset }) => {
                 ? 'timeline__movie red lighten-5'
                 : 'timeline__movie blue lighten-5'
             }
-            style={{ height: movie.runtime }}
+            style={{ height: movie.runtime * 2 }}
           >
             {movie.title}
             <button

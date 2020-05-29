@@ -1,0 +1,44 @@
+.timescale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  width: 2px;
+  background: black;
+}
+
+.timescale:before,
+.timescale:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: 2px;
+  width: 20px;
+  background: black;
+}
+
+.timescale:before {
+  top: 0;
+}
+
+.timescale:after {
+  bottom: 0;
+}
+
+.timescale__tick {
+  display: none;
+  font-size: 0;
+  background: black;
+}
+
+.timescale__tick:nth-child(5n) {
+  display: block;
+  height: 1px;
+  width: 5px;
+}
+
+.timescale__tick:nth-child(60n) {
+  display: block;
+  height: 2px;
+  width: 10px;
+}
