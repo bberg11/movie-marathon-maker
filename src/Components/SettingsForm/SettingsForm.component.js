@@ -11,6 +11,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
   const [length, setLength] = useState(PRESET_LENGTHS[0]);
   const [customLength, setCustomLength] = useState('');
   const [movieQuantity, setMovieQuantity] = useState('');
+  const [padding, setPadding] = useState(0);
 
   const history = useHistory();
 
@@ -26,6 +27,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
       }
     } else {
       setMovieQuantity(savedSettings.length);
+      setPadding(savedSettings.padding);
     }
   }, []);
 
@@ -33,11 +35,13 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
     event.preventDefault();
 
     let marathonLength = length;
+    let marathonPadding = padding;
 
     if (lengthMode === 'time') {
       if (customLength > 0) {
         marathonLength = customLength;
       }
+      marathonPadding = 0;
     } else {
       marathonLength = movieQuantity;
     }
@@ -45,6 +49,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
     updateSettings({
       lengthMode,
       length: +marathonLength,
+      padding: +marathonPadding,
     });
 
     history.push('/timeline');
@@ -118,6 +123,17 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
               onChange={(event) => setMovieQuantity(event.target.value)}
             />
             <label htmlFor="quantity-length">Enter a number of movies</label>
+          </div>
+          <div className="input-field">
+            <input
+              id="padding"
+              type="number"
+              value={padding}
+              onChange={(event) => setPadding(event.target.value)}
+            />
+            <label htmlFor="padding">
+              How many minutes do you want between each movie
+            </label>
           </div>
           <p>
             Prefer to create a marathon based on a set length?{' '}
