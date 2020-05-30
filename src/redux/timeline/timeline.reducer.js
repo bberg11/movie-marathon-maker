@@ -22,21 +22,31 @@ const getCurrentLength = (movies) => {
   );
 };
 
-const updateStartFinishTimes = (movies) => {
-  return movies;
+const getTimeRemaining = (targetLength, currentLength) => {
+  return targetLength - currentLength;
+};
+
+const getSpaceBetween = (timeRemaining, numberOfMovies) => {
+  return timeRemaining / (numberOfMovies - 1);
+};
+
+const getPadding = (state) => {
+  const timeRemaining = getTimeRemaining(
+    state.settings.length,
+    state.currentLength
+  );
+
+  return getSpaceBetween(timeRemaining, state.movies.length);
 };
 
 const timelineReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case timelineActionTypes.ADD_MOVIE: {
-      if (movieAlreadyExists(state.movies, action.payload.movie.id)) {
+      if (movieAlreadyExists(state.movies, action.payload.id)) {
         return state;
       }
 
-      const movies = updateStartFinishTimes([
-        ...state.movies,
-        action.payload.movie,
-      ]);
+      const movies = [...state.movies, action.payload];
 
       return {
         ...state,
@@ -46,9 +56,9 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
     }
 
     case timelineActionTypes.REMOVE_MOVIE: {
-      let movies = state.movies.filter((movie) => movie.id !== action.payload);
-
-      movies = updateStartFinishTimes(movies);
+      const movies = state.movies.filter(
+        (movie) => movie.id !== action.payload
+      );
 
       return {
         ...state,
@@ -57,11 +67,50 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
-    case timelineActionTypes.REORDER_MOVIES:
+    case timelineActionTypes.REORDER_MOVIES: {
       return {
         ...state,
         movies: action.payload,
       };
+    }
+
+    case timelineActionTypes.UPDATE_START_FINISH_TIMES: {
+      const { padding } = state.settings;
+      let progress = 0;
+
+      const movies = state.movies.map((movie, index) => {
+        const startTime = index === 0 ? progress : progress + padding;
+        const finishTime = startTime + movie.runtime;
+
+        const updatedMovie = {
+          ...movie,
+          startTime,
+          finishTime,
+        };
+
+        progress = finishTime;
+
+        return updatedMovie;
+      });
+
+      return {
+        ...state,
+        movies,
+      };
+    }
+
+    case timelineActionTypes.UPDATE_PADDING: {
+      const padding =
+        action.payload === 'even' ? getPadding(state) : action.payload;
+
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          padding,
+        },
+      };
+    }
 
     case timelineActionTypes.RESET:
       return {
@@ -73,8 +122,12 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
     case timelineActionTypes.UPDATE_SETTINGS:
       return {
         ...state,
-        settings: action.payload,
+        settings: {
+          ...state.settings,
+          ...action.payload,
+        },
       };
+
     default:
       return state;
   }

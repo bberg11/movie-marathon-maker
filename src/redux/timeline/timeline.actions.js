@@ -1,28 +1,37 @@
 /* eslint-disable import/prefer-default-export */
 import timelineActionTypes from 'Redux/timeline/timeline.types';
 
-export const addMovie = (movie, start) => {
+export const updateStartFinishTimes = () => {
   return {
-    type: timelineActionTypes.ADD_MOVIE,
-    payload: {
-      movie,
-      start,
-    },
+    type: timelineActionTypes.UPDATE_START_FINISH_TIMES,
   };
 };
 
-export const removeMovie = (movieId) => {
-  return {
+export const addMovie = (movie) => (dispatch) => {
+  dispatch({
+    type: timelineActionTypes.ADD_MOVIE,
+    payload: movie,
+  });
+
+  dispatch(updateStartFinishTimes());
+};
+
+export const removeMovie = (movieId) => (dispatch) => {
+  dispatch({
     type: timelineActionTypes.REMOVE_MOVIE,
     payload: movieId,
-  };
+  });
+
+  dispatch(updateStartFinishTimes());
 };
 
-export const reorderMovies = (movies) => {
-  return {
+export const reorderMovies = (movies) => (dispatch) => {
+  dispatch({
     type: timelineActionTypes.REORDER_MOVIES,
     payload: movies,
-  };
+  });
+
+  dispatch(updateStartFinishTimes());
 };
 
 export const resetMarathon = () => {
@@ -36,4 +45,13 @@ export const updateSettings = (settings) => {
     type: timelineActionTypes.UPDATE_SETTINGS,
     payload: settings,
   };
+};
+
+export const updatePadding = (padding) => (dispatch) => {
+  dispatch({
+    type: timelineActionTypes.UPDATE_PADDING,
+    payload: padding,
+  });
+
+  dispatch(updateStartFinishTimes());
 };

@@ -1,0 +1,12 @@
+.timeline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline--with-padding {
+  justify-content: space-between;
+}
+
+.timeline__movie {
+}
