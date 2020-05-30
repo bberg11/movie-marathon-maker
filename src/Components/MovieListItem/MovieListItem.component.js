@@ -5,7 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import { movie as moviePropType } from 'propTypes';
 
-import { addMovie } from 'Redux/timeline/timeline.actions';
+import { addMovie, updatePadding } from 'Redux/timeline/timeline.actions';
 import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
 
 import './MovieListItem.styles.css';
@@ -22,6 +22,9 @@ const MovieListItem = ({
   setQuery,
   currentLength,
   targetLength,
+  lengthMode,
+  padding,
+  updatePadding,
 }) => {
   const handleAddToTimeline = (movieToAdd, event) => {
     event.preventDefault();
@@ -29,6 +32,11 @@ const MovieListItem = ({
     addMovie(movieToAdd);
     toggleAutocomplete(false);
     setQuery('');
+
+    if (lengthMode === 'time' && padding > 0) {
+      updatePadding('even');
+    }
+
     history.push('/timeline');
   };
 
@@ -175,6 +183,8 @@ function mapStateToProps(state) {
     existingMovies: state.timeline.movies,
     currentLength: state.timeline.currentLength,
     targetLength: state.timeline.settings.length,
+    lengthMode: state.timeline.settings.lengthMode,
+    padding: state.timeline.settings.padding,
   };
 }
 
@@ -182,6 +192,7 @@ const mapDispatchToProps = (dispatch) => ({
   addMovie: (movie, start) => dispatch(addMovie(movie, start)),
   toggleAutocomplete: (shouldShow) => dispatch(toggleAutocomplete(shouldShow)),
   setQuery: (query) => dispatch(setQuery(query)),
+  updatePadding: (padding) => dispatch(updatePadding(padding)),
 });
 
 export default withRouter(
