@@ -62,6 +62,10 @@ const MovieListItem = ({
   };
 
   const runtimeExceedsLength = (runtime) => {
+    if (lengthMode === 'movie') {
+      return existingMovies.length >= targetLength;
+    }
+
     return currentLength + runtime > targetLength;
   };
 
