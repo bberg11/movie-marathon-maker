@@ -1,13 +1,13 @@
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import searchActionTypes from 'Redux/search/search.types';
 
-const TMDB_BASE_API_URL = 'https://api.themoviedb.org/3';
-const API_KEY = 'c61ec07a6f7727aa86819578ff11a754';
+import config from 'Constants/config';
+import searchActionTypes from 'Redux/search/search.types';
 
 export const getResults = (query) => (dispatch) => {
   axios
-    .get(`${TMDB_BASE_API_URL}/search/movie?api_key=${API_KEY}&query=${query}`)
+    .get(
+      `${config.TMDB_BASE_API_URL}/search/movie?api_key=${config.API_KEY}&query=${query}`
+    )
     .then(({ data: { results } }) => {
       let movies = {};
 
@@ -27,7 +27,9 @@ export const getResults = (query) => (dispatch) => {
         };
 
         axios
-          .get(`${TMDB_BASE_API_URL}/movie/${movie.id}?api_key=${API_KEY}`)
+          .get(
+            `${config.TMDB_BASE_API_URL}/movie/${movie.id}?api_key=${config.API_KEY}`
+          )
           .then(({ data }) => {
             dispatch({
               type: searchActionTypes.UPDATE_RESULT,

@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
+import config from 'Constants/config';
 import { movie as moviePropType } from 'propTypes';
-
 import { addMovie, updatePadding } from 'Redux/timeline/timeline.actions';
 import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
 
 import './MovieListItem.styles.css';
-
-const TMDB_BASE_IMAGE_URL = '//image.tmdb.org/t/p';
 
 const MovieListItem = ({
   movie,
@@ -51,7 +49,7 @@ const MovieListItem = ({
 
   const posterSrc = (posterPath) => {
     if (posterPath) {
-      return `${TMDB_BASE_IMAGE_URL}/w185${posterPath}`;
+      return `${config.TMDB_BASE_IMAGE_URL}/w185${posterPath}`;
     }
 
     return 'https://via.placeholder.com/185x278?text=Image%0AUnavailable';

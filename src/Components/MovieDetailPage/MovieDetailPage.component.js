@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const TMDB_BASE_API_URL = 'https://api.themoviedb.org/3';
-const API_KEY = 'c61ec07a6f7727aa86819578ff11a754';
+import config from 'Constants/config';
 
 const MovieDetailPage = ({ match, location: { state } }) => {
   const { id } = useParams();
@@ -17,7 +16,7 @@ const MovieDetailPage = ({ match, location: { state } }) => {
     }
 
     axios
-      .get(`${TMDB_BASE_API_URL}/movie/${id}?api_key=${API_KEY}`)
+      .get(`${config.TMDB_BASE_API_URL}/movie/${id}?api_key=${config.API_KEY}`)
       .then(({ data }) => {
         setMovie(data);
       });

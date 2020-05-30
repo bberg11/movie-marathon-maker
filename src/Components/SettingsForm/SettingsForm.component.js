@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import config from 'Constants/config';
 import { updateSettings } from 'Redux/timeline/timeline.actions';
-
-const PRESET_LENGTHS = [8, 10, 12, 24];
 
 const SettingsForm = ({ updateSettings, savedSettings }) => {
   const [lengthMode, setLengthMode] = useState('time');
-  const [length, setLength] = useState(PRESET_LENGTHS[0]);
+  const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
   const [customLength, setCustomLength] = useState('');
   const [movieQuantity, setMovieQuantity] = useState('');
   const [padding, setPadding] = useState(0);
@@ -19,7 +18,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
     setLengthMode(savedSettings.lengthMode);
 
     if (savedSettings.lengthMode === 'time') {
-      if (PRESET_LENGTHS.includes(savedSettings.length / 60)) {
+      if (config.PRESET_LENGTHS.includes(savedSettings.length / 60)) {
         setLength(savedSettings.length);
       } else {
         setLength('custom');
@@ -66,7 +65,7 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
 
       {lengthMode === 'time' ? (
         <div>
-          {PRESET_LENGTHS.map((presetLength) => (
+          {config.PRESET_LENGTHS.map((presetLength) => (
             <p key={presetLength}>
               <label>
                 <input

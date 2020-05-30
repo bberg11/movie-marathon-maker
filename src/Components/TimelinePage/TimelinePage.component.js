@@ -9,7 +9,7 @@ import {
   updatePadding,
 } from 'Redux/timeline/timeline.actions';
 
-import { convertMinutesForDisplay } from 'utilities';
+import { convertMinutesForDisplay } from 'Constants/utilities';
 
 import Timescale from 'Components/Timescale/Timescale.component';
 
