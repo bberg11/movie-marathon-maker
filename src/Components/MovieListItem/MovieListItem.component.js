@@ -108,7 +108,8 @@ const MovieListItem = ({
               Add to marathon
             </button>
 
-            {runtimeExceedsLength(movie.runtime) ? (
+            {runtimeExceedsLength(movie.runtime) &&
+            !movieAlreadyExists(movie.id) ? (
               <em>
                 Adding this movie will extend your marathon beyond its length
               </em>
@@ -150,7 +151,8 @@ const MovieListItem = ({
           <p>{releaseYear(movie.release_date)}</p>
           <p>{movie.runtime} minutes</p>
 
-          {runtimeExceedsLength(movie.runtime) ? (
+          {runtimeExceedsLength(movie.runtime) &&
+          !movieAlreadyExists(movie.id) ? (
             <em>
               Adding this movie will extend your marathon beyond its length
             </em>
