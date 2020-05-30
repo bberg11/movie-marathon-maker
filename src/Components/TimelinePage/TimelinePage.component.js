@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 
@@ -19,15 +19,13 @@ const TimelinePage = ({
   timeline: {
     currentLength,
     movies,
-    settings: { lengthMode, length },
+    settings: { lengthMode, length, padding },
   },
   removeMovie,
   reoderMovies,
   reset,
   updatePadding,
 }) => {
-  const [withPadding, setWithPadding] = useState(false);
-
   return (
     <div>
       <h1>Timeline Page</h1>
@@ -53,13 +51,11 @@ const TimelinePage = ({
             className="btn"
             type="button"
             onClick={() => {
-              const payload = withPadding ? 0 : 'even';
-
-              setWithPadding(!withPadding);
+              const payload = padding > 0 ? 0 : 'even';
               updatePadding(payload);
             }}
           >
-            {withPadding ? 'Remove spacing' : 'Evenly space movies'}
+            {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
           </button>
         ) : (
           ''
@@ -69,7 +65,7 @@ const TimelinePage = ({
       <Timescale lengthMode={lengthMode} length={length} />
 
       <ReactSortable
-        className={`timeline${withPadding ? ' timeline--with-padding' : ''}`}
+        className="timeline"
         tag="ul"
         list={movies}
         setList={(newState) => reoderMovies(newState)}
@@ -86,11 +82,12 @@ const TimelinePage = ({
                 ? 'timeline__movie red lighten-5'
                 : 'timeline__movie blue lighten-5'
             }
+            style={{
+              top: movie.startTime * 2,
+              height: movie.runtime * 2,
+            }}
           >
-            <div
-              className="timeline__movie-content"
-              style={{ height: movie.runtime * 2 }}
-            >
+            <div className="timeline__movie-content">
               {movie.title}
               <button
                 type="button"
