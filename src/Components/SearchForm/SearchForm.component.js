@@ -5,26 +5,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import {
-  getResults,
-  toggleAutocomplete,
-  setQuery,
+  getResults as getResultsAction,
+  toggleAutocomplete as toggleAutocompleteAction,
+  setQuery as setQueryAction,
 } from 'Redux/search/search.actions';
-
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 
 import './SearchForm.styles.css';
 
-const SearchForm = ({ fetchMovies, toggleAutocomplete, query, setQuery }) => {
+const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
   const history = useHistory();
 
   useEffect(() => {
     if (query.length > 0) {
-      fetchMovies(query);
+      getResults(query);
       toggleAutocomplete(true);
     } else {
       toggleAutocomplete(false);
     }
-  }, [query, fetchMovies, toggleAutocomplete]);
+  }, [query, getResults, toggleAutocomplete]);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -72,7 +71,10 @@ const SearchForm = ({ fetchMovies, toggleAutocomplete, query, setQuery }) => {
 };
 
 SearchForm.propTypes = {
-  fetchMovies: PropTypes.func.isRequired,
+  getResults: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
+  setQuery: PropTypes.func.isRequired,
+  toggleAutocomplete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -82,9 +84,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMovies: (query) => dispatch(getResults(query)),
-  toggleAutocomplete: (shouldShow) => dispatch(toggleAutocomplete(shouldShow)),
-  setQuery: (query) => dispatch(setQuery(query)),
+  getResults: (query) => dispatch(getResultsAction(query)),
+  setQuery: (query) => dispatch(setQueryAction(query)),
+  toggleAutocomplete: (shouldShow) =>
+    dispatch(toggleAutocompleteAction(shouldShow)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

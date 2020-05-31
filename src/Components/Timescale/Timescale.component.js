@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Timescale.styles.css';
 
@@ -9,7 +10,7 @@ const Timescale = ({ lengthMode, length }) => {
 
   const ticks = [];
 
-  for (let i = 1; i < length; i++) {
+  for (let i = 1; i < length; i += 1) {
     ticks.push(i);
   }
 
@@ -22,6 +23,11 @@ const Timescale = ({ lengthMode, length }) => {
       ))}
     </div>
   );
+};
+
+Timescale.propTypes = {
+  length: PropTypes.number.isRequired,
+  lengthMode: PropTypes.string.isRequired,
 };
 
 export default Timescale;

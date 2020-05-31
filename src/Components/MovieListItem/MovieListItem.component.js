@@ -1,27 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import propShapes from 'Constants/propShapes';
 import config from 'Constants/config';
-import { movie as moviePropType } from 'propTypes';
-import { addMovie, updatePadding } from 'Redux/timeline/timeline.actions';
-import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
+import {
+  addMovie as addMovieAction,
+  updatePadding as updatePaddingAction,
+} from 'Redux/timeline/timeline.actions';
+import {
+  toggleAutocomplete as toggleAutocompleteAction,
+  setQuery as setQueryAction,
+} from 'Redux/search/search.actions';
 
 import './MovieListItem.styles.css';
 
 const MovieListItem = ({
-  movie,
   addMovie,
-  history,
-  toggleAutocomplete,
   condensed,
-  existingMovies,
-  setQuery,
   currentLength,
-  targetLength,
+  existingMovies,
+  history,
   lengthMode,
+  movie,
   padding,
+  setQuery,
+  targetLength,
+  toggleAutocomplete,
   updatePadding,
 }) => {
   const handleAddToTimeline = (movieToAdd, event) => {
@@ -52,7 +58,7 @@ const MovieListItem = ({
       return `${config.TMDB_BASE_IMAGE_URL}/w185${posterPath}`;
     }
 
-    return 'https://via.placeholder.com/185x278?text=Image%0AUnavailable';
+    return config.PLACEHOLDER_IMAGE;
   };
 
   const movieAlreadyExists = (id) => {
@@ -178,25 +184,42 @@ const MovieListItem = ({
   );
 };
 
+MovieListItem.defaultProps = {
+  condensed: false,
+};
+
 MovieListItem.propTypes = {
-  movie: PropTypes.shape(moviePropType).isRequired,
+  addMovie: PropTypes.func.isRequired,
+  condensed: PropTypes.bool,
+  currentLength: PropTypes.number.isRequired,
+  existingMovies: PropTypes.arrayOf(PropTypes.shape(propShapes.movie))
+    .isRequired,
+  history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+  lengthMode: PropTypes.string.isRequired,
+  movie: PropTypes.shape(propShapes.movie).isRequired,
+  padding: PropTypes.number.isRequired,
+  setQuery: PropTypes.func.isRequired,
+  targetLength: PropTypes.number.isRequired,
+  toggleAutocomplete: PropTypes.func.isRequired,
+  updatePadding: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    existingMovies: state.timeline.movies,
     currentLength: state.timeline.currentLength,
-    targetLength: state.timeline.settings.length,
+    existingMovies: state.timeline.movies,
     lengthMode: state.timeline.settings.lengthMode,
     padding: state.timeline.settings.padding,
+    targetLength: state.timeline.settings.length,
   };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addMovie: (movie, start) => dispatch(addMovie(movie, start)),
-  toggleAutocomplete: (shouldShow) => dispatch(toggleAutocomplete(shouldShow)),
-  setQuery: (query) => dispatch(setQuery(query)),
-  updatePadding: (padding) => dispatch(updatePadding(padding)),
+  addMovie: (movie, start) => dispatch(addMovieAction(movie, start)),
+  setQuery: (query) => dispatch(setQueryAction(query)),
+  toggleAutocomplete: (shouldShow) =>
+    dispatch(toggleAutocompleteAction(shouldShow)),
+  updatePadding: (padding) => dispatch(updatePaddingAction(padding)),
 });
 
 export default withRouter(

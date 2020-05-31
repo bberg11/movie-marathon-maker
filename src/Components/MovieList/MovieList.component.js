@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { getResults } from 'Redux/search/search.actions';
-import { movies } from 'propTypes';
+import propShapes from 'Constants/propShapes';
+import { getResults as getResultsAction } from 'Redux/search/search.actions';
 import MovieListItem from 'Components/MovieListItem/MovieListItem.component';
 
 import './MovieList.styles.css';
 
-const MovieList = ({ results, fetchMovies, condensed }) => {
+const MovieList = ({ condensed, results, getResults }) => {
   const { query } = useParams();
 
   useEffect(() => {
@@ -17,8 +17,8 @@ const MovieList = ({ results, fetchMovies, condensed }) => {
       return;
     }
 
-    fetchMovies(query);
-  }, [query, results, fetchMovies]);
+    getResults(query);
+  }, [query, results, getResults]);
 
   return (
     <ul className="movie-list">
@@ -29,9 +29,14 @@ const MovieList = ({ results, fetchMovies, condensed }) => {
   );
 };
 
+MovieList.defaultProps = {
+  condensed: false,
+};
+
 MovieList.propTypes = {
-  results: PropTypes.shape(movies).isRequired,
-  fetchMovies: PropTypes.func.isRequired,
+  condensed: PropTypes.bool,
+  getResults: PropTypes.func.isRequired,
+  results: PropTypes.shape(propShapes.movies).isRequired,
 };
 
 function mapStateToProps(state) {
@@ -39,7 +44,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMovies: (query) => dispatch(getResults(query)),
+  getResults: (query) => dispatch(getResultsAction(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

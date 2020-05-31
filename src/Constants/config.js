@@ -7,6 +7,8 @@ const config = {
   TMDB_BASE_IMAGE_URL: '//image.tmdb.org/t/p',
 
   PRESET_LENGTHS: [8, 10, 12, 24],
+  PLACEHOLDER_IMAGE:
+    'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
 };
 
 export default config;

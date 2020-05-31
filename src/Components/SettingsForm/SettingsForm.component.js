@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import config from 'Constants/config';
-import { updateSettings } from 'Redux/timeline/timeline.actions';
+import propShapes from 'Constants/propShapes';
+import { updateSettings as updateSettingsAction } from 'Redux/timeline/timeline.actions';
 
-const SettingsForm = ({ updateSettings, savedSettings }) => {
+const SettingsForm = ({ savedSettings, updateSettings }) => {
   const [lengthMode, setLengthMode] = useState('time');
   const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
   const [customLength, setCustomLength] = useState('');
@@ -152,12 +154,17 @@ const SettingsForm = ({ updateSettings, savedSettings }) => {
   );
 };
 
+SettingsForm.propTypes = {
+  savedSettings: PropTypes.shape(propShapes.settings).isRequired,
+  updateSettings: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => {
   return { savedSettings: state.timeline.settings };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateSettings: (settings) => dispatch(updateSettings(settings)),
+  updateSettings: (settings) => dispatch(updateSettingsAction(settings)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);

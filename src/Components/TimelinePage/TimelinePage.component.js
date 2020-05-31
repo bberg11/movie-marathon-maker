@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
+import PropTypes from 'prop-types';
 
-import {
-  removeMovie,
-  reorderMovies,
-  resetMarathon,
-  updatePadding,
-} from 'Redux/timeline/timeline.actions';
-
+import propShapes from 'Constants/propShapes';
 import { convertMinutesForDisplay } from 'Constants/utilities';
-
+import {
+  removeMovie as removeMovieAction,
+  reorderMovies as reorderMoviesAction,
+  resetMarathon as resetMarathonAction,
+  updatePadding as updatePaddingAction,
+} from 'Redux/timeline/timeline.actions';
 import Timescale from 'Components/Timescale/Timescale.component';
 
 import './Timeline.styles.css';
@@ -104,15 +104,23 @@ const TimelinePage = ({
   );
 };
 
+TimelinePage.propTypes = {
+  timeline: PropTypes.shape(propShapes.timeline).isRequired,
+  removeMovie: PropTypes.func.isRequired,
+  reoderMovies: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  updatePadding: PropTypes.func.isRequired,
+};
+
 function mapStateToProps(state) {
   return { timeline: state.timeline };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  removeMovie: (id) => dispatch(removeMovie(id)),
-  reoderMovies: (movies) => dispatch(reorderMovies(movies)),
-  reset: () => dispatch(resetMarathon()),
-  updatePadding: (padding) => dispatch(updatePadding(padding)),
+  removeMovie: (id) => dispatch(removeMovieAction(id)),
+  reoderMovies: (movies) => dispatch(reorderMoviesAction(movies)),
+  reset: () => dispatch(resetMarathonAction()),
+  updatePadding: (padding) => dispatch(updatePaddingAction(padding)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelinePage);
