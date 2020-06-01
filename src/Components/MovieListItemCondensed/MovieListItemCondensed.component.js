@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 
 import propShapes from 'Constants/propShapes';
 
-import './MovieListItem.styles.css';
+import 'Components/MovieListItem/MovieListItem.styles.css';
 
-const MovieListItem = ({
+const MovieListItemCondensed = ({
   buttonClassName,
   handleAddToTimeline,
+  handleLinkClick,
   movie,
   movieAlreadyExists,
   posterSrc,
@@ -16,7 +17,7 @@ const MovieListItem = ({
   runtimeExceedsLength,
 }) => {
   return (
-    <li className="card">
+    <li>
       <Link
         to={{
           pathname: `/movie/${movie.id}`,
@@ -24,7 +25,8 @@ const MovieListItem = ({
             movie,
           },
         }}
-        className="movie-list-item"
+        className="movie-list-item movie-list-item--condensed"
+        onClick={handleLinkClick}
       >
         <div className="movie-list-item__image-wrap">
           <img
@@ -34,9 +36,18 @@ const MovieListItem = ({
           />
         </div>
         <div className="movie-list-item__content">
-          <p className="movie-list-item__title">{movie.title}</p>
-          <p>{releaseYear}</p>
-          <p>{movie.runtime} minutes</p>
+          <p className="movie-list-item__title">
+            {movie.title} ({releaseYear}) | {movie.runtime} minutes
+          </p>
+
+          <button
+            className={`btn ${buttonClassName}`}
+            type="button"
+            onClick={handleAddToTimeline.bind(this, movie)}
+            disabled={movieAlreadyExists}
+          >
+            Add to marathon
+          </button>
 
           {runtimeExceedsLength && !movieAlreadyExists ? (
             <em>
@@ -45,28 +56,18 @@ const MovieListItem = ({
           ) : (
             ''
           )}
-        </div>
 
-        <button
-          className={`btn-flat white-text movie-list-item__add ${buttonClassName}`}
-          type="button"
-          onClick={handleAddToTimeline.bind(this, movie)}
-          disabled={movieAlreadyExists}
-        >
-          {movieAlreadyExists ? (
-            <em>Already in your marathon</em>
-          ) : (
-            'Add to marathon'
-          )}
-        </button>
+          {movieAlreadyExists ? <em>Already in your marathon</em> : ''}
+        </div>
       </Link>
     </li>
   );
 };
 
-MovieListItem.propTypes = {
+MovieListItemCondensed.propTypes = {
   buttonClassName: PropTypes.string.isRequired,
   handleAddToTimeline: PropTypes.func.isRequired,
+  handleLinkClick: PropTypes.func.isRequired,
   movie: PropTypes.shape(propShapes.movie).isRequired,
   movieAlreadyExists: PropTypes.bool.isRequired,
   posterSrc: PropTypes.string.isRequired,
@@ -74,4 +75,4 @@ MovieListItem.propTypes = {
   runtimeExceedsLength: PropTypes.bool.isRequired,
 };
 
-export default MovieListItem;
+export default MovieListItemCondensed;
