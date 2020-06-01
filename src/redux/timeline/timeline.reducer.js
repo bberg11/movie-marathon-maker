@@ -36,6 +36,10 @@ const getPadding = (state) => {
     state.currentLength
   );
 
+  if (timeRemaining <= 0) {
+    return 0;
+  }
+
   return getSpaceBetween(timeRemaining, state.movies.length);
 };
 
