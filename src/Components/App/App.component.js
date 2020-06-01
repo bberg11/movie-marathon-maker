@@ -9,9 +9,11 @@ import TimelinePage from 'Components/TimelinePage/TimelinePage.component';
 import SearchResultsPage from 'Components/SearchResultsPage/SearchResultsPage.component';
 import MovieDetailPage from 'Components/MovieDetailPage/MovieDetailPage.component';
 
+import './App.styles.scss';
+
 function App() {
   return (
-    <div>
+    <div className="app">
       <Header />
 
       <main className="container">

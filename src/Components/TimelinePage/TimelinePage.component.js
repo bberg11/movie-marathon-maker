@@ -13,7 +13,7 @@ import {
 } from 'Redux/timeline/timeline.actions';
 import Timescale from 'Components/Timescale/Timescale.component';
 
-import './Timeline.styles.css';
+import './TimelinePage.styles.scss';
 
 const TimelinePage = ({
   timeline: {
@@ -27,7 +27,7 @@ const TimelinePage = ({
   updatePadding,
 }) => {
   return (
-    <div>
+    <section className="timeline-page">
       <h1>Timeline Page</h1>
       <p>
         Target Length:{' '}
@@ -100,7 +100,7 @@ const TimelinePage = ({
           </li>
         ))}
       </ReactSortable>
-    </div>
+    </section>
   );
 };
 

@@ -11,7 +11,7 @@ import {
 } from 'Redux/search/search.actions';
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 
-import './SearchForm.styles.css';
+import './SearchForm.styles.scss';
 
 const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
   const history = useHistory();
@@ -43,27 +43,19 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="section container search-form"
-      autoComplete="off"
-    >
-      <div className="input-field search-form__field">
+    <form onSubmit={handleSubmit} className="search-form" autoComplete="off">
+      <div className="search-form__field">
+        <label htmlFor="search">Search</label>
         <input type="text" id="search" value={query} onChange={handleChange} />
-        <label htmlFor="search" className="white-text">
-          Search
-        </label>
       </div>
       <button
         type="button"
         className="button-reset search-form__clear"
         onClick={handleClear}
       >
-        <i className="material-icons">close</i>
+        Clear
       </button>
-      <button type="submit" className="hide">
-        Search
-      </button>
+      <button type="submit">Search</button>
 
       <Autocomplete />
     </form>

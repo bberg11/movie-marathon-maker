@@ -2,12 +2,14 @@ import React from 'react';
 
 import SettingsForm from 'Components/SettingsForm/SettingsForm.component';
 
+import './HomePage.styles.scss';
+
 const HomePage = () => {
   return (
-    <div>
+    <section className="home-page">
       <h1>Home Page</h1>
       <SettingsForm />
-    </div>
+    </section>
   );
 };
 

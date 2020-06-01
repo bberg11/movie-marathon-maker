@@ -1,0 +1,16 @@
+/*------------------------------------*\
+    #TABLES
+\*------------------------------------*/
+
+table {
+  margin-bottom: ($spacing-unit * 2);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  font-weight: normal;
+  text-align: left;
+  vertical-align: baseline;
+}

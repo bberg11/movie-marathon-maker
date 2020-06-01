@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import propShapes from 'Constants/propShapes';
 
-import './MovieListItem.styles.css';
+import './MovieListItem.styles.scss';
 
 const MovieListItem = ({
   buttonClassName,
@@ -16,7 +16,7 @@ const MovieListItem = ({
   runtimeExceedsLength,
 }) => {
   return (
-    <li className="card">
+    <li className="movie-list-item">
       <Link
         to={{
           pathname: `/movie/${movie.id}`,
@@ -24,7 +24,7 @@ const MovieListItem = ({
             movie,
           },
         }}
-        className="movie-list-item"
+        className="movie-list-item__link"
       >
         <div className="movie-list-item__image-wrap">
           <img
@@ -48,7 +48,7 @@ const MovieListItem = ({
         </div>
 
         <button
-          className={`btn-flat white-text movie-list-item__add ${buttonClassName}`}
+          className={`movie-list-item__add ${buttonClassName}`}
           type="button"
           onClick={handleAddToTimeline.bind(this, movie)}
           disabled={movieAlreadyExists}

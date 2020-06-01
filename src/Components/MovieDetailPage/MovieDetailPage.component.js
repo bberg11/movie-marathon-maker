@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import propShapes from 'Constants/propShapes';
 import config from 'Constants/config';
 
+import './MovieDetailPage.styles.scss';
+
 const MovieDetailPage = ({ location: { state } }) => {
   const { id } = useParams();
   const [movie, setMovie] = useState();
@@ -29,9 +31,9 @@ const MovieDetailPage = ({ location: { state } }) => {
   }
 
   return (
-    <div>
+    <section className="movie-detail-page">
       <h1>{movie.title}</h1>
-    </div>
+    </section>
   );
 };
 

@@ -1,10 +1,12 @@
 import React from 'react';
 
+import './AuthPage.styles.scss';
+
 const AuthPage = () => {
   return (
-    <div>
+    <section className="auth-page">
       <h1>Auth Page</h1>
-    </div>
+    </section>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Timescale.styles.css';
+import './Timescale.styles.scss';
 
 const Timescale = ({ lengthMode, length }) => {
   if (lengthMode === 'movie') {

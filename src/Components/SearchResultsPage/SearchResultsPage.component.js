@@ -2,12 +2,14 @@ import React from 'react';
 
 import MovieList from 'Components/MovieList/MovieList.component';
 
+import './SearchResultsPage.styles.scss';
+
 const SearchResultsPage = () => {
   return (
-    <div>
+    <section className="search-results-page">
       <h1>Search Results Page</h1>
       <MovieList />
-    </div>
+    </section>
   );
 };
 

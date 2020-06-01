@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import propShapes from 'Constants/propShapes';
 
-import 'Components/MovieListItem/MovieListItem.styles.css';
+import './MovieListItemCondensed.styles.scss';
 
 const MovieListItemCondensed = ({
   buttonClassName,
@@ -17,7 +17,7 @@ const MovieListItemCondensed = ({
   runtimeExceedsLength,
 }) => {
   return (
-    <li>
+    <li className="movie-list-item movie-list-item--condensed">
       <Link
         to={{
           pathname: `/movie/${movie.id}`,
@@ -25,7 +25,7 @@ const MovieListItemCondensed = ({
             movie,
           },
         }}
-        className="movie-list-item movie-list-item--condensed"
+        className="movie-list-item__link"
         onClick={handleLinkClick}
       >
         <div className="movie-list-item__image-wrap">

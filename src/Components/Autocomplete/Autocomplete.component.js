@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import MovieList from 'Components/MovieList/MovieList.component';
 
-import 'Components/Autocomplete/Autocomplete.styles.css';
+import './Autocomplete.styles.scss';
 
 const Autocomplete = ({ showAutocomplete }) => {
   if (!showAutocomplete) {
@@ -12,7 +12,7 @@ const Autocomplete = ({ showAutocomplete }) => {
   }
 
   return (
-    <div className="dropdown-content">
+    <div className="autocomplete">
       <MovieList condensed />
     </div>
   );

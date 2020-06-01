@@ -7,7 +7,7 @@ import propShapes from 'Constants/propShapes';
 import { getResults as getResultsAction } from 'Redux/search/search.actions';
 import MovieListItemContainer from 'Components/MovieListItemContainer/MovieListItemContainer.component';
 
-import './MovieList.styles.css';
+import './MovieList.styles.scss';
 
 const MovieList = ({ condensed, results, getResults }) => {
   const { query } = useParams();

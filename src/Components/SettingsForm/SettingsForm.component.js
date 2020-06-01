@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -6,6 +7,8 @@ import PropTypes from 'prop-types';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { updateSettings as updateSettingsAction } from 'Redux/timeline/timeline.actions';
+
+import './SettingsForm.styles.scss';
 
 const SettingsForm = ({ savedSettings, updateSettings }) => {
   const [lengthMode, setLengthMode] = useState('time');
@@ -62,7 +65,7 @@ const SettingsForm = ({ savedSettings, updateSettings }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="settings-form">
       <p>Marathon Settings</p>
 
       {lengthMode === 'time' ? (
