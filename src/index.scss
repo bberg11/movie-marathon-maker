@@ -30,7 +30,7 @@
 @import 'Assets/styles/typography/text';
 
 // COMPONENTS
-// N/A - Each React component imports its own stylesheet
+@import 'Assets/styles/components/button';
 
 // TRUMPS
-// TODO: Need to figure out best way to get higher specificity than component stylesheets
+@import 'Assets/styles/trumps/visually-hidden';

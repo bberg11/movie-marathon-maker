@@ -10,10 +10,11 @@
  * belong to. This method helps aid the quick reskinning of Components.
  */
 
-$blue: #3366cc;
-$yellow: #fdcc5d;
-$red: #b50010;
-$green: #19c06a;
+$slightly-desaturated-blue: #6686b6;
+$very-dark-grayish-blue: #323235;
+$dark-moderate-cyan: #54a36f;
+$moderate-orange: #d19337;
+$bright-red: #f44336;
 
 $white: #ffffff;
 $gray: #666666;
@@ -31,11 +32,13 @@ $transparent: transparent;
  * Global Functional Color Variables
  */
 
-$font-color: $black;
+$primary-color: $slightly-desaturated-blue;
+$info-color: $very-dark-grayish-blue;
+$success-color: $dark-moderate-cyan;
+$warning-color: $moderate-orange;
+$danger-color: $bright-red;
+
+$font-color: $info-color;
 $background-color: $white;
-$highlight-color: $yellow;
-$link-color: $blue;
-
-$overlay-shadow-color: $black-alpha-15;
-
-$focus-ring-color: $blue;
+$link-color: $primary-color;
+$shadow-color: $black-alpha-15;

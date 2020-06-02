@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MdClose } from 'react-icons/md';
 
 import {
   getResults as getResultsAction,
@@ -45,17 +46,37 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
   return (
     <form onSubmit={handleSubmit} className="search-form" autoComplete="off">
       <div className="search-form__field">
-        <label htmlFor="search">Search</label>
-        <input type="text" id="search" value={query} onChange={handleChange} />
+        <label htmlFor="search" className="visually-hidden">
+          Search
+        </label>
+        <input
+          type="text"
+          id="search"
+          placeholder="Find a movie to add"
+          className="search-form__input"
+          value={query}
+          onChange={handleChange}
+        />
+        {query.length ? (
+          <button
+            type="button"
+            className="button-reset search-form__clear"
+            onClick={handleClear}
+          >
+            <MdClose style={{ width: '1.5rem', height: '1.5rem' }}>
+              Clear
+            </MdClose>
+          </button>
+        ) : (
+          ''
+        )}
       </div>
       <button
-        type="button"
-        className="button-reset search-form__clear"
-        onClick={handleClear}
+        type="submit"
+        className="button-reset button button--warning search-form__submit"
       >
-        Clear
+        Search
       </button>
-      <button type="submit">Search</button>
 
       <Autocomplete />
     </form>

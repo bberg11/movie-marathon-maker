@@ -1,0 +1,10 @@
+@import 'Assets/styles/settings/global';
+
+.app {
+}
+
+.app__content {
+  padding: $spacing-unit;
+  margin: 0 auto;
+  max-width: $page-max-width;
+}

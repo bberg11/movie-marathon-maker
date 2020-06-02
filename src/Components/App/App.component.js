@@ -16,7 +16,7 @@ function App() {
     <div className="app">
       <Header />
 
-      <main className="container">
+      <main className="app__content">
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/auth" exact component={AuthPage} />

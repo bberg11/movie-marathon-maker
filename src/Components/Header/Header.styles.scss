@@ -1,0 +1,54 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+
+.header {
+  text-align: center;
+  background: $primary-color;
+}
+
+.header__container {
+  margin: 0 auto;
+  padding: $spacing-unit;
+  max-width: $page-max-width;
+
+  @include respond-to($medium-breakpoint) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.header__logo {
+  color: $white;
+}
+
+.header__nav {
+  margin: 0 0 ($spacing-unit * 2);
+}
+
+.header__nav-list {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header__nav-item {
+  & + & {
+    @include respond-to($medium-breakpoint) {
+      padding-left: ($spacing-unit * 2);
+    }
+  }
+}
+
+.header__nav-link {
+  color: $white;
+}
+
+.header__search {
+  width: 100%;
+}

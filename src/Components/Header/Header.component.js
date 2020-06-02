@@ -9,27 +9,27 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
-        <Link to="/" className="header__logo">
-          Movie Marathon Maker
+        <Link to="/" className="header__logo heading heading--1">
+          The Movie Marathon Maker
         </Link>
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item">
               <Link to="/timeline" className="header__nav-link">
-                Timeline
+                My Current Marathon
               </Link>
             </li>
             <li className="header__nav-item">
               <Link to="/account" className="header__nav-link">
-                Account
+                My Account
               </Link>
             </li>
           </ul>
         </nav>
+        <section className="header__search">
+          <SearchForm />
+        </section>
       </div>
-      <section className="header__search">
-        <SearchForm />
-      </section>
     </header>
   );
 };

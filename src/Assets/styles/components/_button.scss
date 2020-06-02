@@ -1,0 +1,36 @@
+$button-color: $white;
+$button-bg-color: $primary-color;
+
+.button {
+  @extend %button-reset;
+  display: inline-block;
+  padding: $spacing-unit ($spacing-unit * 2);
+  color: $button-color;
+  font-size: 1rem;
+  background: $button-bg-color;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.button--success {
+  background: $success-color;
+}
+
+.button--warning {
+  background: $warning-color;
+}
+
+.button--danger {
+  background: $danger-color;
+}
+
+.button--neutral {
+  background: $info-color;
+}
+
+.button--full {
+  width: 100%;
+}

@@ -1,0 +1,10 @@
+@import 'Assets/styles/settings/colors';
+
+.autocomplete {
+  position: absolute;
+  top: 100%;
+  background: $white;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 8px 4px 2px $shadow-color;
+}
