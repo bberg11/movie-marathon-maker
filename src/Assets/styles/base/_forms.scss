@@ -2,13 +2,11 @@
     #FORMS
 \*------------------------------------*/
 
-$forms-color: $font-color !default;
-$forms-bg-color: $white !default;
-$forms-disabled-color: $gray !default;
-$forms-disabled-bg-color: $light-gray !default;
-$forms-placeholder-color: $gray !default;
-
-$forms-disabled-opacity: 0.5 !default; // TODO: v4 Remove
+$forms-color: $font-color;
+$forms-bg-color: $white;
+$forms-disabled-color: $gray;
+$forms-disabled-bg-color: $disabled-color;
+$forms-placeholder-color: $gray;
 
 /**
  * Provide default margins for form containment elements.

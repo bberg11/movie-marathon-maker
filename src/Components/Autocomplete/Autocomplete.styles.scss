@@ -1,10 +1,14 @@
 @import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/z-indexes';
 
 .autocomplete {
   position: absolute;
   top: 100%;
-  background: $white;
+  padding: 0 $spacing-unit;
   width: 100%;
   text-align: left;
+  background: $background-color;
   box-shadow: 0 8px 4px 2px $shadow-color;
+  z-index: index($components, autocomplete);
 }

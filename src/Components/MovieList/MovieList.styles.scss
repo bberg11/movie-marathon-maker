@@ -1,0 +1,13 @@
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+@import 'Assets/styles/objects/list-reset';
+
+.movie-list {
+  @extend %list-reset;
+
+  @include respond-to($medium-breakpoint) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

@@ -12,15 +12,4 @@
  * https://www.smashingmagazine.com/2014/06/sassy-z-index-management-for-complex-layouts/
  */
 
-// $components: (
-//   page-container,
-//   back-to-top-button,
-//   ui-autocomplete,
-//   ui-dialog,
-//   admin-toolbar,
-//   page-messages,
-//   mobile-nav,
-//   mobile-filters-nav
-// );
-
-// $page-container: (page-content, page-header);
+$components: (autocomplete);

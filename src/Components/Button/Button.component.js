@@ -3,13 +3,21 @@ import PropTypes from 'prop-types';
 
 import './Button.styles.scss';
 
-const Button = ({ element, type, modifier, clickHandler, children }) => {
+const Button = ({
+  element,
+  type,
+  modifier,
+  clickHandler,
+  disabled,
+  children,
+}) => {
   const Element = element || 'button';
 
   return (
     <Element
-      className={`button ${modifier ? modifier : ''}`}
+      className={`button ${modifier || ''}`}
       type={type}
+      disabled={disabled}
       onClick={clickHandler}
     >
       {children}
@@ -22,6 +30,7 @@ Button.defaultProps = {
   type: '',
   modifier: '',
   clickHandler: null,
+  disabled: false,
   children: null,
 };
 
@@ -30,6 +39,7 @@ Button.propTypes = {
   type: PropTypes.string,
   modifier: PropTypes.string,
   clickHandler: PropTypes.func,
+  disabled: PropTypes.bool,
   children: PropTypes.node,
 };
 

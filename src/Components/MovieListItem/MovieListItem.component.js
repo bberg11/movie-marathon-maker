@@ -1,7 +1,10 @@
-import React from 'react';
+/* eslint-disable react/jsx-no-bind */
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import lineClamp from 'line-clamp';
+import classNames from 'classnames';
 
 import propShapes from 'Constants/propShapes';
 import config from 'Constants/config';
@@ -13,6 +16,9 @@ import {
   toggleAutocomplete as toggleAutocompleteAction,
   setQuery as setQueryAction,
 } from 'Redux/search/search.actions';
+import Button from 'Components/Button/Button.component';
+
+import './MovieListItem.styles.scss';
 
 const MovieListItem = ({
   addMovie,
@@ -28,6 +34,12 @@ const MovieListItem = ({
   updatePadding,
 }) => {
   const history = useHistory();
+  const overviewTextRef = useRef();
+  const overviewText = movie.overview;
+
+  useEffect(() => {
+    lineClamp(overviewTextRef.current, 3);
+  }, [overviewText]);
 
   const handleAddToTimeline = (movieToAdd, event) => {
     event.preventDefault();
@@ -54,10 +66,16 @@ const MovieListItem = ({
 
   const posterSrc = (posterPath) => {
     if (posterPath) {
-      return `${config.TMDB_BASE_IMAGE_URL}/w185${posterPath}`;
+      return {
+        '1x': `${config.TMDB_BASE_IMAGE_URL}/w185${posterPath}`,
+        '2x': `${config.TMDB_BASE_IMAGE_URL}/w342${posterPath}`,
+      };
     }
 
-    return config.PLACEHOLDER_IMAGE;
+    return {
+      '1x': config.PLACEHOLDER_IMAGE_1X,
+      '2x': config.PLACEHOLDER_IMAGE_2X,
+    };
   };
 
   const movieAlreadyExists = (id) => {
@@ -73,14 +91,31 @@ const MovieListItem = ({
   };
 
   const buttonClassName = (runtime) => {
-    return runtimeExceedsLength(runtime) ? 'red' : 'teal';
+    return runtimeExceedsLength(runtime) ? 'button--secondary-color' : '';
+  };
+
+  const buttonText = ({ id, runtime }) => {
+    const defaultText = 'Add to marathon';
+
+    if (movieAlreadyExists(id)) {
+      return 'Already in your marathon';
+    }
+
+    if (runtimeExceedsLength(runtime)) {
+      return `${defaultText} (Will overflow length)`;
+    }
+
+    return defaultText;
   };
 
   return (
     <li
-      className={`movie-list-item${
-        condensed ? ' movie-list-item---condensed' : ''
-      }`}
+      className={classNames({
+        'movie-list-item': true,
+        'movie-list-item--condensed': condensed,
+        'movie-list-item--already-exists': movieAlreadyExists(movie.id),
+        'movie-list-item--will-overflow': runtimeExceedsLength(movie.runtime),
+      })}
     >
       <Link
         to={{
@@ -92,40 +127,40 @@ const MovieListItem = ({
         className="movie-list-item__link"
         onClick={handleLinkClick}
       >
-        <div className="movie-list-item__image-wrap">
-          <img
-            src={posterSrc(movie.poster_path)}
-            alt={`${movie.title} Movie Poster`}
-            className="movie-list-item__image"
-          />
+        <div className="movie-list-item__details">
+          <div className="movie-list-item__image-wrap">
+            <img
+              srcSet={`${posterSrc(movie.poster_path)['1x']} 1x, ${
+                posterSrc(movie.poster_path)['2x']
+              } 2x`}
+              src={posterSrc(movie.poster_path)['2x']}
+              alt={`${movie.title} Movie Poster`}
+              className="movie-list-item__image"
+            />
+          </div>
+          <div className="movie-list-item__content">
+            <h2 className="movie-list-item__title heading heading--4 heading--no-margin">
+              {movie.title}
+            </h2>
+            <p className="movie-list-item__meta">
+              {releaseYear(movie.release_date)} |{' '}
+              <strong>{movie.runtime} minutes</strong>
+            </p>
+            <p className="movie-list-item__overview" ref={overviewTextRef}>
+              {overviewText}
+            </p>
+          </div>
         </div>
-        <div className="movie-list-item__content">
-          <p className="movie-list-item__title">{movie.title}</p>
-          <p>{releaseYear(movie.release_date)}</p>
-          <p>{movie.runtime} minutes</p>
-
-          {runtimeExceedsLength(movie.runtime) &&
-          !movieAlreadyExists(movie.id) ? (
-            <em>
-              Adding this movie will extend your marathon beyond its length
-            </em>
-          ) : (
-            ''
-          )}
+        <div className="movie-list-item__action">
+          <Button
+            modifier={`button--full ${buttonClassName(movie.runtime)}`}
+            type="button"
+            clickHandler={handleAddToTimeline.bind(this, movie)}
+            disabled={movieAlreadyExists(movie.id)}
+          >
+            {buttonText(movie)}
+          </Button>
         </div>
-
-        <button
-          className={`movie-list-item__add ${buttonClassName(movie.runtime)}`}
-          type="button"
-          onClick={handleAddToTimeline.bind(this, movie)}
-          disabled={movieAlreadyExists(movie.id)}
-        >
-          {movieAlreadyExists(movie.id) ? (
-            <em>Already in your marathon</em>
-          ) : (
-            'Add to marathon'
-          )}
-        </button>
       </Link>
     </li>
   );

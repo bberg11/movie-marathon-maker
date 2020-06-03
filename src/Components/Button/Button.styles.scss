@@ -17,6 +17,10 @@ $button-bg-color: $primary-color;
   &:hover {
     text-decoration: none;
   }
+
+  &:disabled {
+    background: $disabled-color;
+  }
 }
 
 .button--secondary-color {
@@ -37,6 +41,11 @@ $button-bg-color: $primary-color;
 
 .button--neutral {
   background: $info-color;
+}
+
+.button--disabled {
+  color: $font-color;
+  background: $disabled-color;
 }
 
 .button--full {
