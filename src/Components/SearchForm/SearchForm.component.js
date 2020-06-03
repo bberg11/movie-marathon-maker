@@ -11,6 +11,7 @@ import {
   setQuery as setQueryAction,
 } from 'Redux/search/search.actions';
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
+import Button from 'Components/Button/Button.component';
 
 import './SearchForm.styles.scss';
 
@@ -71,12 +72,9 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
           ''
         )}
       </div>
-      <button
-        type="submit"
-        className="button-reset button button--warning search-form__submit"
-      >
+      <Button type="submit" modifier="button--secondary-color">
         Search
-      </button>
+      </Button>
 
       <Autocomplete />
     </form>

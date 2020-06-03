@@ -1,0 +1,16 @@
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/typography';
+
+.button-property {
+  display: flex;
+  align-items: center;
+  margin: 0 0 $spacing-unit;
+}
+
+.button-property__input {
+}
+
+.button-property__label {
+  padding-left: $spacing-unit;
+  font-size: $font-size;
+}

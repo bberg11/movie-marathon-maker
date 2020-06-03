@@ -1,0 +1,12 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+
+.text-box {
+  padding: $spacing-unit;
+  width: 100%;
+  border: 1px solid $primary-color;
+}
+
+.text-box--small {
+  width: 60px;
+}

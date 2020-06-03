@@ -7,6 +7,11 @@ import PropTypes from 'prop-types';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { updateSettings as updateSettingsAction } from 'Redux/timeline/timeline.actions';
+import ButtonProperty from 'Components/ButtonProperty/ButtonProperty.component';
+import Property from 'Components/Property/Property.component';
+import TextBox from 'Components/TextBox/TextBox.component';
+import TextButton from 'Components/TextButton/TextButton.component';
+import Button from 'Components/Button/Button.component';
 
 import './SettingsForm.styles.scss';
 
@@ -14,7 +19,7 @@ const SettingsForm = ({ savedSettings, updateSettings }) => {
   const [lengthMode, setLengthMode] = useState('time');
   const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
   const [customLength, setCustomLength] = useState('');
-  const [movieQuantity, setMovieQuantity] = useState('');
+  const [movieQuantity, setMovieQuantity] = useState(0);
   const [padding, setPadding] = useState(0);
 
   const history = useHistory();
@@ -66,92 +71,100 @@ const SettingsForm = ({ savedSettings, updateSettings }) => {
 
   return (
     <form onSubmit={handleSubmit} className="settings-form">
-      <p>Marathon Settings</p>
+      <h1>Marathon Settings</h1>
 
       {lengthMode === 'time' ? (
         <div>
           {config.PRESET_LENGTHS.map((presetLength) => (
-            <p key={presetLength}>
-              <label>
-                <input
-                  name="length"
-                  type="radio"
-                  value={presetLength * 60}
-                  onChange={handleRadioChange}
-                  checked={presetLength * 60 === +length}
-                />
-                <span>{presetLength} Hours</span>
-              </label>
-            </p>
+            <ButtonProperty
+              key={presetLength}
+              id={`length-${presetLength}`}
+              name="length"
+              type="radio"
+              value={presetLength * 60}
+              checked={presetLength * 60 === +length}
+              changeHandler={handleRadioChange}
+              label={`${presetLength} hours`}
+            />
           ))}
-          <p>
-            <label>
-              <input
-                name="length"
-                type="radio"
-                value="custom"
-                onChange={handleRadioChange}
-              />
-              <span>Custom</span>
-            </label>
-          </p>
+
+          <ButtonProperty
+            id="length-custom"
+            name="length"
+            type="radio"
+            value="custom"
+            checked={length === 'custom'}
+            changeHandler={handleRadioChange}
+            label="Custom"
+          />
 
           {length === 'custom' ? (
-            <div className="input-field">
-              <input
+            <Property id="custom-length" label="Custom Length (in hours)">
+              <TextBox
                 id="custom-length"
                 type="number"
-                value={customLength}
-                onChange={(event) => setCustomLength(+event.target.value * 60)}
+                value={customLength / 60}
+                name="custom-length"
+                changeHandler={(event) =>
+                  setCustomLength(+event.target.value * 60)
+                }
+                modifier="text-box--small"
               />
-              <label htmlFor="custom-length">Custom Length (in hours)</label>
-            </div>
+            </Property>
           ) : (
             ''
           )}
 
           <p>
             Prefer to create a marathon based on number of movies?{' '}
-            <button type="button" onClick={() => setLengthMode('movie')}>
+            <TextButton clickHandler={() => setLengthMode('movie')}>
               Switch
-            </button>
+            </TextButton>
           </p>
         </div>
       ) : (
         <div>
-          <div className="input-field">
-            <input
+          <Property
+            id="quantity-length"
+            label="How many movies do you want in the marathon?"
+          >
+            <TextBox
               id="quantity-length"
               type="number"
               value={movieQuantity}
-              onChange={(event) => setMovieQuantity(event.target.value)}
+              name="quantity-length"
+              changeHandler={(event) => setMovieQuantity(event.target.value)}
+              modifier="text-box--small"
             />
-            <label htmlFor="quantity-length">Enter a number of movies</label>
-          </div>
-          <div className="input-field">
-            <input
+          </Property>
+
+          <Property
+            id="padding"
+            label="How many minutes do you want between each movie?"
+          >
+            <TextBox
               id="padding"
               type="number"
               value={padding}
-              onChange={(event) => setPadding(event.target.value)}
+              name="padding"
+              changeHandler={(event) => setPadding(event.target.value)}
+              modifier="text-box--small"
             />
-            <label htmlFor="padding">
-              How many minutes do you want between each movie
-            </label>
-          </div>
+          </Property>
+
           <p>
             Prefer to create a marathon based on a set length?{' '}
-            <button type="button" onClick={() => setLengthMode('time')}>
+            <TextButton clickHandler={() => setLengthMode('time')}>
               Switch
-            </button>
+            </TextButton>
           </p>
         </div>
       )}
 
       <p>
-        <button type="submit" className="btn">
+        <Button type="submit" modifier="button--full">
           Save
-        </button>
+        </Button>
       </p>
     </form>
   );

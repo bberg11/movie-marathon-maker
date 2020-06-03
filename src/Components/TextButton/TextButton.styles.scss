@@ -1,0 +1,7 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/objects/button-reset';
+
+.text-button {
+  @extend %button-reset;
+  color: $link-color;
+}
