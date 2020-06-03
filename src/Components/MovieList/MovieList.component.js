@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import propShapes from 'Constants/propShapes';
 import { getResults as getResultsAction } from 'Redux/search/search.actions';
-import MovieListItemContainer from 'Components/MovieListItemContainer/MovieListItemContainer.component';
+import MovieListItem from 'Components/MovieListItem/MovieListItem.component';
 
 import './MovieList.styles.scss';
 
@@ -23,11 +23,7 @@ const MovieList = ({ condensed, results, getResults }) => {
   return (
     <ul className="movie-list">
       {Object.values(results).map((movie) => (
-        <MovieListItemContainer
-          movie={movie}
-          key={movie.id}
-          condensed={condensed}
-        />
+        <MovieListItem movie={movie} key={movie.id} condensed={condensed} />
       ))}
     </ul>
   );
