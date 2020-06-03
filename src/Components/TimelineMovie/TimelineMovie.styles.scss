@@ -1,0 +1,113 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/objects/button-reset';
+
+$timeline-movie-node-color: $bright-red;
+
+.timeline-movie {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  cursor: grab;
+
+  &:nth-child(odd) {
+    background: rgba($primary-color, 0.2);
+  }
+
+  &:nth-child(even) {
+    background: rgba($secondary-color, 0.2);
+  }
+}
+
+.timeline-movie__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.25;
+}
+
+.timeline-movie__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.timeline-movie__title {
+  padding: 0 $spacing-unit;
+  text-align: center;
+
+  a {
+    color: $font-color;
+    text-shadow: 2px 2px 2px $black-alpha-50;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.timeline-movie__start,
+.timeline-movie__finish {
+  margin: 0;
+  position: relative;
+  align-self: flex-start;
+}
+
+.timeline-movie__start {
+  transform: translateY(-50%);
+}
+
+.timeline-movie__finish {
+  transform: translateY(50%);
+}
+
+.timeline-movie__node {
+  @extend %button-reset;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  height: 12px;
+  width: 12px;
+  background: $timeline-movie-node-color;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.timeline-movie__node-text {
+  padding: ($spacing-unit * 0.5) $spacing-unit;
+  background: $background-color;
+  box-shadow: 1px 1px 4px 0px $shadow-color;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  .timeline-movie__node:focus + & {
+    opacity: 1;
+  }
+}
+
+.timeline-movie__node-text--is-visible {
+  opacity: 1;
+}
+
+.timeline-movie__remove {
+  position: absolute;
+  top: $spacing-unit;
+  right: $spacing-unit;
+  color: $danger-color;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+}

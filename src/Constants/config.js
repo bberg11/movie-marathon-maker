@@ -11,6 +11,7 @@ const config = {
     'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
   PLACEHOLDER_IMAGE_2X:
     'https://via.placeholder.com/370x556?text=Image%0AUnavailable',
+  MINUTE_TO_PIXEL_FACTOR: 2,
 };
 
 export default config;

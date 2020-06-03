@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
 
+import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { convertMinutesForDisplay } from 'Constants/utilities';
 import {
-  removeMovie as removeMovieAction,
   reorderMovies as reorderMoviesAction,
   resetMarathon as resetMarathonAction,
   updatePadding as updatePaddingAction,
 } from 'Redux/timeline/timeline.actions';
 import Timescale from 'Components/Timescale/Timescale.component';
+import TimelineMovie from 'Components/TimelineMovie/TimelineMovie.component';
+import Button from 'Components/Button/Button.component';
 
 import './TimelinePage.styles.scss';
 
@@ -21,42 +23,40 @@ const TimelinePage = ({
     movies,
     settings: { lengthMode, length, padding },
   },
-  removeMovie,
   reoderMovies,
   reset,
   updatePadding,
 }) => {
   return (
     <section className="timeline-page">
-      <h1>Timeline Page</h1>
+      <h1>My Current Marathon</h1>
       <p>
-        Target Length:{' '}
+        Current status:{' '}
         {lengthMode === 'time'
-          ? convertMinutesForDisplay(length)
-          : `${length} movies`}
+          ? `${convertMinutesForDisplay(
+              currentLength
+            )} out of ${convertMinutesForDisplay(length)}`
+          : `${length} out of ${movies.length} movies`}
       </p>
       <p>
-        Current Length:{' '}
-        {lengthMode === 'time'
-          ? convertMinutesForDisplay(currentLength)
-          : `${movies.length} movies`}
-      </p>
-      <p>
-        <button className="btn red" type="button" onClick={() => reset()}>
+        <Button
+          type="button"
+          modifier="button--danger-color"
+          clickHandler={() => reset()}
+        >
           Reset
-        </button>
+        </Button>
 
         {lengthMode === 'time' ? (
-          <button
-            className="btn"
+          <Button
             type="button"
-            onClick={() => {
+            clickHandler={() => {
               const payload = padding > 0 ? 0 : 'even';
               updatePadding(payload);
             }}
           >
             {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
-          </button>
+          </Button>
         ) : (
           ''
         )}
@@ -71,33 +71,12 @@ const TimelinePage = ({
         setList={(newState) => reoderMovies(newState)}
         style={{
           marginLeft: lengthMode === 'time' ? 25 : '',
-          height: lengthMode === 'time' ? length * 2 : '',
+          height:
+            lengthMode === 'time' ? length * config.MINUTE_TO_PIXEL_FACTOR : '',
         }}
       >
-        {movies.map((movie, index) => (
-          <li
-            key={movie.id}
-            className={
-              index % 2 === 0
-                ? 'timeline__movie red lighten-5'
-                : 'timeline__movie blue lighten-5'
-            }
-            style={{
-              top: movie.startTime * 2,
-              height: movie.runtime * 2,
-            }}
-          >
-            <div className="timeline__movie-content">
-              {movie.title}
-              <button
-                type="button"
-                className="button-reset"
-                onClick={() => removeMovie(movie.id)}
-              >
-                <i className="material-icons">remove_circle_outline</i>
-              </button>
-            </div>
-          </li>
+        {movies.map((movie) => (
+          <TimelineMovie key={movie.id} movie={movie} />
         ))}
       </ReactSortable>
     </section>
@@ -106,18 +85,16 @@ const TimelinePage = ({
 
 TimelinePage.propTypes = {
   timeline: PropTypes.shape(propShapes.timeline).isRequired,
-  removeMovie: PropTypes.func.isRequired,
   reoderMovies: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   updatePadding: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { timeline: state.timeline };
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  removeMovie: (id) => dispatch(removeMovieAction(id)),
   reoderMovies: (movies) => dispatch(reorderMoviesAction(movies)),
   reset: () => dispatch(resetMarathonAction()),
   updatePadding: (padding) => dispatch(updatePaddingAction(padding)),

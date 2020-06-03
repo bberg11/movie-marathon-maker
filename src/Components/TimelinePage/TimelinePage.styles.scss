@@ -1,11 +1,9 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/objects/list-reset';
+
 .timeline {
+  @extend %list-reset;
   position: relative;
   margin: 0;
-}
-
-.timeline__movie {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
 }
