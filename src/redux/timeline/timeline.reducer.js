@@ -14,12 +14,17 @@ const movieAlreadyExists = (existingMovies, id) => {
   return existingMovies.some((movie) => movie.id === id);
 };
 
-const getCurrentLength = (movies) => {
+const getCurrentLength = (movies, padding) => {
   const runtimes = movies.map((movie) => movie.runtime);
-
-  return runtimes.reduce(
+  let totalRuntime = runtimes.reduce(
     (accumulator, currentValue) => accumulator + currentValue
   );
+
+  if (padding > 0) {
+    totalRuntime += (movies.length - 1) * padding;
+  }
+
+  return totalRuntime;
 };
 
 const getTimeRemaining = (targetLength, currentLength) => {
@@ -54,7 +59,7 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        currentLength: getCurrentLength(movies),
+        currentLength: getCurrentLength(movies, state.settings.padding),
         movies,
       };
     }
@@ -66,7 +71,7 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        currentLength: getCurrentLength(movies),
+        currentLength: getCurrentLength(movies, state.settings.padding),
         movies,
       };
     }
@@ -109,6 +114,7 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
+        currentLength: getCurrentLength(state.movies, padding),
         settings: {
           ...state.settings,
           padding,
