@@ -47,34 +47,44 @@ const TimelinePage = ({
                 currentLength
               )} long`}
         </p>
-        <p className="timeline-page__actions">
-          <Button type="button" clickHandler={() => setShowDrawer(!showDrawer)}>
-            Adjust Settings
-          </Button>
-
-          {lengthMode === 'time' ? (
+        <div className="timeline-page__actions">
+          <div className="timeline-page__action">
             <Button
               type="button"
-              modifier="button--tertiary-color"
-              clickHandler={() => {
-                const payload = padding > 0 ? 0 : 'even';
-                updatePadding(payload);
-              }}
+              modifier="button--full"
+              clickHandler={() => setShowDrawer(!showDrawer)}
             >
-              {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
+              Adjust Settings
             </Button>
+          </div>
+
+          {lengthMode === 'time' ? (
+            <div className="timeline-page__action">
+              <Button
+                type="button"
+                modifier="button--tertiary-color button--full"
+                clickHandler={() => {
+                  const payload = padding > 0 ? 0 : 'even';
+                  updatePadding(payload);
+                }}
+              >
+                {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
+              </Button>
+            </div>
           ) : (
             ''
           )}
 
-          <Button
-            type="button"
-            modifier="button--danger-color"
-            clickHandler={() => reset()}
-          >
-            Reset
-          </Button>
-        </p>
+          <div className="timeline-page__action">
+            <Button
+              type="button"
+              modifier="button--danger-color button--full"
+              clickHandler={() => reset()}
+            >
+              Reset
+            </Button>
+          </div>
+        </div>
 
         <Timescale lengthMode={lengthMode} length={length} />
 

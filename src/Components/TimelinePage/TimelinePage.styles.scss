@@ -7,3 +7,12 @@
   position: relative;
   margin: 0;
 }
+
+.timeline-page__actions {
+  display: flex;
+  margin: 0 0 ($spacing-unit * 2);
+}
+
+.timeline-page__action {
+  width: calc(100% / 3);
+}

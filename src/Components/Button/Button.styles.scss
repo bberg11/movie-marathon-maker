@@ -51,4 +51,8 @@ $button-bg-color: $primary-color;
 .button--full {
   width: 100%;
   text-align: center;
+
+  .timeline-page__action & {
+    height: 100%;
+  }
 }
