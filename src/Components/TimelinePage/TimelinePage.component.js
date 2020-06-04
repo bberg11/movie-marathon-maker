@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
@@ -14,6 +14,8 @@ import {
 import Timescale from 'Components/Timescale/Timescale.component';
 import TimelineMovie from 'Components/TimelineMovie/TimelineMovie.component';
 import Button from 'Components/Button/Button.component';
+import Drawer from 'Components/Drawer/Drawer.component';
+import SettingsForm from 'Components/SettingsForm/SettingsForm.component';
 
 import './TimelinePage.styles.scss';
 
@@ -27,59 +29,78 @@ const TimelinePage = ({
   reset,
   updatePadding,
 }) => {
-  return (
-    <section className="timeline-page">
-      <h1>My Current Marathon</h1>
-      <p>
-        Current status:{' '}
-        {lengthMode === 'time'
-          ? `${convertMinutesForDisplay(
-              currentLength
-            )} out of ${convertMinutesForDisplay(length)}`
-          : `${length} out of ${movies.length} movies`}
-      </p>
-      <p>
-        <Button
-          type="button"
-          modifier="button--danger-color"
-          clickHandler={() => reset()}
-        >
-          Reset
-        </Button>
+  const [showDrawer, setShowDrawer] = useState(false);
 
-        {lengthMode === 'time' ? (
+  return (
+    <>
+      <section className="timeline-page">
+        <h1>My Current Marathon</h1>
+        <p className="timeline-page__summary">
+          Marathon Status:{' '}
+          {lengthMode === 'time'
+            ? `${movies.length} movies | ${convertMinutesForDisplay(
+                length - currentLength
+              )} available`
+            : `${
+                movies.length
+              } out of ${length} movies | ${convertMinutesForDisplay(
+                currentLength
+              )} long`}
+        </p>
+        <p className="timeline-page__actions">
+          <Button type="button" clickHandler={() => setShowDrawer(!showDrawer)}>
+            Adjust Settings
+          </Button>
+
+          {lengthMode === 'time' ? (
+            <Button
+              type="button"
+              modifier="button--tertiary-color"
+              clickHandler={() => {
+                const payload = padding > 0 ? 0 : 'even';
+                updatePadding(payload);
+              }}
+            >
+              {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
+            </Button>
+          ) : (
+            ''
+          )}
+
           <Button
             type="button"
-            clickHandler={() => {
-              const payload = padding > 0 ? 0 : 'even';
-              updatePadding(payload);
-            }}
+            modifier="button--danger-color"
+            clickHandler={() => reset()}
           >
-            {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
+            Reset
           </Button>
-        ) : (
-          ''
-        )}
-      </p>
+        </p>
 
-      <Timescale lengthMode={lengthMode} length={length} />
+        <Timescale lengthMode={lengthMode} length={length} />
 
-      <ReactSortable
-        className="timeline"
-        tag="ul"
-        list={movies}
-        setList={(newState) => reoderMovies(newState)}
-        style={{
-          marginLeft: lengthMode === 'time' ? 25 : '',
-          height:
-            lengthMode === 'time' ? length * config.MINUTE_TO_PIXEL_FACTOR : '',
-        }}
-      >
-        {movies.map((movie) => (
-          <TimelineMovie key={movie.id} movie={movie} />
-        ))}
-      </ReactSortable>
-    </section>
+        <ReactSortable
+          className="timeline"
+          tag="ul"
+          list={movies}
+          setList={(newState) => reoderMovies(newState)}
+          style={{
+            marginLeft: lengthMode === 'time' ? 25 : '',
+            height:
+              lengthMode === 'time'
+                ? length * config.MINUTE_TO_PIXEL_FACTOR
+                : '',
+          }}
+        >
+          {movies.map((movie) => (
+            <TimelineMovie key={movie.id} movie={movie} />
+          ))}
+        </ReactSortable>
+      </section>
+
+      <Drawer visible={showDrawer} closeHandler={() => setShowDrawer(false)}>
+        <SettingsForm submitHandler={() => setShowDrawer(false)} />
+      </Drawer>
+    </>
   );
 };
 

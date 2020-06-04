@@ -15,7 +15,7 @@ import Button from 'Components/Button/Button.component';
 
 import './SettingsForm.styles.scss';
 
-const SettingsForm = ({ savedSettings, updateSettings }) => {
+const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
   const [lengthMode, setLengthMode] = useState('time');
   const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
   const [customLength, setCustomLength] = useState('');
@@ -62,6 +62,10 @@ const SettingsForm = ({ savedSettings, updateSettings }) => {
     });
 
     history.push('/timeline');
+
+    if (submitHandler) {
+      submitHandler();
+    }
   };
 
   const handleRadioChange = (event) => {
@@ -170,8 +174,13 @@ const SettingsForm = ({ savedSettings, updateSettings }) => {
   );
 };
 
+SettingsForm.defaultProps = {
+  submitHandler: null,
+};
+
 SettingsForm.propTypes = {
   savedSettings: PropTypes.shape(propShapes.settings).isRequired,
+  submitHandler: PropTypes.func,
   updateSettings: PropTypes.func.isRequired,
 };
 
