@@ -1,0 +1,46 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/objects/button-reset';
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transform: translateX(-100%);
+}
+
+.drawer--is-visible {
+  transform: translateX(0);
+}
+
+.drawer__overlay {
+  @extend %button-reset;
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  font-size: 0;
+  background: $black-alpha-15;
+}
+
+.drawer__content {
+  position: absolute;
+  height: 100%;
+  width: 90%;
+  max-width: 400px;
+  background: $background-color;
+  overflow: auto;
+  transform: translateX(-100%);
+  transition: transform 0.2s;
+
+  .drawer--is-visible & {
+    transform: translateX(0);
+  }
+}
+
+.drawer__header {
+  padding: $spacing-unit;
+  text-align: right;
+}
