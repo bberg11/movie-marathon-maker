@@ -74,6 +74,12 @@
   margin: 0 0 $spacing-unit;
 }
 
+.movie-list-item__runtime {
+  &:before {
+    content: ' | ';
+  }
+}
+
 .movie-list-item__add {
   flex-grow: 1;
 }

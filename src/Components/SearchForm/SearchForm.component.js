@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MdClose } from 'react-icons/md';
+import axios from 'axios';
 
 import {
   getResults as getResultsAction,
   toggleAutocomplete as toggleAutocompleteAction,
   setQuery as setQueryAction,
 } from 'Redux/search/search.actions';
+import config from 'Constants/config';
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 import Button from 'Components/Button/Button.component';
 
@@ -17,15 +19,32 @@ import './SearchForm.styles.scss';
 
 const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
   const history = useHistory();
+  const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
     if (query.length > 0) {
-      getResults(query);
+      axios
+        .get(
+          `${config.TMDB_BASE_API_URL}/search/movie?api_key=${config.API_KEY}&query=${query}`
+        )
+        .then(({ data: { results } }) => {
+          let movies = {};
+
+          results.forEach((movie) => {
+            movies = {
+              ...movies,
+              [movie.id]: movie,
+            };
+          });
+
+          setSearchResults(movies);
+        });
+
       toggleAutocomplete(true);
     } else {
       toggleAutocomplete(false);
     }
-  }, [query, getResults, toggleAutocomplete]);
+  }, [query, toggleAutocomplete]);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -34,6 +53,7 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    getResults(query);
     setQuery('');
     toggleAutocomplete(false);
     history.push(`/search/${query}`);
@@ -76,7 +96,7 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
         Search
       </Button>
 
-      <Autocomplete />
+      <Autocomplete results={searchResults} />
     </form>
   );
 };

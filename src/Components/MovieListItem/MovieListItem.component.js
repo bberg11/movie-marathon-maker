@@ -143,8 +143,14 @@ const MovieListItem = ({
               {movie.title}
             </h2>
             <p className="movie-list-item__meta">
-              {releaseYear(movie.release_date)} |{' '}
-              <strong>{movie.runtime} minutes</strong>
+              {releaseYear(movie.release_date)}
+              {!condensed ? (
+                <strong className="movie-list-item__runtime">
+                  {movie.runtime} minutes
+                </strong>
+              ) : (
+                ''
+              )}
             </p>
             <p className="movie-list-item__overview" ref={overviewTextRef}>
               {overviewText}
