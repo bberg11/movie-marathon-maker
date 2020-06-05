@@ -14,7 +14,10 @@ const settings = {
   length: PropTypes.number,
   lengthMode: PropTypes.string,
   padding: PropTypes.number,
-  startDateTime: PropTypes.string,
+  startDateTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
 };
 const timeline = {
   currentLength: PropTypes.number,

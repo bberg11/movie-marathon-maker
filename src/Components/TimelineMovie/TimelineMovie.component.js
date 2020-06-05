@@ -78,7 +78,10 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
 TimelineMovie.propTypes = {
   movie: PropTypes.shape(propShapes.movie).isRequired,
   removeMovie: PropTypes.func.isRequired,
-  startDateTime: PropTypes.string.isRequired,
+  startDateTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

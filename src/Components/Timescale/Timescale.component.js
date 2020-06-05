@@ -39,7 +39,10 @@ const Timescale = ({ lengthMode, length, startDateTime }) => {
 Timescale.propTypes = {
   length: PropTypes.number.isRequired,
   lengthMode: PropTypes.string.isRequired,
-  startDateTime: PropTypes.string.isRequired,
+  startDateTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]).isRequired,
 };
 
 export default Timescale;
