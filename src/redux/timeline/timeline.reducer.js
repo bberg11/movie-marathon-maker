@@ -5,6 +5,7 @@ export const INITIAL_STATE = {
     lengthMode: 'time',
     length: 0,
     padding: 0,
+    startDateTime: '',
   },
   currentLength: 0,
   movies: [],

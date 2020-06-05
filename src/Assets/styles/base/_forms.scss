@@ -8,6 +8,10 @@ $forms-disabled-color: $gray;
 $forms-disabled-bg-color: $disabled-color;
 $forms-placeholder-color: $gray;
 
+button {
+  cursor: pointer;
+}
+
 /**
  * Provide default margins for form containment elements.
  */
@@ -47,7 +51,6 @@ label {
  * @url https://stackoverflow.com/a/10795269/1538101
  */
 select {
-  width: 100%;
   max-width: 100%;
   border-radius: 0;
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import DateTimePicker from 'react-datetime-picker';
 
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
@@ -14,8 +15,10 @@ import TextButton from 'Components/TextButton/TextButton.component';
 import Button from 'Components/Button/Button.component';
 
 import './SettingsForm.styles.scss';
+import './DateTimePicker.styles.scss';
 
 const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
+  const [dateTime, setDateTime] = useState(new Date());
   const [lengthMode, setLengthMode] = useState('time');
   const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
   const [customLength, setCustomLength] = useState('');
@@ -26,6 +29,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
 
   useEffect(() => {
     setLengthMode(savedSettings.lengthMode);
+    setDateTime(new Date(savedSettings.startDateTime));
 
     if (savedSettings.lengthMode === 'time') {
       if (config.PRESET_LENGTHS.includes(savedSettings.length / 60)) {
@@ -59,6 +63,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
       lengthMode,
       length: +marathonLength,
       padding: +marathonPadding,
+      startDateTime: dateTime,
     });
 
     history.push('/timeline');
@@ -76,6 +81,19 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
   return (
     <form onSubmit={handleSubmit} className="settings-form">
       <h1>Marathon Settings</h1>
+
+      <div className="property">
+        <label className="property__label">Select a start date and time</label>
+        <div className="property__input">
+          <DateTimePicker
+            onChange={setDateTime}
+            value={dateTime}
+            calendarIcon={null}
+            clearIcon="Clear"
+            disableClock
+          />
+        </div>
+      </div>
 
       {lengthMode === 'time' ? (
         <div>

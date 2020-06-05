@@ -1,0 +1,45 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/typography';
+@import 'Assets/styles/objects/button-reset';
+
+.react-datetime-picker__wrapper {
+  border: 0;
+}
+
+.react-datetime-picker__clear-button {
+  @extend %button-reset;
+  padding-left: $spacing-unit;
+
+  &:before {
+    content: '\2715 \0000a0';
+  }
+}
+
+.react-calendar {
+  font-family: $font-family;
+  border-color: $primary-color;
+}
+
+.react-calendar__navigation {
+  margin: 0;
+}
+
+.react-calendar__navigation__label {
+  font-family: $font-family;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus,
+.react-calendar__tile--hasActive,
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: $primary-color;
+}
+
+.react-calendar__tile--now,
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: none;
+}
