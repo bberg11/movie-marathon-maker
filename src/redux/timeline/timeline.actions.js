@@ -1,4 +1,7 @@
 /* eslint-disable import/prefer-default-export */
+import axios from 'axios';
+
+import config from 'Constants/config';
 import timelineActionTypes from 'Redux/timeline/timeline.types';
 
 export const updateStartFinishTimes = () => {
@@ -8,12 +11,30 @@ export const updateStartFinishTimes = () => {
 };
 
 export const addMovie = (movie) => (dispatch) => {
-  dispatch({
-    type: timelineActionTypes.ADD_MOVIE,
-    payload: movie,
-  });
+  if (!movie.runtime) {
+    axios
+      .get(
+        `${config.TMDB_BASE_API_URL}/movie/${movie.id}?api_key=${config.API_KEY}`
+      )
+      .then(({ data }) => {
+        dispatch({
+          type: timelineActionTypes.ADD_MOVIE,
+          payload: {
+            ...movie,
+            ...data,
+          },
+        });
 
-  dispatch(updateStartFinishTimes());
+        dispatch(updateStartFinishTimes());
+      });
+  } else {
+    dispatch({
+      type: timelineActionTypes.ADD_MOVIE,
+      payload: movie,
+    });
+
+    dispatch(updateStartFinishTimes());
+  }
 };
 
 export const removeMovie = (movieId) => (dispatch) => {
