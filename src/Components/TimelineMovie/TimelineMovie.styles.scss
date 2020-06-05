@@ -1,5 +1,6 @@
 @import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/z-indexes';
 @import 'Assets/styles/objects/button-reset';
 
 $timeline-movie-node-color: $bright-red;
@@ -10,14 +11,6 @@ $timeline-movie-node-color: $bright-red;
   left: 0;
   width: 100%;
   cursor: grab;
-
-  &:nth-child(odd) {
-    background: rgba($primary-color, 0.2);
-  }
-
-  &:nth-child(even) {
-    background: rgba($secondary-color, 0.2);
-  }
 }
 
 .timeline-movie__bg {
@@ -74,20 +67,23 @@ $timeline-movie-node-color: $bright-red;
   display: block;
   position: absolute;
   top: 50%;
-  left: -30px;
+  left: -5px;
   height: 12px;
   width: 12px;
   background: $timeline-movie-node-color;
   border-radius: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  z-index: index($timeline-movie, start-finish-node);
 }
 
 .timeline-movie__node-text {
+  display: block;
   padding: ($spacing-unit * 0.5) $spacing-unit;
   background: $background-color;
   box-shadow: 1px 1px 4px 0px $shadow-color;
   opacity: 0;
+  transform: translateX(#{$spacing-unit * 1.5});
   transition: opacity 0.2s;
 
   .timeline-movie__node:focus + & {

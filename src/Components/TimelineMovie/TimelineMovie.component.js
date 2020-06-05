@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import { MdHighlightOff } from 'react-icons/md';
 
 import config from 'Constants/config';
-import { convertMinutesForDisplay } from 'Constants/utilities';
+import { getDisplayTimeFromStart } from 'Constants/utilities';
 import propShapes from 'Constants/propShapes';
 import { removeMovie as removeMovieAction } from 'Redux/timeline/timeline.actions';
 
 import './TimelineMovie.styles.scss';
 
-const TimelineMovie = ({ movie, removeMovie }) => {
+const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
   return (
     <li
       key={movie.id}
@@ -36,7 +36,7 @@ const TimelineMovie = ({ movie, removeMovie }) => {
             title="View time"
           />
           <span className="timeline-movie__node-text">
-            {convertMinutesForDisplay(movie.startTime)}
+            {getDisplayTimeFromStart(startDateTime, movie.startTime)}
           </span>
         </p>
         <h2 className="timeline-movie__title">
@@ -58,7 +58,7 @@ const TimelineMovie = ({ movie, removeMovie }) => {
             title="View time"
           />
           <span className="timeline-movie__node-text">
-            {convertMinutesForDisplay(movie.finishTime)}
+            {getDisplayTimeFromStart(startDateTime, movie.finishTime)}
           </span>
         </p>
         <div className="timeline-movie__remove">
@@ -78,6 +78,7 @@ const TimelineMovie = ({ movie, removeMovie }) => {
 TimelineMovie.propTypes = {
   movie: PropTypes.shape(propShapes.movie).isRequired,
   removeMovie: PropTypes.func.isRequired,
+  startDateTime: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

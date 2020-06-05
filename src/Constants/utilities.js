@@ -17,3 +17,13 @@ export const convertMinutesForDisplay = (time) => {
 
   return display;
 };
+
+export const getDisplayTimeFromStart = (startDateTime, minutesToAdd) => {
+  const startTime = new Date(startDateTime).getTime();
+  const time = startTime + minutesToAdd * 1000 * 60;
+
+  return new Date(time).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};

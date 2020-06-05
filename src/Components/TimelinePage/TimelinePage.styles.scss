@@ -5,7 +5,7 @@
 .timeline {
   @extend %list-reset;
   position: relative;
-  margin: 0;
+  margin-left: $timescale-width;
 }
 
 .timeline-page__actions {

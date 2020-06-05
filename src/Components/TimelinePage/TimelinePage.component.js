@@ -23,7 +23,7 @@ const TimelinePage = ({
   timeline: {
     currentLength,
     movies,
-    settings: { lengthMode, length, padding },
+    settings: { lengthMode, length, padding, startDateTime },
   },
   reoderMovies,
   reset,
@@ -86,7 +86,11 @@ const TimelinePage = ({
           </div>
         </div>
 
-        <Timescale lengthMode={lengthMode} length={length} />
+        <Timescale
+          lengthMode={lengthMode}
+          length={lengthMode === 'movie' ? currentLength : length}
+          startDateTime={startDateTime}
+        />
 
         <ReactSortable
           className="timeline"
@@ -94,7 +98,6 @@ const TimelinePage = ({
           list={movies}
           setList={(newState) => reoderMovies(newState)}
           style={{
-            marginLeft: lengthMode === 'time' ? 25 : '',
             height:
               lengthMode === 'time'
                 ? length * config.MINUTE_TO_PIXEL_FACTOR
@@ -102,7 +105,11 @@ const TimelinePage = ({
           }}
         >
           {movies.map((movie) => (
-            <TimelineMovie key={movie.id} movie={movie} />
+            <TimelineMovie
+              key={movie.id}
+              movie={movie}
+              startDateTime={startDateTime}
+            />
           ))}
         </ReactSortable>
       </section>

@@ -49,6 +49,25 @@ const getPadding = (state) => {
   return getSpaceBetween(timeRemaining, state.movies.length);
 };
 
+const updateStartFinishTimes = (movies, padding) => {
+  let progress = 0;
+
+  return movies.map((movie, index) => {
+    const startTime = index === 0 ? progress : progress + padding;
+    const finishTime = startTime + movie.runtime;
+
+    const updatedMovie = {
+      ...movie,
+      startTime,
+      finishTime,
+    };
+
+    progress = finishTime;
+
+    return updatedMovie;
+  });
+};
+
 const timelineReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case timelineActionTypes.ADD_MOVIE: {
@@ -85,27 +104,14 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
     }
 
     case timelineActionTypes.UPDATE_START_FINISH_TIMES: {
-      const { padding } = state.settings;
-      let progress = 0;
-
-      const movies = state.movies.map((movie, index) => {
-        const startTime = index === 0 ? progress : progress + padding;
-        const finishTime = startTime + movie.runtime;
-
-        const updatedMovie = {
-          ...movie,
-          startTime,
-          finishTime,
-        };
-
-        progress = finishTime;
-
-        return updatedMovie;
-      });
+      const {
+        movies,
+        settings: { padding },
+      } = state;
 
       return {
         ...state,
-        movies,
+        movies: updateStartFinishTimes(movies, padding),
       };
     }
 
@@ -130,14 +136,20 @@ const timelineReducer = (state = INITIAL_STATE, action) => {
         movies: [],
       };
 
-    case timelineActionTypes.UPDATE_SETTINGS:
+    case timelineActionTypes.UPDATE_SETTINGS: {
+      const { movies } = state;
+      const { padding } = action.payload;
+
       return {
         ...state,
         settings: {
           ...state.settings,
           ...action.payload,
         },
+        currentLength: getCurrentLength(movies, padding),
+        movies: updateStartFinishTimes(movies, padding),
       };
+    }
 
     default:
       return state;

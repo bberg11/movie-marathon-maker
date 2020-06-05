@@ -1,44 +1,43 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+
 .timescale {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   position: absolute;
+  margin-left: $timescale-width;
   width: 2px;
-  background: black;
-
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 2px;
-    width: 20px;
-    background: black;
-  }
-
-  &:before {
-    top: 0;
-  }
-
-  &:after {
-    bottom: 0;
-  }
+  background: $black;
 }
 
 .timescale__tick {
-  display: none;
+  display: block;
+  height: 1px;
+  width: 5px;
   font-size: 0;
-  background: black;
+  background: $black;
 
-  &:nth-child(5n) {
-    display: block;
-    height: 1px;
-    width: 5px;
+  &:nth-child(6n + 1) {
+    height: 2px;
+    width: 7px;
+
+    .timescale__time {
+      display: block;
+      transform: translate(#{$timescale-width * -1}, -50%);
+      font-size: 12px;
+      white-space: nowrap;
+    }
   }
 
-  &:nth-child(60n) {
-    display: block;
+  &:nth-child(12n + 1) {
     height: 2px;
     width: 10px;
+  }
+
+  &:first-child,
+  &:last-child {
+    width: 20px;
+    height: 2px;
   }
 }
