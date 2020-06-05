@@ -3,12 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { MdHighlightOff } from 'react-icons/md';
 
 import config from 'Constants/config';
 import { getDisplayTimeFromStart } from 'Constants/utilities';
 import propShapes from 'Constants/propShapes';
 import { removeMovie as removeMovieAction } from 'Redux/timeline/timeline.actions';
+import Button from 'Components/Button/Button.component';
 
 import './TimelineMovie.styles.scss';
 
@@ -61,14 +61,17 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
             {getDisplayTimeFromStart(startDateTime, movie.finishTime)}
           </span>
         </p>
-        <div className="timeline-movie__remove">
-          <button
-            className="button-reset"
+        <div
+          className="timeline-movie__remove"
+          style={{ width: movie.runtime * config.MINUTE_TO_PIXEL_FACTOR }}
+        >
+          <Button
+            modifier="button--danger-color button--full"
             type="button"
-            onClick={() => removeMovie(movie.id)}
+            clickHandler={() => removeMovie(movie.id)}
           >
-            <MdHighlightOff />
-          </button>
+            Remove
+          </Button>
         </div>
       </div>
     </li>

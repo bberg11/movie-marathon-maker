@@ -96,14 +96,22 @@ $timeline-movie-node-color: $bright-red;
 }
 
 .timeline-movie__remove {
+  display: flex;
   position: absolute;
-  top: $spacing-unit;
-  right: $spacing-unit;
-  color: $danger-color;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  transition: opacity 0.2s;
+  transform: rotate(-90deg);
 
-  svg {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+  button {
+    align-self: flex-end;
+    transform: translateY(100%);
+    transition: transform 0.2s;
+
+    .timeline-movie:hover & {
+      transform: translateY(0);
+    }
   }
 }
