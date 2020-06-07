@@ -5,7 +5,7 @@ import { getDisplayTimeFromStart } from 'Constants/utilities';
 
 import './Timescale.styles.scss';
 
-const Timescale = ({ lengthMode, length, startDateTime }) => {
+const Timescale = ({ length, startDateTime }) => {
   const ticks = [];
 
   for (let i = 1; i < length; i += 1) {
@@ -38,7 +38,6 @@ const Timescale = ({ lengthMode, length, startDateTime }) => {
 
 Timescale.propTypes = {
   length: PropTypes.number.isRequired,
-  lengthMode: PropTypes.string.isRequired,
   startDateTime: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),
