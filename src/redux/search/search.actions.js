@@ -3,12 +3,21 @@ import axios from 'axios';
 import config from 'Constants/config';
 import searchActionTypes from 'Redux/search/search.types';
 
-export const getResults = (query) => (dispatch) => {
+export const getResults = (query, page = 1) => (dispatch) => {
   axios
     .get(
-      `${config.TMDB_BASE_API_URL}/search/movie?api_key=${config.API_KEY}&query=${query}`
+      `${config.TMDB_BASE_API_URL}/search/movie?api_key=${config.API_KEY}&query=${query}&page=${page}`
     )
-    .then(({ data: { results } }) => {
+    .then(({ data }) => {
+      dispatch({
+        type: searchActionTypes.UPDATE_PAGINATION,
+        payload: {
+          currentPage: data.page,
+          totalPages: data.total_pages,
+          totalResults: data.total_results,
+        },
+      });
+
       let movies = {};
 
       if (query.length < 2) {
@@ -20,7 +29,7 @@ export const getResults = (query) => (dispatch) => {
         return;
       }
 
-      results.forEach((movie) => {
+      data.results.forEach((movie) => {
         movies = {
           ...movies,
           [movie.id]: movie,

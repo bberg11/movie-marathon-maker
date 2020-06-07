@@ -3,6 +3,7 @@ const searchActionTypes = {
   UPDATE_RESULT: 'Search: Update Result',
   TOGGLE_AUTOCOMPLETE: 'Search: Toggle Autocomplete',
   SET_QUERY: 'Search: Set Query',
+  UPDATE_PAGINATION: 'Search: Update Pagination',
 };
 
 export default searchActionTypes;

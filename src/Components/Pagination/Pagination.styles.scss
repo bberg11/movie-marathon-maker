@@ -1,0 +1,26 @@
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+@import 'Assets/styles/objects/list-reset';
+
+.pagination {
+  @extend %list-reset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: ($spacing-unit * 2);
+
+  @include respond-to($medium-breakpoint) {
+    justify-content: flex-end;
+  }
+}
+
+.pagination__node {
+  padding: $spacing-unit;
+}
+
+.pagination__icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}

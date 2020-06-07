@@ -3,6 +3,11 @@ import searchActionTypes from 'Redux/search/search.types';
 export const INITIAL_STATE = {
   query: '',
   results: {},
+  pagination: {
+    currentPage: 1,
+    totalPages: 0,
+    totalResults: 0,
+  },
   showAutocomplete: false,
 };
 
@@ -30,6 +35,14 @@ const searchReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         query: action.payload,
+      };
+
+    case searchActionTypes.UPDATE_PAGINATION:
+      return {
+        ...state,
+        pagination: {
+          ...action.payload,
+        },
       };
     default:
       return state;
