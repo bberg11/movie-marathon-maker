@@ -4,7 +4,7 @@
 }
 
 .app__content {
-  padding: $spacing-unit;
+  padding: ($spacing-unit * 2) $spacing-unit ($spacing-unit * 4);
   margin: 0 auto;
   max-width: $page-max-width;
 }
