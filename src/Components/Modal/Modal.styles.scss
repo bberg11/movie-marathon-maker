@@ -1,0 +1,47 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/z-indexes';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: index($components, modal);
+}
+
+.modal__overlay {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  font-size: 0;
+  background: $black-alpha-50;
+  cursor: default;
+}
+
+.modal__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-height: 75%;
+  transform: translate(-50%, -50%);
+  background: $background-color;
+  overflow: auto;
+}
+
+.modal__header {
+  padding: $spacing-unit;
+  text-align: right;
+}
+
+.modal__close {
+  width: 20px;
+  height: 20px;
+}
+
+.modal__body {
+  padding: 0 $spacing-unit $spacing-unit;
+}
