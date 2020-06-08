@@ -29,6 +29,18 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
         }}
       />
       <div className="timeline-movie__content">
+        <div
+          className="timeline-movie__remove"
+          style={{ width: movie.runtime * config.MINUTE_TO_PIXEL_FACTOR }}
+        >
+          <Button
+            modifier="button--danger-color button--full"
+            type="button"
+            clickHandler={() => removeMovie(movie.id)}
+          >
+            Remove
+          </Button>
+        </div>
         <p className="timeline-movie__start">
           <button
             type="button"
@@ -61,18 +73,6 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
             {getDisplayTimeFromStart(startDateTime, movie.finishTime)}
           </span>
         </p>
-        <div
-          className="timeline-movie__remove"
-          style={{ width: movie.runtime * config.MINUTE_TO_PIXEL_FACTOR }}
-        >
-          <Button
-            modifier="button--danger-color button--full"
-            type="button"
-            clickHandler={() => removeMovie(movie.id)}
-          >
-            Remove
-          </Button>
-        </div>
       </div>
     </li>
   );

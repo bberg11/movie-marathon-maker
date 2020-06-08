@@ -1,6 +1,8 @@
+@import 'Assets/styles/settings/breakpoints';
 @import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
 @import 'Assets/styles/settings/z-indexes';
+@import 'Assets/styles/tools/respond-to';
 @import 'Assets/styles/objects/button-reset';
 
 $timeline-movie-node-color: $bright-red;
@@ -34,6 +36,7 @@ $timeline-movie-node-color: $bright-red;
 }
 
 .timeline-movie__title {
+  position: relative;
   padding: 0 $spacing-unit;
   text-align: center;
 
@@ -101,6 +104,7 @@ $timeline-movie-node-color: $bright-red;
   top: 0;
   right: 0;
   bottom: 0;
+  opacity: 0.5;
   overflow: hidden;
   transition: opacity 0.2s;
   transform: rotate(-90deg);
@@ -111,6 +115,10 @@ $timeline-movie-node-color: $bright-red;
     transition: transform 0.2s;
 
     .timeline-movie:hover & {
+      transform: translateY(0);
+    }
+
+    .touchevents & {
       transform: translateY(0);
     }
   }
