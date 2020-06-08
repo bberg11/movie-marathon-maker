@@ -127,10 +127,9 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
                 type="number"
                 value={customLength / 60}
                 name="custom-length"
-                changeHandler={(event) =>
-                  setCustomLength(+event.target.value * 60)
-                }
-                modifier="text-box--small"
+                onChange={(event) => setCustomLength(+event.target.value * 60)}
+                className="text-box text-box--small"
+                min="1"
               />
             </Property>
           ) : (
@@ -155,8 +154,8 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
               type="number"
               value={movieQuantity}
               name="quantity-length"
-              changeHandler={(event) => setMovieQuantity(event.target.value)}
-              modifier="text-box--small"
+              onChange={(event) => setMovieQuantity(event.target.value)}
+              className="text-box text-box--small"
             />
           </Property>
 
@@ -169,8 +168,8 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
               type="number"
               value={padding}
               name="padding"
-              changeHandler={(event) => setPadding(event.target.value)}
-              modifier="text-box--small"
+              onChange={(event) => setPadding(event.target.value)}
+              className="text-box text-box--small"
             />
           </Property>
 
