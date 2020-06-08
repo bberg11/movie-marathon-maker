@@ -21,7 +21,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
   const [dateTime, setDateTime] = useState(new Date());
   const [lengthMode, setLengthMode] = useState('time');
   const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
-  const [customLength, setCustomLength] = useState('');
+  const [customLength, setCustomLength] = useState(60);
   const [movieQuantity, setMovieQuantity] = useState(0);
   const [padding, setPadding] = useState(0);
 
@@ -51,7 +51,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
     let marathonPadding = padding;
 
     if (lengthMode === 'time') {
-      if (customLength > 0) {
+      if (length === 'custom') {
         marathonLength = customLength;
       }
       marathonPadding = 0;
@@ -75,7 +75,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
 
   const handleRadioChange = (event) => {
     setLength(event.target.value);
-    setCustomLength('');
+    setCustomLength(60);
   };
 
   return (

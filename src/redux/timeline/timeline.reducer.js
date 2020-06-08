@@ -3,9 +3,9 @@ import timelineActionTypes from 'Redux/timeline/timeline.types';
 export const INITIAL_STATE = {
   settings: {
     lengthMode: 'time',
-    length: 0,
+    length: 60,
     padding: 0,
-    startDateTime: '',
+    startDateTime: new Date(),
   },
   currentLength: 0,
   movies: [],
@@ -17,11 +17,13 @@ const movieAlreadyExists = (existingMovies, id) => {
 
 const getCurrentLength = (movies, padding) => {
   const runtimes = movies.map((movie) => movie.runtime);
+
   let totalRuntime = runtimes.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
   );
 
-  if (padding > 0) {
+  if (padding > 0 && totalRuntime > 0) {
     totalRuntime += (movies.length - 1) * padding;
   }
 
