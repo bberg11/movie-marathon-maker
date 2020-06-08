@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
@@ -6,16 +6,10 @@ import PropTypes from 'prop-types';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { convertMinutesForDisplay } from 'Constants/utilities';
-import {
-  reorderMovies as reorderMoviesAction,
-  resetMarathon as resetMarathonAction,
-  updatePadding as updatePaddingAction,
-} from 'Redux/timeline/timeline.actions';
+import { reorderMovies as reorderMoviesAction } from 'Redux/timeline/timeline.actions';
 import Timescale from 'Components/Timescale/Timescale.component';
 import TimelineMovie from 'Components/TimelineMovie/TimelineMovie.component';
-import Button from 'Components/Button/Button.component';
-import Drawer from 'Components/Drawer/Drawer.component';
-import SettingsForm from 'Components/SettingsForm/SettingsForm.component';
+import TimelineActions from 'Components/TimelineActions/TimelineActions.component';
 
 import './TimelinePage.styles.scss';
 
@@ -26,11 +20,7 @@ const TimelinePage = ({
     settings: { lengthMode, length, padding, startDateTime },
   },
   reoderMovies,
-  reset,
-  updatePadding,
 }) => {
-  const [showDrawer, setShowDrawer] = useState(false);
-
   return (
     <>
       <section className="timeline-page">
@@ -47,44 +37,8 @@ const TimelinePage = ({
                 currentLength
               )} long`}
         </p>
-        <div className="timeline-page__actions">
-          <div className="timeline-page__action">
-            <Button
-              type="button"
-              modifier="button--full"
-              clickHandler={() => setShowDrawer(!showDrawer)}
-            >
-              Adjust Settings
-            </Button>
-          </div>
 
-          {lengthMode === 'time' ? (
-            <div className="timeline-page__action">
-              <Button
-                type="button"
-                modifier="button--tertiary-color button--full"
-                clickHandler={() => {
-                  const payload = padding > 0 ? 0 : 'even';
-                  updatePadding(payload);
-                }}
-              >
-                {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
-              </Button>
-            </div>
-          ) : (
-            ''
-          )}
-
-          <div className="timeline-page__action">
-            <Button
-              type="button"
-              modifier="button--danger-color button--full"
-              clickHandler={() => reset()}
-            >
-              Reset
-            </Button>
-          </div>
-        </div>
+        <TimelineActions lengthMode={lengthMode} padding={padding} />
 
         <Timescale
           lengthMode={lengthMode}
@@ -113,10 +67,6 @@ const TimelinePage = ({
           ))}
         </ReactSortable>
       </section>
-
-      <Drawer visible={showDrawer} closeHandler={() => setShowDrawer(false)}>
-        <SettingsForm submitHandler={() => setShowDrawer(false)} />
-      </Drawer>
     </>
   );
 };
@@ -124,8 +74,6 @@ const TimelinePage = ({
 TimelinePage.propTypes = {
   timeline: PropTypes.shape(propShapes.timeline).isRequired,
   reoderMovies: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  updatePadding: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -134,8 +82,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   reoderMovies: (movies) => dispatch(reorderMoviesAction(movies)),
-  reset: () => dispatch(resetMarathonAction()),
-  updatePadding: (padding) => dispatch(updatePaddingAction(padding)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelinePage);

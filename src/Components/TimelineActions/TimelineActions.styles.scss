@@ -1,0 +1,10 @@
+@import 'Assets/styles/settings/global';
+
+.timeline-actions {
+  display: flex;
+  margin: 0 0 ($spacing-unit * 2);
+}
+
+.timeline-actions__action {
+  width: calc(100% / 3);
+}

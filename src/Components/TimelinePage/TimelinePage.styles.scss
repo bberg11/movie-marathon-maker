@@ -1,4 +1,3 @@
-@import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
 @import 'Assets/styles/objects/list-reset';
 
@@ -6,13 +5,4 @@
   @extend %list-reset;
   position: relative;
   margin-left: $timescale-width;
-}
-
-.timeline-page__actions {
-  display: flex;
-  margin: 0 0 ($spacing-unit * 2);
-}
-
-.timeline-page__action {
-  width: calc(100% / 3);
 }

@@ -1,5 +1,6 @@
 @import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/z-indexes';
 @import 'Assets/styles/objects/button-reset';
 
 .drawer {
@@ -9,6 +10,7 @@
   height: 100vh;
   width: 100vw;
   transform: translateX(-100%);
+  z-index: index($components, drawer);
 }
 
 .drawer--is-visible {
