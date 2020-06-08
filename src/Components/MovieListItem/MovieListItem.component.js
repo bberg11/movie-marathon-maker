@@ -120,9 +120,6 @@ const MovieListItem = ({
       <Link
         to={{
           pathname: `/movie/${movie.id}`,
-          state: {
-            movie,
-          },
         }}
         className="movie-list-item__link"
         onClick={handleLinkClick}

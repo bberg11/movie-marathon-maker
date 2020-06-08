@@ -8,23 +8,30 @@ import config from 'Constants/config';
 
 import './MovieDetailPage.styles.scss';
 
-const MovieDetailPage = ({ location: { state } }) => {
+const MovieDetailPage = () => {
   const { id } = useParams();
+
   const [movie, setMovie] = useState();
+  const [similarMovies, setSimilarMovies] = useState();
+  const [movieCredits, setMovieCredits] = useState();
+  const [trailers, setTrailers] = useState();
 
   useEffect(() => {
-    if (state) {
-      setMovie(state.movie);
-
-      return;
-    }
-
     axios
-      .get(`${config.TMDB_BASE_API_URL}/movie/${id}?api_key=${config.API_KEY}`)
+      .get(
+        `${config.TMDB_BASE_API_URL}/movie/${id}?api_key=${config.API_KEY}&append_to_response=similar,credits,videos`
+      )
       .then(({ data }) => {
         setMovie(data);
+        setSimilarMovies(data.similar.results);
+        setMovieCredits(data.credits);
+        setTrailers(
+          data.videos.results.filter((video) => {
+            return video.site === 'YouTube' && video.type === 'Trailer';
+          })
+        );
       });
-  }, [state]);
+  }, [id]);
 
   if (!movie) {
     return '';
