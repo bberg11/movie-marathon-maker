@@ -1,0 +1,30 @@
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+
+.trailers {
+  @include respond-to($wide-breakpoint) {
+    display: flex;
+  }
+}
+
+.trailers__current {
+  @include respond-to($wide-breakpoint) {
+    width: 75%;
+  }
+}
+
+.trailers__list {
+  margin: $spacing-unit 0 0;
+  text-align: left;
+
+  @include respond-to($wide-breakpoint) {
+    margin: 0 0 0 $spacing-unit;
+    width: 25%;
+  }
+}
+
+.trailers__items {
+  @include respond-to($wide-breakpoint) {
+  }
+}

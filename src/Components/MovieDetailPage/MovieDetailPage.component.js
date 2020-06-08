@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import propShapes from 'Constants/propShapes';
 import config from 'Constants/config';
+import MovieTrailers from 'Components/MovieTrailers/MovieTrailers.component';
 
 import './MovieDetailPage.styles.scss';
 
@@ -40,6 +41,8 @@ const MovieDetailPage = () => {
   return (
     <section className="movie-detail-page">
       <h1>{movie.title}</h1>
+
+      <MovieTrailers trailers={trailers} />
     </section>
   );
 };
