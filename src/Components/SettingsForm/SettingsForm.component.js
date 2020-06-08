@@ -156,6 +156,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
               name="quantity-length"
               onChange={(event) => setMovieQuantity(event.target.value)}
               className="text-box text-box--small"
+              min="0"
             />
           </Property>
 
@@ -170,6 +171,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
               name="padding"
               onChange={(event) => setPadding(event.target.value)}
               className="text-box text-box--small"
+              min="0"
             />
           </Property>
 
