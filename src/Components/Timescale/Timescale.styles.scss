@@ -39,5 +39,12 @@
   &:last-child {
     width: 20px;
     height: 2px;
+
+    .timescale__time {
+      display: block;
+      transform: translate(#{$timescale-width * -1}, -50%);
+      font-size: 12px;
+      white-space: nowrap;
+    }
   }
 }
