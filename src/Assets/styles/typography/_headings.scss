@@ -70,3 +70,8 @@ h6,
 .heading--no-margin {
   margin: 0;
 }
+
+%heading--half-margin,
+.heading--half-margin {
+  margin: 0 0 $spacing-unit;
+}

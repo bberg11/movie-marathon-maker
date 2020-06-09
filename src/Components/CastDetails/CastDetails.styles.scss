@@ -1,0 +1,14 @@
+@import 'Assets/styles/settings/global';
+
+.cast-details {
+  overflow: auto;
+}
+
+.cast-details__list {
+  display: flex;
+  white-space: nowrap;
+}
+
+.cast-details__person {
+  margin: 0 ($spacing-unit * 0.5);
+}

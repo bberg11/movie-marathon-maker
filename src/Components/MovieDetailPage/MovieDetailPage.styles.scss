@@ -1,0 +1,29 @@
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+
+.movie-detail-page {
+}
+
+.movie-detail-page__row {
+  padding: ($spacing-unit * 2) 0;
+
+  @include respond-to($medium-breakpoint) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.movie-detail-page__cell {
+  @include respond-to($medium-breakpoint) {
+    width: calc(50% - #{$spacing-unit * 2});
+  }
+
+  & + & {
+    padding-top: ($spacing-unit * 2);
+
+    @include respond-to($medium-breakpoint) {
+      padding: 0;
+    }
+  }
+}

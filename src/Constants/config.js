@@ -7,11 +7,17 @@ const config = {
   TMDB_BASE_IMAGE_URL: '//image.tmdb.org/t/p',
 
   PRESET_LENGTHS: [8, 10, 12, 24],
-  PLACEHOLDER_IMAGE_1X:
-    'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
-  PLACEHOLDER_IMAGE_2X:
-    'https://via.placeholder.com/370x556?text=Image%0AUnavailable',
+
+  PLACEHOLDER_IMAGES: {
+    CARD_1X: 'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
+    CARD_2X: 'https://via.placeholder.com/342x513?text=Image%0AUnavailable',
+    DETAIL_1X: 'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
+    DETAIL_2X: 'https://via.placeholder.com/780X1170?text=Image%0AUnavailable',
+  },
+
   MINUTE_TO_PIXEL_FACTOR: 2,
+
+  DEPARTMENTS_ORDER: ['Directing', 'Writing', 'Camera'],
 };
 
 export default config;

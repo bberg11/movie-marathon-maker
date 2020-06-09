@@ -17,6 +17,11 @@
   &:hover {
     transform: scale(0.98);
   }
+
+  .movie-detail-page & {
+    margin: 0 0 ($spacing-unit);
+    width: auto;
+  }
 }
 
 .movie-list-item--condensed {

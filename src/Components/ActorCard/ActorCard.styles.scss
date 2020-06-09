@@ -1,0 +1,41 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+
+$image-width: 171px;
+
+/**
+ * 1. limit to two lines
+ */
+
+.actor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: $image-width;
+  height: 100%;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+.actor-card__image {
+}
+
+.actor-card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $spacing-unit;
+  height: 100%;
+  white-space: normal;
+}
+
+.actor-card__name {
+}
+
+.actor-card__character {
+  margin: 0;
+  max-height: 33px; /* [1] */
+}

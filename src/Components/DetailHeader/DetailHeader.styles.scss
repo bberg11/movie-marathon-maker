@@ -1,0 +1,55 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/tools/respond-to';
+
+.detail-header {
+  margin: ($spacing-unit * -2) 0 0 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+}
+
+.detail-header__bg {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.25;
+
+  @include respond-to($medium-breakpoint) {
+    display: block;
+  }
+}
+
+.detail-header__wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: $page-max-width;
+
+  @include respond-to($medium-breakpoint) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.detail-header__cell {
+}
+
+.detail-header__cell--info {
+  padding: $spacing-unit;
+
+  @include respond-to($medium-breakpoint) {
+    width: calc(100% - 390px);
+    padding: 0 $spacing-unit 0 ($spacing-unit * 2);
+  }
+}
+
+.detail-header__poster {
+  width: 390px;
+}

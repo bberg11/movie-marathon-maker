@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from 'Components/Modal/Modal.component';
+import Button from 'Components/Button/Button.component';
 
 import './MovieTrailers.styles.scss';
 
@@ -34,9 +35,13 @@ const MovieTrailers = ({ trailers }) => {
   return (
     <>
       <div className="movie-detail-page__trailer">
-        <button type="button" onClick={() => setShowModal(true)}>
-          Trailers
-        </button>
+        <Button
+          type="button"
+          modifier="button--full button--tertiary-color"
+          clickHandler={() => setShowModal(true)}
+        >
+          View Trailers
+        </Button>
       </div>
 
       {showModal ? (

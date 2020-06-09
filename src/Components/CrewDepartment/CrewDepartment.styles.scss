@@ -1,0 +1,46 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/objects/button-reset';
+
+.crew-department {
+  @extend %button-reset;
+  display: block;
+  margin: 0 0 $spacing-unit;
+  padding: $spacing-unit;
+  text-align: left;
+  width: 100%;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius;
+}
+
+.crew-department--is-expanded {
+}
+
+.crew-department__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s;
+
+  .crew-department--is-expanded & {
+    max-height: 100vh;
+  }
+}
+
+.crew-department__header {
+  position: relative;
+}
+
+.crew-department__person {
+  margin: ($spacing-unit * 0.5) 0;
+}
+
+.crew-department__toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.crew-department__icon {
+  width: 20px;
+  height: 20px;
+}

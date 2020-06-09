@@ -7,7 +7,7 @@ import lineClamp from 'line-clamp';
 import classNames from 'classnames';
 
 import propShapes from 'Constants/propShapes';
-import config from 'Constants/config';
+import { cardImageSrc } from 'Constants/utilities';
 import {
   addMovie as addMovieAction,
   updatePadding as updatePaddingAction,
@@ -64,20 +64,6 @@ const MovieListItem = ({
     return new Date(dateString).getFullYear().toString();
   };
 
-  const posterSrc = (posterPath) => {
-    if (posterPath) {
-      return {
-        '1x': `${config.TMDB_BASE_IMAGE_URL}/w185${posterPath}`,
-        '2x': `${config.TMDB_BASE_IMAGE_URL}/w342${posterPath}`,
-      };
-    }
-
-    return {
-      '1x': config.PLACEHOLDER_IMAGE_1X,
-      '2x': config.PLACEHOLDER_IMAGE_2X,
-    };
-  };
-
   const movieAlreadyExists = (id) => {
     return existingMovies.some((existingMovie) => existingMovie.id === id);
   };
@@ -127,10 +113,10 @@ const MovieListItem = ({
         <div className="movie-list-item__details">
           <div className="movie-list-item__image-wrap">
             <img
-              srcSet={`${posterSrc(movie.poster_path)['1x']} 1x, ${
-                posterSrc(movie.poster_path)['2x']
+              srcSet={`${cardImageSrc(movie.poster_path)['1x']} 1x, ${
+                cardImageSrc(movie.poster_path)['2x']
               } 2x`}
-              src={posterSrc(movie.poster_path)['2x']}
+              src={cardImageSrc(movie.poster_path)['2x']}
               alt={`${movie.title} Movie Poster`}
               className="movie-list-item__image"
             />
@@ -199,7 +185,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addMovie: (movie, start) => dispatch(addMovieAction(movie, start)),
+  addMovie: (movie) => dispatch(addMovieAction(movie)),
   setQuery: (query) => dispatch(setQueryAction(query)),
   toggleAutocomplete: (shouldShow) =>
     dispatch(toggleAutocompleteAction(shouldShow)),
