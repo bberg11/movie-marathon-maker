@@ -83,3 +83,45 @@ export const detailImageSrc = (path) => {
     '2x': config.PLACEHOLDER_IMAGES.DETAIL_2X,
   };
 };
+
+export const movieAlreadyExists = (addToMarathonButtonData) => {
+  const { existingMovies, id } = addToMarathonButtonData;
+
+  return existingMovies.some((existingMovie) => existingMovie.id === id);
+};
+
+export const runtimeExceedsLength = (addToMarathonButtonData) => {
+  const {
+    lengthMode,
+    existingMovies,
+    targetLength,
+    currentLength,
+    runtime,
+  } = addToMarathonButtonData;
+
+  if (lengthMode === 'movie') {
+    return existingMovies.length >= targetLength;
+  }
+
+  return currentLength + runtime > targetLength;
+};
+
+export const buttonText = (addToMarathonButtonData) => {
+  const defaultText = 'Add to marathon';
+
+  if (movieAlreadyExists(addToMarathonButtonData)) {
+    return 'Already in your marathon';
+  }
+
+  if (runtimeExceedsLength(addToMarathonButtonData)) {
+    return `${defaultText} (Will overflow length)`;
+  }
+
+  return defaultText;
+};
+
+export const buttonClassName = (addToMarathonButtonData) => {
+  return runtimeExceedsLength(addToMarathonButtonData)
+    ? 'button--secondary-color'
+    : '';
+};

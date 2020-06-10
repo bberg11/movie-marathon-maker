@@ -8,6 +8,9 @@ import {
   releaseYear,
   getTheatricalRelease,
   convertMinutesForDisplay,
+  movieAlreadyExists,
+  buttonText,
+  buttonClassName,
 } from 'Constants/utilities';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
@@ -28,6 +31,15 @@ const DetailHeader = ({
 }) => {
   const history = useHistory();
 
+  const addToMarathonButtonData = {
+    currentLength,
+    existingMovies,
+    lengthMode,
+    targetLength,
+    id: movie.id,
+    runtime: movie.runtime,
+  };
+
   const trailers = movie.videos.results.filter((video) => {
     return video.site === 'YouTube' && video.type === 'Trailer';
   });
@@ -37,36 +49,6 @@ const DetailHeader = ({
   );
 
   const releaseDateDisplay = new Date(releaseDate).toLocaleDateString();
-
-  const movieAlreadyExists = (id) => {
-    return existingMovies.some((existingMovie) => existingMovie.id === id);
-  };
-
-  const runtimeExceedsLength = (runtime) => {
-    if (lengthMode === 'movie') {
-      return existingMovies.length >= targetLength;
-    }
-
-    return currentLength + runtime > targetLength;
-  };
-
-  const buttonText = ({ id, runtime }) => {
-    const defaultText = 'Add to marathon';
-
-    if (movieAlreadyExists(id)) {
-      return 'Already in your marathon';
-    }
-
-    if (runtimeExceedsLength(runtime)) {
-      return `${defaultText} (Will overflow length)`;
-    }
-
-    return defaultText;
-  };
-
-  const buttonClassName = (runtime) => {
-    return runtimeExceedsLength(runtime) ? 'button--secondary-color' : '';
-  };
 
   const renderGenres = (genre) => {
     return <li key={genre.name}>{genre.name}</li>;
@@ -111,15 +93,15 @@ const DetailHeader = ({
             <Button
               type="button"
               className={`button button--full button--large ${buttonClassName(
-                movie.runtime
+                addToMarathonButtonData
               )}`}
-              disabled={movieAlreadyExists(movie.id)}
+              disabled={movieAlreadyExists(addToMarathonButtonData)}
               onClick={() => {
                 addMovie(movie);
                 history.push('/timeline');
               }}
             >
-              {buttonText(movie)}
+              {buttonText(addToMarathonButtonData)}
             </Button>
           </div>
         </div>

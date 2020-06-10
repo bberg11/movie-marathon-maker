@@ -7,7 +7,13 @@ import lineClamp from 'line-clamp';
 import classNames from 'classnames';
 
 import propShapes from 'Constants/propShapes';
-import { cardImageSrc } from 'Constants/utilities';
+import {
+  cardImageSrc,
+  movieAlreadyExists,
+  buttonText,
+  buttonClassName,
+  runtimeExceedsLength,
+} from 'Constants/utilities';
 import {
   addMovie as addMovieAction,
   updatePadding as updatePaddingAction,
@@ -36,6 +42,14 @@ const MovieListItem = ({
   const history = useHistory();
   const overviewTextRef = useRef();
   const overviewText = movie.overview;
+  const addToMarathonButtonData = {
+    currentLength,
+    existingMovies,
+    lengthMode,
+    targetLength,
+    id: movie.id,
+    runtime: movie.runtime,
+  };
 
   useEffect(() => {
     lineClamp(overviewTextRef.current, 3);
@@ -64,43 +78,17 @@ const MovieListItem = ({
     return new Date(dateString).getFullYear().toString();
   };
 
-  const movieAlreadyExists = (id) => {
-    return existingMovies.some((existingMovie) => existingMovie.id === id);
-  };
-
-  const runtimeExceedsLength = (runtime) => {
-    if (lengthMode === 'movie') {
-      return existingMovies.length >= targetLength;
-    }
-
-    return currentLength + runtime > targetLength;
-  };
-
-  const buttonClassName = (runtime) => {
-    return runtimeExceedsLength(runtime) ? 'button--secondary-color' : '';
-  };
-
-  const buttonText = ({ id, runtime }) => {
-    const defaultText = 'Add to marathon';
-
-    if (movieAlreadyExists(id)) {
-      return 'Already in your marathon';
-    }
-
-    if (runtimeExceedsLength(runtime)) {
-      return `${defaultText} (Will overflow length)`;
-    }
-
-    return defaultText;
-  };
-
   return (
     <li
       className={classNames({
         'movie-list-item': true,
         'movie-list-item--condensed': condensed,
-        'movie-list-item--already-exists': movieAlreadyExists(movie.id),
-        'movie-list-item--will-overflow': runtimeExceedsLength(movie.runtime),
+        'movie-list-item--already-exists': movieAlreadyExists(
+          addToMarathonButtonData
+        ),
+        'movie-list-item--will-overflow': runtimeExceedsLength(
+          addToMarathonButtonData
+        ),
       })}
     >
       <Link
@@ -142,12 +130,14 @@ const MovieListItem = ({
         </div>
         <div className="movie-list-item__action">
           <Button
-            className={`button button--full ${buttonClassName(movie.runtime)}`}
+            className={`button button--full ${buttonClassName(
+              addToMarathonButtonData
+            )}`}
             type="button"
             onClick={handleAddToTimeline.bind(this, movie)}
-            disabled={movieAlreadyExists(movie.id)}
+            disabled={movieAlreadyExists(addToMarathonButtonData)}
           >
-            {buttonText(movie)}
+            {buttonText(addToMarathonButtonData)}
           </Button>
         </div>
       </Link>
