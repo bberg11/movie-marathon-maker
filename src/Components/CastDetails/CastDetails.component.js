@@ -14,13 +14,15 @@ const CastDetails = ({ cast }) => {
   return (
     <div className="cast-details">
       <h2>Cast</h2>
-      <ul className="cast-details__list list-reset">
-        {cast.map((castMember) => (
-          <li key={castMember.id} className="cast-details__person">
-            <ActorCard actor={castMember} />
-          </li>
-        ))}
-      </ul>
+      <div className="cast-detail__overflow-wrapper">
+        <ul className="cast-details__list list-reset">
+          {cast.map((castMember) => (
+            <li key={castMember.id} className="cast-details__person">
+              <ActorCard actor={castMember} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

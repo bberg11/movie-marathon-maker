@@ -1,6 +1,10 @@
 @import 'Assets/styles/settings/global';
 
 .cast-details {
+  width: 100%;
+}
+
+.cast-detail__overflow-wrapper {
   overflow: auto;
 }
 
