@@ -185,7 +185,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
       )}
 
       <p>
-        <Button type="submit" modifier="button--full">
+        <Button type="submit" className="button button--full">
           Save
         </Button>
       </p>

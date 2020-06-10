@@ -20,8 +20,8 @@ const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
       <div className="timeline-actions__action">
         <Button
           type="button"
-          modifier="button--full"
-          clickHandler={() => setShowDrawer(!showDrawer)}
+          className="button button--full"
+          onClick={() => setShowDrawer(!showDrawer)}
         >
           Adjust Settings
         </Button>
@@ -31,8 +31,8 @@ const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
         <div className="timeline-actions__action">
           <Button
             type="button"
-            modifier="button--tertiary-color button--full"
-            clickHandler={() => {
+            className="button button--tertiary-color button--full"
+            onClick={() => {
               const payload = padding > 0 ? 0 : 'even';
               updatePadding(payload);
             }}
@@ -47,8 +47,8 @@ const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
       <div className="timeline-actions__action">
         <Button
           type="button"
-          modifier="button--danger-color button--full"
-          clickHandler={() => reset()}
+          className="button button--danger-color button--full"
+          onClick={() => reset()}
         >
           Reset
         </Button>

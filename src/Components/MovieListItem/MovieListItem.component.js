@@ -142,9 +142,9 @@ const MovieListItem = ({
         </div>
         <div className="movie-list-item__action">
           <Button
-            modifier={`button--full ${buttonClassName(movie.runtime)}`}
+            className={`button button--full ${buttonClassName(movie.runtime)}`}
             type="button"
-            clickHandler={handleAddToTimeline.bind(this, movie)}
+            onClick={handleAddToTimeline.bind(this, movie)}
             disabled={movieAlreadyExists(movie.id)}
           >
             {buttonText(movie)}

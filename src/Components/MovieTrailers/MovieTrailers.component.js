@@ -42,8 +42,8 @@ const MovieTrailers = ({ trailers }) => {
       <div className="movie-detail-page__trailer">
         <Button
           type="button"
-          modifier="button--full button--tertiary-color"
-          clickHandler={() => setShowModal(true)}
+          className="button button--full button--tertiary-color"
+          onClick={() => setShowModal(true)}
         >
           View Trailers
         </Button>

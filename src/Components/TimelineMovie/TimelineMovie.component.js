@@ -34,9 +34,9 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
           style={{ width: movie.runtime * config.MINUTE_TO_PIXEL_FACTOR }}
         >
           <Button
-            modifier="button--danger-color button--full"
+            className="button button--danger-color button--full"
             type="button"
-            clickHandler={() => removeMovie(movie.id)}
+            onClick={() => removeMovie(movie.id)}
           >
             Remove
           </Button>

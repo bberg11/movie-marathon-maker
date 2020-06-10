@@ -110,11 +110,11 @@ const DetailHeader = ({
           <div className="detail-header__add-section">
             <Button
               type="button"
-              modifier={`button--full button--large ${buttonClassName(
+              className={`button button--full button--large ${buttonClassName(
                 movie.runtime
               )}`}
               disabled={movieAlreadyExists(movie.id)}
-              clickHandler={() => {
+              onClick={() => {
                 addMovie(movie);
                 history.push('/timeline');
               }}

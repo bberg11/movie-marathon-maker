@@ -92,7 +92,7 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
           ''
         )}
       </div>
-      <Button type="submit" modifier="button--secondary-color">
+      <Button type="submit" className="button button--secondary-color">
         Search
       </Button>
 
