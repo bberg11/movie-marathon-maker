@@ -1,3 +1,4 @@
+@import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
 @import 'Assets/styles/settings/breakpoints';
 @import 'Assets/styles/tools/respond-to';
@@ -25,6 +26,8 @@
 }
 
 .trailers__items {
-  @include respond-to($wide-breakpoint) {
-  }
+}
+
+.trailers__item {
+  padding: ($spacing-unit * 0.5) 0;
 }

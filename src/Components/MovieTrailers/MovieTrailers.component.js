@@ -19,7 +19,9 @@ const MovieTrailers = ({ trailers }) => {
       <li key={trailer.id} className="trailers__item">
         <button
           type="button"
-          className="text-button"
+          className={`text-button ${
+            currentTrailer === trailer ? 'text-button--font-color' : ''
+          }`}
           onClick={() => setCurrentTrailer(trailer)}
         >
           {trailer.name}
@@ -59,6 +61,7 @@ const MovieTrailers = ({ trailers }) => {
               </div>
             </div>
             <div className="trailers__list">
+              <h2>Trailers</h2>
               <ul className="trailers__items list-reset">
                 {trailers.map(renderTrailerButton)}
               </ul>
