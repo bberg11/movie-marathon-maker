@@ -17,7 +17,15 @@ import Button from 'Components/Button/Button.component';
 
 import './DetailHeader.styles.scss';
 
-const DetailHeader = ({ addMovie, movie, directedBy }) => {
+const DetailHeader = ({
+  addMovie,
+  currentLength,
+  directedBy,
+  existingMovies,
+  lengthMode,
+  movie,
+  targetLength,
+}) => {
   const history = useHistory();
 
   const trailers = movie.videos.results.filter((video) => {
@@ -29,6 +37,36 @@ const DetailHeader = ({ addMovie, movie, directedBy }) => {
   );
 
   const releaseDateDisplay = new Date(releaseDate).toLocaleDateString();
+
+  const movieAlreadyExists = (id) => {
+    return existingMovies.some((existingMovie) => existingMovie.id === id);
+  };
+
+  const runtimeExceedsLength = (runtime) => {
+    if (lengthMode === 'movie') {
+      return existingMovies.length >= targetLength;
+    }
+
+    return currentLength + runtime > targetLength;
+  };
+
+  const buttonText = ({ id, runtime }) => {
+    const defaultText = 'Add to marathon';
+
+    if (movieAlreadyExists(id)) {
+      return 'Already in your marathon';
+    }
+
+    if (runtimeExceedsLength(runtime)) {
+      return `${defaultText} (Will overflow length)`;
+    }
+
+    return defaultText;
+  };
+
+  const buttonClassName = (runtime) => {
+    return runtimeExceedsLength(runtime) ? 'button--secondary-color' : '';
+  };
 
   const renderGenres = (genre) => {
     return <li key={genre.name}>{genre.name}</li>;
@@ -72,13 +110,16 @@ const DetailHeader = ({ addMovie, movie, directedBy }) => {
           <div className="detail-header__add-section">
             <Button
               type="button"
-              modifier="button--full button--large"
+              modifier={`button--full button--large ${buttonClassName(
+                movie.runtime
+              )}`}
+              disabled={movieAlreadyExists(movie.id)}
               clickHandler={() => {
                 addMovie(movie);
                 history.push('/timeline');
               }}
             >
-              Add to Marathon
+              {buttonText(movie)}
             </Button>
           </div>
         </div>
@@ -89,12 +130,26 @@ const DetailHeader = ({ addMovie, movie, directedBy }) => {
 
 DetailHeader.propTypes = {
   addMovie: PropTypes.func.isRequired,
-  movie: PropTypes.shape(propShapes.movie).isRequired,
+  currentLength: PropTypes.number.isRequired,
   directedBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  existingMovies: PropTypes.arrayOf(PropTypes.shape(propShapes.movie))
+    .isRequired,
+  lengthMode: PropTypes.string.isRequired,
+  movie: PropTypes.shape(propShapes.movie).isRequired,
+  targetLength: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    currentLength: state.timeline.currentLength,
+    existingMovies: state.timeline.movies,
+    lengthMode: state.timeline.settings.lengthMode,
+    targetLength: state.timeline.settings.length,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   addMovie: (movie) => dispatch(addMovieAction(movie)),
 });
 
-export default connect(null, mapDispatchToProps)(DetailHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailHeader);
