@@ -105,7 +105,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
               type="radio"
               value={presetLength * 60}
               checked={presetLength * 60 === +length}
-              changeHandler={handleRadioChange}
+              onChange={handleRadioChange}
               label={`${presetLength} hours`}
             />
           ))}
@@ -116,7 +116,7 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
             type="radio"
             value="custom"
             checked={length === 'custom'}
-            changeHandler={handleRadioChange}
+            onChange={handleRadioChange}
             label="Custom"
           />
 
