@@ -2,13 +2,19 @@
 @import 'Assets/styles/settings/global';
 @import 'Assets/styles/objects/button-reset';
 
+/**
+ * 1. account for department with two top credits to be same size as single top credit
+ */
+
 .crew-department {
   @extend %button-reset;
   display: block;
+  position: relative;
   margin: 0 0 $spacing-unit;
   padding: $spacing-unit;
   text-align: left;
   width: 100%;
+  min-height: 70px; /* [1] */
   border: 1px solid $primary-color;
   border-radius: $border-radius;
 }
@@ -27,7 +33,7 @@
 }
 
 .crew-department__header {
-  position: relative;
+  margin: 0 0 ($spacing-unit * -0.5);
 }
 
 .crew-department__person {
@@ -36,8 +42,9 @@
 
 .crew-department__toggle {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: $spacing-unit;
+  transform: translateY(-50%);
 }
 
 .crew-department__icon {
