@@ -5,12 +5,11 @@
 @import 'Assets/styles/tools/respond-to';
 
 .detail-header {
-  margin: ($spacing-unit * -2) ($spacing-unit * -1) ($spacing-unit * -1);
+  margin: ($spacing-unit * -2) ($spacing-unit * -1) 0;
 
   @include respond-to($medium-breakpoint) {
-    margin: ($spacing-unit * -2) 0 0 50%;
-    width: 100vw;
-    transform: translateX(-50%);
+    position: relative;
+    margin: ($spacing-unit * -2) 0 0;
   }
 }
 
@@ -21,6 +20,9 @@
   right: 0;
   bottom: 0;
   left: 0;
+  margin-left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   background-size: cover;
   background-position: center center;
   opacity: 0.25;

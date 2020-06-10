@@ -8,7 +8,10 @@ import './MovieTrailers.styles.scss';
 
 const MovieTrailers = ({ trailers }) => {
   const [showModal, setShowModal] = useState(false);
-  const [currentTrailer, setCurrentTrailer] = useState();
+  const [currentTrailer, setCurrentTrailer] = useState({
+    name: '',
+    key: '',
+  });
 
   useEffect(() => {
     setCurrentTrailer(trailers[0]);
@@ -46,31 +49,27 @@ const MovieTrailers = ({ trailers }) => {
         </Button>
       </div>
 
-      {showModal ? (
-        <Modal closeHandler={() => setShowModal(false)}>
-          <div className="trailers">
-            <div className="trailers__current">
-              <div className="responsive-frame">
-                <iframe
-                  title={currentTrailer.name}
-                  src={`https://www.youtube.com/embed/${currentTrailer.key}`}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-            <div className="trailers__list">
-              <h2>Trailers</h2>
-              <ul className="trailers__items list-reset">
-                {trailers.map(renderTrailerButton)}
-              </ul>
+      <Modal visible={showModal} closeHandler={() => setShowModal(false)}>
+        <div className="trailers">
+          <div className="trailers__current">
+            <div className="responsive-frame">
+              <iframe
+                title={currentTrailer.name}
+                src={`https://www.youtube.com/embed/${currentTrailer.key}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
-        </Modal>
-      ) : (
-        ''
-      )}
+          <div className="trailers__list">
+            <h2>Trailers</h2>
+            <ul className="trailers__items list-reset">
+              {trailers.map(renderTrailerButton)}
+            </ul>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
