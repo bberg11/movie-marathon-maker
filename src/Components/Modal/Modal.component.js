@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MdClose } from 'react-icons/md';
 
 import './Modal.styles.scss';
 
-const Modal = ({ children, closeHandler }) => {
+const Modal = ({ closeHandler, visible, children }) => {
+  useEffect(() => {
+    const htmlEl = document.querySelector('html');
+
+    if (visible) {
+      htmlEl.classList.add('no-scroll');
+    } else {
+      htmlEl.classList.remove('no-scroll');
+    }
+  }, [visible]);
+
+  if (!visible) {
+    return '';
+  }
+
   return (
     <div className="modal">
       <button type="button" className="modal__overlay" onClick={closeHandler}>
@@ -22,9 +36,14 @@ const Modal = ({ children, closeHandler }) => {
   );
 };
 
+Modal.defaultProps = {
+  visible: false,
+};
+
 Modal.propTypes = {
-  children: PropTypes.node.isRequired,
   closeHandler: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
 
 export default Modal;
