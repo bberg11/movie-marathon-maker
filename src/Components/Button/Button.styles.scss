@@ -48,6 +48,11 @@ $button-bg-color: $primary-color;
   background: $disabled-color;
 }
 
+.button--large {
+  padding: ($spacing-unit * 2) ($spacing-unit * 4);
+  font-size: 1.5rem;
+}
+
 .button--full {
   width: 100%;
   text-align: center;

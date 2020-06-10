@@ -69,15 +69,18 @@ const DetailHeader = ({ addMovie, movie, directedBy }) => {
           <p>
             <strong>Directed by: </strong> {directedBy.join(', ')}
           </p>
-          <Button
-            type="button"
-            clickHandler={() => {
-              addMovie(movie);
-              history.push('/timeline');
-            }}
-          >
-            Add to Marathon
-          </Button>
+          <div className="detail-header__add-section">
+            <Button
+              type="button"
+              modifier="button--full button--large"
+              clickHandler={() => {
+                addMovie(movie);
+                history.push('/timeline');
+              }}
+            >
+              Add to Marathon
+            </Button>
+          </div>
         </div>
       </div>
     </div>

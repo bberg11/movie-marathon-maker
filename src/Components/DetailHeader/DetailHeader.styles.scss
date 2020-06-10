@@ -1,12 +1,17 @@
 @import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
 @import 'Assets/styles/settings/breakpoints';
+@import 'Assets/styles/settings/z-indexes';
 @import 'Assets/styles/tools/respond-to';
 
 .detail-header {
-  margin: ($spacing-unit * -2) 0 0 50%;
-  width: 100vw;
-  transform: translateX(-50%);
+  margin: ($spacing-unit * -2) ($spacing-unit * -1) ($spacing-unit * -1);
+
+  @include respond-to($medium-breakpoint) {
+    margin: ($spacing-unit * -2) 0 0 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+  }
 }
 
 .detail-header__bg {
@@ -39,6 +44,12 @@
 }
 
 .detail-header__cell {
+  align-self: center;
+  max-width: 390px;
+
+  @include respond-to($medium-breakpoint) {
+    max-width: none;
+  }
 }
 
 .detail-header__cell--info {
@@ -52,4 +63,17 @@
 
 .detail-header__poster {
   width: 390px;
+}
+
+.detail-header__add-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: index($detail-header, add-section);
+
+  @include respond-to($medium-breakpoint) {
+    display: inline-block;
+    position: static;
+  }
 }
