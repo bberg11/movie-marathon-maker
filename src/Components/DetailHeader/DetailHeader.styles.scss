@@ -54,10 +54,11 @@
 
 .detail-header__cell--info {
   padding: $spacing-unit;
+  font-size: 16px;
 
   @include respond-to($medium-breakpoint) {
     width: calc(100% - 390px);
-    padding: 0 $spacing-unit 0 ($spacing-unit * 2);
+    padding-left: ($spacing-unit * 2);
   }
 }
 

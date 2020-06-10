@@ -102,7 +102,7 @@ const DetailHeader = ({
           </p>
           <ul>{movie.genres.map(renderGenres)}</ul>
           <p>{movie.tagline}</p>
-          <h2 className="heading heading--6">Overview</h2>
+          <h2 className="heading heading--5">Overview</h2>
           <p>{movie.overview}</p>
           <p>
             <strong>Directed by: </strong> {directedBy.join(', ')}
