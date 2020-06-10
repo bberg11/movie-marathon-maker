@@ -18,6 +18,7 @@
   width: 100%;
   font-size: 0;
   background: $black-alpha-50;
+  border: 0;
   cursor: default;
 }
 
@@ -28,20 +29,23 @@
   width: 90%;
   max-height: 75%;
   transform: translate(-50%, -50%);
-  background: $background-color;
+
   overflow: auto;
 }
 
 .modal__header {
   padding: $spacing-unit;
   text-align: right;
+  background: transparent;
 }
 
 .modal__close {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
+  fill: $background-color;
 }
 
 .modal__body {
-  padding: 0 $spacing-unit $spacing-unit;
+  padding: $spacing-unit;
+  background: $background-color;
 }
