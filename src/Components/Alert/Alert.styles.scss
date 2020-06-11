@@ -1,0 +1,43 @@
+@import 'Assets/styles/settings/colors';
+@import 'Assets/styles/settings/global';
+
+.alert {
+  position: relative;
+  margin: 0 auto;
+  padding: ($spacing-unit * 2) ($spacing-unit * 4) ($spacing-unit * 2)
+    $spacing-unit;
+  max-width: $page-max-width;
+  background: lighten($primary-color, 40);
+  border: 2px solid $primary-color;
+  box-shadow: 4px 4px 4px 2px $shadow-color;
+
+  & + & {
+    margin-top: $spacing-unit;
+  }
+}
+
+.alert--success {
+  background: lighten($success-color, 40);
+  border-color: $success-color;
+}
+
+.alert--warning {
+  background: lighten($warning-color, 40);
+  border-color: $warning-color;
+}
+
+.alert--danger {
+  background: lighten($danger-color, 40);
+  border-color: $danger-color;
+}
+
+.alert__close {
+  position: absolute;
+  top: ($spacing-unit * 2);
+  right: $spacing-unit;
+}
+
+.alert__close-icon {
+  width: 20px;
+  height: 20px;
+}

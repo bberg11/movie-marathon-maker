@@ -22,11 +22,13 @@ import {
   toggleAutocomplete as toggleAutocompleteAction,
   setQuery as setQueryAction,
 } from 'Redux/search/search.actions';
+import { addMessage } from 'Redux/flash/flash.actions';
 import Button from 'Components/Button/Button.component';
 
 import './MovieListItem.styles.scss';
 
 const MovieListItem = ({
+  addFlash,
   addMovie,
   condensed,
   currentLength,
@@ -66,6 +68,7 @@ const MovieListItem = ({
       updatePadding('even');
     }
 
+    addFlash(`"${movie.title}" has been added to your marathon`, 'success');
     history.push('/timeline');
   };
 
@@ -150,6 +153,7 @@ MovieListItem.defaultProps = {
 };
 
 MovieListItem.propTypes = {
+  addFlash: PropTypes.func.isRequired,
   addMovie: PropTypes.func.isRequired,
   condensed: PropTypes.bool,
   currentLength: PropTypes.number.isRequired,
@@ -175,6 +179,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  addFlash: (message, type) => dispatch(addMessage(message, type)),
   addMovie: (movie) => dispatch(addMovieAction(movie)),
   setQuery: (query) => dispatch(setQueryAction(query)),
   toggleAutocomplete: (shouldShow) =>

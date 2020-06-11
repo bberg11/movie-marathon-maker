@@ -8,6 +8,7 @@ import DateTimePicker from 'react-datetime-picker';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { updateSettings as updateSettingsAction } from 'Redux/timeline/timeline.actions';
+import { addMessage } from 'Redux/flash/flash.actions';
 import ButtonProperty from 'Components/ButtonProperty/ButtonProperty.component';
 import Property from 'Components/Property/Property.component';
 import TextBox from 'Components/TextBox/TextBox.component';
@@ -17,7 +18,12 @@ import Button from 'Components/Button/Button.component';
 import './SettingsForm.styles.scss';
 import './DateTimePicker.styles.scss';
 
-const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
+const SettingsForm = ({
+  addFlash,
+  savedSettings,
+  submitHandler,
+  updateSettings,
+}) => {
   const [dateTime, setDateTime] = useState(new Date());
   const [lengthMode, setLengthMode] = useState('time');
   const [length, setLength] = useState(config.PRESET_LENGTHS[0]);
@@ -65,6 +71,8 @@ const SettingsForm = ({ savedSettings, submitHandler, updateSettings }) => {
       padding: +marathonPadding,
       startDateTime: dateTime,
     });
+
+    addFlash('Your marathon settings have been updated', 'success');
 
     history.push('/timeline');
 
@@ -198,6 +206,7 @@ SettingsForm.defaultProps = {
 };
 
 SettingsForm.propTypes = {
+  addFlash: PropTypes.func.isRequired,
   savedSettings: PropTypes.shape(propShapes.settings).isRequired,
   submitHandler: PropTypes.func,
   updateSettings: PropTypes.func.isRequired,
@@ -209,6 +218,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   updateSettings: (settings) => dispatch(updateSettingsAction(settings)),
+  addFlash: (message, type) => dispatch(addMessage(message, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);

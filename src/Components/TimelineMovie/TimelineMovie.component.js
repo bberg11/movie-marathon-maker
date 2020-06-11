@@ -8,11 +8,12 @@ import config from 'Constants/config';
 import { getDisplayTimeFromStart } from 'Constants/utilities';
 import propShapes from 'Constants/propShapes';
 import { removeMovie as removeMovieAction } from 'Redux/timeline/timeline.actions';
+import { addMessage } from 'Redux/flash/flash.actions';
 import Button from 'Components/Button/Button.component';
 
 import './TimelineMovie.styles.scss';
 
-const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
+const TimelineMovie = ({ addFlash, movie, removeMovie, startDateTime }) => {
   return (
     <li
       key={movie.id}
@@ -36,7 +37,13 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
           <Button
             className="button button--danger-color button--full"
             type="button"
-            onClick={() => removeMovie(movie.id)}
+            onClick={() => {
+              removeMovie(movie.id);
+              addFlash(
+                `"${movie.title}" has been removed from your marathon`,
+                'success'
+              );
+            }}
           >
             Remove
           </Button>
@@ -79,6 +86,7 @@ const TimelineMovie = ({ movie, removeMovie, startDateTime }) => {
 };
 
 TimelineMovie.propTypes = {
+  addFlash: PropTypes.func.isRequired,
   movie: PropTypes.shape(propShapes.movie).isRequired,
   removeMovie: PropTypes.func.isRequired,
   startDateTime: PropTypes.oneOfType([
@@ -89,6 +97,7 @@ TimelineMovie.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   removeMovie: (id) => dispatch(removeMovieAction(id)),
+  addFlash: (message, type) => dispatch(addMessage(message, type)),
 });
 
 export default connect(null, mapDispatchToProps)(TimelineMovie);

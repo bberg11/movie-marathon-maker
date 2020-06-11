@@ -1,0 +1,11 @@
+@import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/z-indexes';
+
+.flash-messages {
+  position: fixed;
+  top: ($spacing-unit * 2);
+  left: 0;
+  right: 0;
+  padding: $spacing-unit;
+  z-index: index($components, flash-messages);
+}
