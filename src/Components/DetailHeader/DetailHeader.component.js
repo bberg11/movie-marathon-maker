@@ -15,6 +15,7 @@ import {
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { addMovie } from 'Redux/timeline/timeline.actions';
+import { addMessage } from 'Redux/flash/flash.actions';
 import MovieTrailers from 'Components/MovieTrailers/MovieTrailers.component';
 import Button from 'Components/Button/Button.component';
 
@@ -98,6 +99,12 @@ const DetailHeader = ({
               disabled={movieAlreadyExists(addToMarathonButtonData)}
               onClick={() => {
                 dispatch(addMovie(movie));
+                dispatch(
+                  addMessage(
+                    `"${movie.title}" has been added to your marathon`,
+                    'success'
+                  )
+                );
                 history.push('/timeline');
               }}
             >
