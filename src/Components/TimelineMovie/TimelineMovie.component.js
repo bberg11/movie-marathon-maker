@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 import config from 'Constants/config';
 import { getDisplayTimeFromStart } from 'Constants/utilities';
 import propShapes from 'Constants/propShapes';
-import { removeMovie as removeMovieAction } from 'Redux/timeline/timeline.actions';
+import { removeMovie } from 'Redux/timeline/timeline.actions';
 import { addMessage } from 'Redux/flash/flash.actions';
 import Button from 'Components/Button/Button.component';
 
 import './TimelineMovie.styles.scss';
 
-const TimelineMovie = ({ addFlash, movie, removeMovie, startDateTime }) => {
+const TimelineMovie = ({ dispatch, movie, startDateTime }) => {
   return (
     <li
       key={movie.id}
@@ -38,10 +38,12 @@ const TimelineMovie = ({ addFlash, movie, removeMovie, startDateTime }) => {
             className="button button--danger-color button--full"
             type="button"
             onClick={() => {
-              removeMovie(movie.id);
-              addFlash(
-                `"${movie.title}" has been removed from your marathon`,
-                'success'
+              dispatch(removeMovie(movie.id));
+              dispatch(
+                addMessage(
+                  `"${movie.title}" has been removed from your marathon`,
+                  'success'
+                )
               );
             }}
           >
@@ -86,18 +88,12 @@ const TimelineMovie = ({ addFlash, movie, removeMovie, startDateTime }) => {
 };
 
 TimelineMovie.propTypes = {
-  addFlash: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   movie: PropTypes.shape(propShapes.movie).isRequired,
-  removeMovie: PropTypes.func.isRequired,
   startDateTime: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  removeMovie: (id) => dispatch(removeMovieAction(id)),
-  addFlash: (message, type) => dispatch(addMessage(message, type)),
-});
-
-export default connect(null, mapDispatchToProps)(TimelineMovie);
+export default connect(null)(TimelineMovie);

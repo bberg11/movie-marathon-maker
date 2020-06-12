@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
 import { convertMinutesForDisplay } from 'Constants/utilities';
-import { reorderMovies as reorderMoviesAction } from 'Redux/timeline/timeline.actions';
+import { reorderMovies } from 'Redux/timeline/timeline.actions';
 import Timescale from 'Components/Timescale/Timescale.component';
 import TimelineMovie from 'Components/TimelineMovie/TimelineMovie.component';
 import TimelineActions from 'Components/TimelineActions/TimelineActions.component';
@@ -14,12 +14,12 @@ import TimelineActions from 'Components/TimelineActions/TimelineActions.componen
 import './TimelinePage.styles.scss';
 
 const TimelinePage = ({
+  dispatch,
   timeline: {
     currentLength,
     movies,
     settings: { lengthMode, length, padding, startDateTime },
   },
-  reoderMovies,
 }) => {
   return (
     <>
@@ -50,7 +50,7 @@ const TimelinePage = ({
           className="timeline"
           tag="ul"
           list={movies}
-          setList={(newState) => reoderMovies(newState)}
+          setList={(newState) => dispatch(reorderMovies(newState))}
           style={{
             height:
               lengthMode === 'time'
@@ -72,16 +72,12 @@ const TimelinePage = ({
 };
 
 TimelinePage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   timeline: PropTypes.shape(propShapes.timeline).isRequired,
-  reoderMovies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return { timeline: state.timeline };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  reoderMovies: (movies) => dispatch(reorderMoviesAction(movies)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TimelinePage);
+export default connect(mapStateToProps)(TimelinePage);

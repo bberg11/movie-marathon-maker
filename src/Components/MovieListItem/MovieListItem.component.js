@@ -14,32 +14,22 @@ import {
   buttonClassName,
   runtimeExceedsLength,
 } from 'Constants/utilities';
-import {
-  addMovie as addMovieAction,
-  updatePadding as updatePaddingAction,
-} from 'Redux/timeline/timeline.actions';
-import {
-  toggleAutocomplete as toggleAutocompleteAction,
-  setQuery as setQueryAction,
-} from 'Redux/search/search.actions';
+import { addMovie, updatePadding } from 'Redux/timeline/timeline.actions';
+import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
 import { addMessage } from 'Redux/flash/flash.actions';
 import Button from 'Components/Button/Button.component';
 
 import './MovieListItem.styles.scss';
 
 const MovieListItem = ({
-  addFlash,
-  addMovie,
   condensed,
   currentLength,
+  dispatch,
   existingMovies,
   lengthMode,
   movie,
   padding,
-  setQuery,
   targetLength,
-  toggleAutocomplete,
-  updatePadding,
 }) => {
   const history = useHistory();
   const overviewTextRef = useRef();
@@ -60,21 +50,23 @@ const MovieListItem = ({
   const handleAddToTimeline = (movieToAdd, event) => {
     event.preventDefault();
 
-    addMovie(movieToAdd);
-    toggleAutocomplete(false);
-    setQuery('');
+    dispatch(addMovie(movieToAdd));
+    dispatch(toggleAutocomplete(false));
+    dispatch(setQuery(''));
 
     if (lengthMode === 'time' && padding > 0) {
-      updatePadding('even');
+      dispatch(updatePadding('even'));
     }
 
-    addFlash(`"${movie.title}" has been added to your marathon`, 'success');
+    dispatch(
+      addMessage(`"${movie.title}" has been added to your marathon`, 'success')
+    );
     history.push('/timeline');
   };
 
   const handleLinkClick = () => {
-    toggleAutocomplete(false);
-    setQuery('');
+    dispatch(toggleAutocomplete(false));
+    dispatch(setQuery(''));
   };
 
   const releaseYear = (dateString) => {
@@ -153,19 +145,15 @@ MovieListItem.defaultProps = {
 };
 
 MovieListItem.propTypes = {
-  addFlash: PropTypes.func.isRequired,
-  addMovie: PropTypes.func.isRequired,
   condensed: PropTypes.bool,
   currentLength: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
   existingMovies: PropTypes.arrayOf(PropTypes.shape(propShapes.movie))
     .isRequired,
   lengthMode: PropTypes.string.isRequired,
   movie: PropTypes.shape(propShapes.movie).isRequired,
   padding: PropTypes.number.isRequired,
-  setQuery: PropTypes.func.isRequired,
   targetLength: PropTypes.number.isRequired,
-  toggleAutocomplete: PropTypes.func.isRequired,
-  updatePadding: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -178,13 +166,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addFlash: (message, type) => dispatch(addMessage(message, type)),
-  addMovie: (movie) => dispatch(addMovieAction(movie)),
-  setQuery: (query) => dispatch(setQueryAction(query)),
-  toggleAutocomplete: (shouldShow) =>
-    dispatch(toggleAutocompleteAction(shouldShow)),
-  updatePadding: (padding) => dispatch(updatePaddingAction(padding)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MovieListItem);
+export default connect(mapStateToProps)(MovieListItem);

@@ -7,9 +7,9 @@ import { MdClose } from 'react-icons/md';
 import axios from 'axios';
 
 import {
-  getResults as getResultsAction,
-  toggleAutocomplete as toggleAutocompleteAction,
-  setQuery as setQueryAction,
+  getResults,
+  toggleAutocomplete,
+  setQuery,
 } from 'Redux/search/search.actions';
 import config from 'Constants/config';
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
@@ -17,7 +17,7 @@ import Button from 'Components/Button/Button.component';
 
 import './SearchForm.styles.scss';
 
-const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
+const SearchForm = ({ dispatch, query }) => {
   const history = useHistory();
   const [searchResults, setSearchResults] = useState();
 
@@ -40,27 +40,27 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
           setSearchResults(movies);
         });
 
-      toggleAutocomplete(true);
+      dispatch(toggleAutocomplete(true));
     } else {
-      toggleAutocomplete(false);
+      dispatch(toggleAutocomplete(false));
     }
-  }, [query, toggleAutocomplete]);
+  }, [query, dispatch]);
 
   const handleChange = (event) => {
-    setQuery(event.target.value);
+    dispatch(setQuery(event.target.value));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    getResults(query);
-    setQuery('');
-    toggleAutocomplete(false);
+    dispatch(getResults(query));
+    dispatch(setQuery(''));
+    dispatch(toggleAutocomplete(false));
     history.push(`/search/${query}`);
   };
 
   const handleClear = (event) => {
-    setQuery('');
+    dispatch(setQuery(''));
     event.target.blur();
   };
 
@@ -102,10 +102,8 @@ const SearchForm = ({ getResults, query, setQuery, toggleAutocomplete }) => {
 };
 
 SearchForm.propTypes = {
-  getResults: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
-  setQuery: PropTypes.func.isRequired,
-  toggleAutocomplete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -114,11 +112,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getResults: (query) => dispatch(getResultsAction(query)),
-  setQuery: (query) => dispatch(setQueryAction(query)),
-  toggleAutocomplete: (shouldShow) =>
-    dispatch(toggleAutocompleteAction(shouldShow)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
+export default connect(mapStateToProps)(SearchForm);

@@ -14,16 +14,16 @@ import {
 } from 'Constants/utilities';
 import config from 'Constants/config';
 import propShapes from 'Constants/propShapes';
-import { addMovie as addMovieAction } from 'Redux/timeline/timeline.actions';
+import { addMovie } from 'Redux/timeline/timeline.actions';
 import MovieTrailers from 'Components/MovieTrailers/MovieTrailers.component';
 import Button from 'Components/Button/Button.component';
 
 import './DetailHeader.styles.scss';
 
 const DetailHeader = ({
-  addMovie,
   currentLength,
   directedBy,
+  dispatch,
   existingMovies,
   lengthMode,
   movie,
@@ -97,7 +97,7 @@ const DetailHeader = ({
               )}`}
               disabled={movieAlreadyExists(addToMarathonButtonData)}
               onClick={() => {
-                addMovie(movie);
+                dispatch(addMovie(movie));
                 history.push('/timeline');
               }}
             >
@@ -111,9 +111,9 @@ const DetailHeader = ({
 };
 
 DetailHeader.propTypes = {
-  addMovie: PropTypes.func.isRequired,
   currentLength: PropTypes.number.isRequired,
   directedBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dispatch: PropTypes.func.isRequired,
   existingMovies: PropTypes.arrayOf(PropTypes.shape(propShapes.movie))
     .isRequired,
   lengthMode: PropTypes.string.isRequired,
@@ -130,8 +130,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addMovie: (movie) => dispatch(addMovieAction(movie)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DetailHeader);
+export default connect(mapStateToProps)(DetailHeader);

@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MdClose } from 'react-icons/md';
 
-import { removeMessage as removeMessageAction } from 'Redux/flash/flash.actions';
+import { removeMessage } from 'Redux/flash/flash.actions';
 
 import './Alert.styles.scss';
 
-const Alert = ({ index, message, removeMessage }) => {
+const Alert = ({ dispatch, index, message }) => {
   let timeoutID;
 
   const dimiss = () => {
     window.clearTimeout(timeoutID);
-    removeMessage(index);
+    dispatch(removeMessage(index));
   };
 
   useEffect(() => {
@@ -38,16 +38,12 @@ Alert.defaultProps = {
 };
 
 Alert.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   message: PropTypes.shape({
     type: PropTypes.string,
     message: PropTypes.string,
   }),
-  removeMessage: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  removeMessage: (index) => dispatch(removeMessageAction(index)),
-});
-
-export default connect(null, mapDispatchToProps)(Alert);
+export default connect(null)(Alert);

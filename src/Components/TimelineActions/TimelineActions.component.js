@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  resetMarathon as resetMarathonAction,
-  updatePadding as updatePaddingAction,
-} from 'Redux/timeline/timeline.actions';
+import { resetMarathon, updatePadding } from 'Redux/timeline/timeline.actions';
 import Button from 'Components/Button/Button.component';
 import Drawer from 'Components/Drawer/Drawer.component';
 import SettingsForm from 'Components/SettingsForm/SettingsForm.component';
 
 import './TimelineActions.styles.scss';
 
-const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
+const TimelineActions = ({ dispatch, lengthMode, padding }) => {
   const [showDrawer, setShowDrawer] = useState(false);
 
   return (
@@ -34,7 +31,7 @@ const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
             className="button button--tertiary-color button--full"
             onClick={() => {
               const payload = padding > 0 ? 0 : 'even';
-              updatePadding(payload);
+              dispatch(updatePadding(payload));
             }}
           >
             {padding > 0 ? 'Remove spacing' : 'Evenly space movies'}
@@ -48,7 +45,7 @@ const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
         <Button
           type="button"
           className="button button--danger-color button--full"
-          onClick={() => reset()}
+          onClick={() => dispatch(resetMarathon())}
         >
           Reset
         </Button>
@@ -62,15 +59,9 @@ const TimelineActions = ({ lengthMode, padding, reset, updatePadding }) => {
 };
 
 TimelineActions.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   lengthMode: PropTypes.string.isRequired,
   padding: PropTypes.number.isRequired,
-  reset: PropTypes.func.isRequired,
-  updatePadding: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  reset: () => dispatch(resetMarathonAction()),
-  updatePadding: (padding) => dispatch(updatePaddingAction(padding)),
-});
-
-export default connect(null, mapDispatchToProps)(TimelineActions);
+export default connect(null)(TimelineActions);
