@@ -19,7 +19,7 @@ const TimelineMovie = ({ dispatch, movie, startDateTime }) => {
       key={movie.id}
       className="timeline-movie"
       style={{
-        top: movie.startTime * config.MINUTE_TO_PIXEL_FACTOR,
+        top: movie.startTime * config.MINUTE_TO_PIXEL_FACTOR || 0,
         height: movie.runtime * config.MINUTE_TO_PIXEL_FACTOR,
       }}
     >
