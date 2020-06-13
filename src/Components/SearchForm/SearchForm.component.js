@@ -77,6 +77,17 @@ const SearchForm = ({ dispatch, query }) => {
           className="search-form__input"
           value={query}
           onChange={handleChange}
+          onKeyDown={(event) => {
+            if (event.key === 'Escape') {
+              dispatch(toggleAutocomplete(false));
+              event.target.blur();
+            }
+          }}
+          onFocus={() => {
+            if (query.length > 0) {
+              dispatch(toggleAutocomplete(true));
+            }
+          }}
         />
         {query.length ? (
           <button
