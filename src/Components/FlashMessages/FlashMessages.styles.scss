@@ -3,9 +3,8 @@
 
 .flash-messages {
   position: fixed;
-  top: ($spacing-unit * 2);
-  left: 0;
-  right: 0;
-  padding: $spacing-unit;
+  top: ($spacing-unit * 3);
+  left: $spacing-unit;
+  right: $spacing-unit;
   z-index: index($components, flash-messages);
 }
