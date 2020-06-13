@@ -13,8 +13,13 @@ const MovieList = ({ condensed, results }) => {
 
   return (
     <ul className="movie-list">
-      {Object.values(results).map((movie) => (
-        <MovieListItem movie={movie} key={movie.id} condensed={condensed} />
+      {Object.values(results).map((movie, index) => (
+        <MovieListItem
+          movie={movie}
+          key={movie.id}
+          index={index}
+          condensed={condensed}
+        />
       ))}
     </ul>
   );

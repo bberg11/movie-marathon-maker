@@ -10,6 +10,7 @@ import {
   getResults,
   toggleAutocomplete,
   setQuery,
+  updateActiveResultItem,
 } from 'Redux/search/search.actions';
 import config from 'Constants/config';
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
@@ -17,7 +18,7 @@ import Button from 'Components/Button/Button.component';
 
 import './SearchForm.styles.scss';
 
-const SearchForm = ({ dispatch, query }) => {
+const SearchForm = ({ activeResultItem, dispatch, query }) => {
   const history = useHistory();
   const [searchResults, setSearchResults] = useState();
 
@@ -50,18 +51,58 @@ const SearchForm = ({ dispatch, query }) => {
     dispatch(setQuery(event.target.value));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const goToSearchResults = () => {
     dispatch(getResults(query));
     dispatch(setQuery(''));
     dispatch(toggleAutocomplete(false));
     history.push(`/search/${query}`);
   };
 
+  const goToDetail = () => {
+    const activeResultItemID = Object.values(searchResults)[activeResultItem]
+      .id;
+
+    dispatch(setQuery(''));
+    dispatch(toggleAutocomplete(false));
+    dispatch(updateActiveResultItem(-1));
+    history.push(`/movie/${activeResultItemID}`);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (activeResultItem >= 0) {
+      goToDetail();
+
+      return;
+    }
+
+    goToSearchResults();
+  };
+
   const handleClear = (event) => {
     dispatch(setQuery(''));
     event.target.blur();
+  };
+
+  const goToNextResultItem = () => {
+    const resultsCount = Object.keys(searchResults).length;
+
+    if (activeResultItem === resultsCount - 1) {
+      dispatch(updateActiveResultItem(0));
+    } else if (activeResultItem === -1) {
+      dispatch(updateActiveResultItem(0));
+    } else {
+      dispatch(updateActiveResultItem(activeResultItem + 1));
+    }
+  };
+
+  const goToPreviousResultItem = () => {
+    if (activeResultItem <= 0) {
+      dispatch(updateActiveResultItem(-1));
+    } else {
+      dispatch(updateActiveResultItem(activeResultItem - 1));
+    }
   };
 
   return (
@@ -81,6 +122,14 @@ const SearchForm = ({ dispatch, query }) => {
             if (event.key === 'Escape') {
               dispatch(toggleAutocomplete(false));
               event.target.blur();
+            }
+
+            if (event.key === 'ArrowDown') {
+              goToNextResultItem();
+            }
+
+            if (event.key === 'ArrowUp') {
+              goToPreviousResultItem();
             }
           }}
           onFocus={() => {
@@ -103,7 +152,14 @@ const SearchForm = ({ dispatch, query }) => {
           ''
         )}
       </div>
-      <Button type="submit" className="button button--secondary-color">
+      <Button
+        type="button"
+        className="button button--secondary-color"
+        onClick={(event) => {
+          event.preventDefault();
+          goToSearchResults();
+        }}
+      >
         Search
       </Button>
 
@@ -113,6 +169,7 @@ const SearchForm = ({ dispatch, query }) => {
 };
 
 SearchForm.propTypes = {
+  activeResultItem: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
 };
@@ -120,6 +177,7 @@ SearchForm.propTypes = {
 const mapStateToProps = (state) => {
   return {
     query: state.search.query,
+    activeResultItem: state.search.activeResultItem,
   };
 };
 

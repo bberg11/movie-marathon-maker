@@ -14,14 +14,19 @@
     width: calc((100% - #{$spacing-unit * 2}) / 2);
   }
 
-  &:hover {
-    transform: scale(0.98);
+  &:hover,
+  &:focus {
+    transform: scale(0.95);
   }
 
   .movie-detail-page & {
     margin: 0 0 ($spacing-unit);
     width: auto;
   }
+}
+
+.movie-list-item--is-active {
+  transform: scale(0.95);
 }
 
 .movie-list-item--condensed {

@@ -69,3 +69,10 @@ export const setQuery = (query) => {
     payload: query,
   };
 };
+
+export const updateActiveResultItem = (index) => {
+  return {
+    type: searchActionTypes.UPDATE_ACTIVE_RESULT_ITEM,
+    payload: index,
+  };
+};

@@ -9,6 +9,7 @@ export const INITIAL_STATE = {
     totalResults: 0,
   },
   showAutocomplete: false,
+  activeResultItem: -1,
 };
 
 const searchReducer = (state = INITIAL_STATE, action) => {
@@ -43,6 +44,11 @@ const searchReducer = (state = INITIAL_STATE, action) => {
         pagination: {
           ...action.payload,
         },
+      };
+    case searchActionTypes.UPDATE_ACTIVE_RESULT_ITEM:
+      return {
+        ...state,
+        activeResultItem: action.payload,
       };
     default:
       return state;

@@ -22,10 +22,12 @@ import Button from 'Components/Button/Button.component';
 import './MovieListItem.styles.scss';
 
 const MovieListItem = ({
+  activeResultItem,
   condensed,
   currentLength,
   dispatch,
   existingMovies,
+  index,
   lengthMode,
   movie,
   padding,
@@ -84,6 +86,7 @@ const MovieListItem = ({
         'movie-list-item--will-overflow': runtimeExceedsLength(
           addToMarathonButtonData
         ),
+        'movie-list-item--is-active': condensed && index === activeResultItem,
       })}
     >
       <Link
@@ -145,11 +148,13 @@ MovieListItem.defaultProps = {
 };
 
 MovieListItem.propTypes = {
+  activeResultItem: PropTypes.number.isRequired,
   condensed: PropTypes.bool,
   currentLength: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
   existingMovies: PropTypes.arrayOf(PropTypes.shape(propShapes.movie))
     .isRequired,
+  index: PropTypes.number.isRequired,
   lengthMode: PropTypes.string.isRequired,
   movie: PropTypes.shape(propShapes.movie).isRequired,
   padding: PropTypes.number.isRequired,
@@ -158,6 +163,7 @@ MovieListItem.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    activeResultItem: state.search.activeResultItem,
     currentLength: state.timeline.currentLength,
     existingMovies: state.timeline.movies,
     lengthMode: state.timeline.settings.lengthMode,
