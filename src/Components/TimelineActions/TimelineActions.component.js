@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -45,7 +46,15 @@ const TimelineActions = ({ dispatch, lengthMode, padding }) => {
         <Button
           type="button"
           className="button button--danger-color button--full"
-          onClick={() => dispatch(resetMarathon())}
+          onClick={() => {
+            if (
+              window.confirm(
+                "This will remove all movies from your marathon and can't be undone. Do you wish to continue?"
+              )
+            ) {
+              dispatch(resetMarathon());
+            }
+          }}
         >
           Reset
         </Button>

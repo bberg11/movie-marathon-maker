@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -38,13 +39,15 @@ const TimelineMovie = ({ dispatch, movie, startDateTime }) => {
             className="button button--danger-color button--full"
             type="button"
             onClick={() => {
-              dispatch(removeMovie(movie.id));
-              dispatch(
-                addMessage(
-                  `"${movie.title}" has been removed from your marathon`,
-                  'success'
-                )
-              );
+              if (window.confirm('Are you sure?')) {
+                dispatch(removeMovie(movie.id));
+                dispatch(
+                  addMessage(
+                    `"${movie.title}" has been removed from your marathon`,
+                    'success'
+                  )
+                );
+              }
             }}
           >
             Remove
