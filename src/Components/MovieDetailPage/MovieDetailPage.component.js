@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import config from 'Constants/config';
+import propShapes from 'Constants/propShapes';
 import DetailHeader from 'Components/DetailHeader/DetailHeader.component';
 import CastDetails from 'Components/CastDetails/CastDetails.component';
 import CrewDetails from 'Components/CrewDetails/CrewDetails.component';
@@ -10,7 +13,7 @@ import MovieList from 'Components/MovieList/MovieList.component';
 
 import './MovieDetailPage.styles.scss';
 
-const MovieDetailPage = () => {
+const MovieDetailPage = ({ existingMovies }) => {
   const { id } = useParams();
 
   const [movie, setMovie] = useState();
@@ -18,6 +21,21 @@ const MovieDetailPage = () => {
   const [cast, setCast] = useState();
   const [crew, setCrew] = useState();
   const [crewDetailsHeight, setCrewDetailsHeight] = useState();
+
+  const getSimilarMoviesNotInMarathon = (allSimilarMovies) => {
+    const existingMovieIDs = existingMovies.map((thisMovie) => thisMovie.id);
+    const movies = [];
+
+    for (let index = 0; movies.length < 5; index += 1) {
+      const thisMovie = allSimilarMovies[index];
+
+      if (!existingMovieIDs.includes(thisMovie.id)) {
+        movies.push(thisMovie);
+      }
+    }
+
+    return movies;
+  };
 
   const getSimilarMovieDetails = (movies) => {
     const requests = [];
@@ -50,7 +68,9 @@ const MovieDetailPage = () => {
         `${config.TMDB_BASE_API_URL}/movie/${id}?api_key=${config.API_KEY}&append_to_response=similar,credits,videos,release_dates`
       )
       .then(({ data }) => {
-        getSimilarMovieDetails(data.similar.results.slice(0, 5));
+        getSimilarMovieDetails(
+          getSimilarMoviesNotInMarathon(data.similar.results)
+        );
         setMovie(data);
         setCast(data.credits.cast);
         setCrew(data.credits.crew);
@@ -107,6 +127,13 @@ const MovieDetailPage = () => {
   );
 };
 
-MovieDetailPage.propTypes = {};
+MovieDetailPage.propTypes = {
+  existingMovies: PropTypes.arrayOf(PropTypes.shape(propShapes.movie))
+    .isRequired,
+};
 
-export default MovieDetailPage;
+const mapStateToProps = (state) => ({
+  existingMovies: state.timeline.movies,
+});
+
+export default connect(mapStateToProps)(MovieDetailPage);
