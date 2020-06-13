@@ -19,17 +19,29 @@ const MovieDetailPage = () => {
   const [crew, setCrew] = useState();
   const [crewDetailsHeight, setCrewDetailsHeight] = useState();
 
-  const formatMovies = (movies) => {
-    let formattedMovies = {};
+  const getSimilarMovieDetails = (movies) => {
+    const requests = [];
 
     movies.forEach((tempMovie) => {
-      formattedMovies = {
-        ...formattedMovies,
-        [tempMovie.id]: tempMovie,
-      };
+      const request = axios.get(
+        `${config.TMDB_BASE_API_URL}/movie/${tempMovie.id}?api_key=${config.API_KEY}`
+      );
+
+      requests.push(request);
     });
 
-    return formattedMovies;
+    Promise.all(requests).then((values) => {
+      let formattedMovies = {};
+
+      values.forEach(({ data }) => {
+        formattedMovies = {
+          ...formattedMovies,
+          [data.id]: data,
+        };
+      });
+
+      setSimilarMovies(formattedMovies);
+    });
   };
 
   useEffect(() => {
@@ -38,8 +50,8 @@ const MovieDetailPage = () => {
         `${config.TMDB_BASE_API_URL}/movie/${id}?api_key=${config.API_KEY}&append_to_response=similar,credits,videos,release_dates`
       )
       .then(({ data }) => {
+        getSimilarMovieDetails(data.similar.results.slice(0, 5));
         setMovie(data);
-        setSimilarMovies(formatMovies(data.similar.results.slice(0, 5)));
         setCast(data.credits.cast);
         setCrew(data.credits.crew);
       });
