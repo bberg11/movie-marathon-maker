@@ -49,6 +49,17 @@ const ref = {
   current: PropTypes.instanceOf(Element),
 };
 
+const tmdbConfig = {
+  timestamp: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
+  images: PropTypes.shape({
+    base_url: PropTypes.string,
+    poster_sizes: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
+
 export default {
   movies,
   movie,
@@ -58,4 +69,5 @@ export default {
   cast,
   crew,
   ref,
+  tmdbConfig,
 };
