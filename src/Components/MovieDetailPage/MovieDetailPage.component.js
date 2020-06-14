@@ -23,6 +23,14 @@ const MovieDetailPage = ({ existingMovies }) => {
   const [crewDetailsHeight, setCrewDetailsHeight] = useState();
 
   const getSimilarMoviesNotInMarathon = (allSimilarMovies) => {
+    if (allSimilarMovies.length === 0) {
+      return [];
+    }
+
+    if (existingMovies.length === 0) {
+      return allSimilarMovies.slice(0, 5);
+    }
+
     const existingMovieIDs = existingMovies.map((thisMovie) => thisMovie.id);
     const movies = [];
 
@@ -111,15 +119,19 @@ const MovieDetailPage = ({ existingMovies }) => {
             />
           </div>
           <div className="movie-detail-page__cell">
-            <div
-              style={{
-                height: crewDetailsHeight,
-                overflow: 'auto',
-              }}
-            >
-              <h2>Try these</h2>
-              <MovieList results={similarMovies} />
-            </div>
+            {Object.keys(similarMovies).length > 0 ? (
+              <div
+                style={{
+                  height: crewDetailsHeight,
+                  overflow: 'auto',
+                }}
+              >
+                <h2>Try these</h2>
+                <MovieList results={similarMovies} />
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>

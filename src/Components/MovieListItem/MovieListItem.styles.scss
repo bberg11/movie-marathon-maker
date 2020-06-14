@@ -57,15 +57,12 @@
   flex-grow: 1;
 }
 
-.movie-list-item__image-wrap {
+.movie-list-item__image {
   width: 30%;
 
   .movie-list-item--already-exists & {
     opacity: 0.5;
   }
-}
-
-.movie-list-item__image {
 }
 
 .movie-list-item__content {

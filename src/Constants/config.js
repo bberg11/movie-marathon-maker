@@ -5,7 +5,6 @@ const config = {
   // Set/Updated via App.js from TMDB configuration object
   TMDB_BASE_IMAGE_URL: '//image.tmdb.org/t/p/',
 
-  PRESET_LENGTHS: [8, 10, 12, 24],
   // Set/Updated via App.js from TMDB configuration object
   TMDB_POSTER_SIZES: [
     'w92',
@@ -17,12 +16,7 @@ const config = {
     'original',
   ],
 
-  PLACEHOLDER_IMAGES: {
-    CARD_1X: 'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
-    CARD_2X: 'https://via.placeholder.com/342x513?text=Image%0AUnavailable',
-    DETAIL_1X: 'https://via.placeholder.com/185x278?text=Image%0AUnavailable',
-    DETAIL_2X: 'https://via.placeholder.com/780X1170?text=Image%0AUnavailable',
-  },
+  PRESET_LENGTHS: [8, 10, 12, 24],
 
   MINUTE_TO_PIXEL_FACTOR: 2,
 

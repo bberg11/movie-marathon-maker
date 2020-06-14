@@ -1,6 +1,18 @@
 /* eslint-disable import/prefer-default-export */
 import config from 'Constants/config';
 
+const getTMDBSize = (targetSize) => {
+  const sizes = config.TMDB_POSTER_SIZES.map((size) =>
+    parseInt(size.split('w')[1], 10)
+  );
+  const size = sizes.find((thisSize) => thisSize >= targetSize);
+
+  return {
+    highRes: sizes.indexOf(size),
+    standardRes: sizes.indexOf(size) - 1,
+  };
+};
+
 export const convertMinutesForDisplay = (time) => {
   const positiveTime = time < 0 ? time * -1 : time;
   const hours = positiveTime / 60;
@@ -61,31 +73,12 @@ export const getTheatricalRelease = (releaseDates) => {
   return theatricalRelease;
 };
 
-export const cardImageSrc = (path) => {
-  if (path) {
-    return {
-      '1x': `${config.TMDB_BASE_IMAGE_URL}/w185${path}`,
-      '2x': `${config.TMDB_BASE_IMAGE_URL}/w342${path}`,
-    };
-  }
+export const posterImageSources = (path, targetSize) => {
+  const { standardRes, highRes } = getTMDBSize(targetSize);
 
   return {
-    '1x': config.PLACEHOLDER_IMAGES.CARD_1X,
-    '2x': config.PLACEHOLDER_IMAGES.CARD_2X,
-  };
-};
-
-export const detailImageSrc = (path) => {
-  if (path) {
-    return {
-      '1x': `${config.TMDB_BASE_IMAGE_URL}/w500${path}`,
-      '2x': `${config.TMDB_BASE_IMAGE_URL}/w780${path}`,
-    };
-  }
-
-  return {
-    '1x': config.PLACEHOLDER_IMAGES.DETAIL_1X,
-    '2x': config.PLACEHOLDER_IMAGES.DETAIL_2X,
+    '1x': `${config.TMDB_BASE_IMAGE_URL}${config.TMDB_POSTER_SIZES[standardRes]}${path}`,
+    '2x': `${config.TMDB_BASE_IMAGE_URL}${config.TMDB_POSTER_SIZES[highRes]}${path}`,
   };
 };
 

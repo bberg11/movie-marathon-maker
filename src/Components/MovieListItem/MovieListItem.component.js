@@ -8,7 +8,6 @@ import classNames from 'classnames';
 
 import propShapes from 'Constants/propShapes';
 import {
-  cardImageSrc,
   movieAlreadyExists,
   buttonText,
   buttonClassName,
@@ -18,6 +17,7 @@ import { addMovie, updatePadding } from 'Redux/timeline/timeline.actions';
 import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
 import { addMessage } from 'Redux/flash/flash.actions';
 import Button from 'Components/Button/Button.component';
+import PosterImage from 'Components/PosterImage/PosterImage.component';
 
 import './MovieListItem.styles.scss';
 
@@ -97,14 +97,12 @@ const MovieListItem = ({
         onClick={handleLinkClick}
       >
         <div className="movie-list-item__details">
-          <div className="movie-list-item__image-wrap">
-            <img
-              srcSet={`${cardImageSrc(movie.poster_path)['1x']} 1x, ${
-                cardImageSrc(movie.poster_path)['2x']
-              } 2x`}
-              src={cardImageSrc(movie.poster_path)['2x']}
+          <div className="movie-list-item__image">
+            <PosterImage
+              imagePath={movie.poster_path}
+              targetSize={342}
+              className="card-image"
               alt={`${movie.title} Movie Poster`}
-              className="movie-list-item__image"
             />
           </div>
           <div className="movie-list-item__content">

@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  detailImageSrc,
   releaseYear,
   getTheatricalRelease,
   convertMinutesForDisplay,
@@ -20,6 +19,7 @@ import MovieTrailers from 'Components/MovieTrailers/MovieTrailers.component';
 import Button from 'Components/Button/Button.component';
 
 import './DetailHeader.styles.scss';
+import PosterImage from 'Components/PosterImage/PosterImage.component';
 
 const DetailHeader = ({
   currentLength,
@@ -65,13 +65,11 @@ const DetailHeader = ({
       />
       <div className="detail-header__wrapper">
         <div className="detail-header__cell">
-          <img
-            srcSet={`${detailImageSrc(movie.poster_path)['1x']} 1x, ${
-              detailImageSrc(movie.poster_path)['2x']
-            } 2x`}
-            src={detailImageSrc(movie.poster_path)['2x']}
-            alt={`${movie.title} Movie Poster`}
+          <PosterImage
+            imagePath={movie.poster_path}
             className="detail-header__poster"
+            targetSize={780}
+            alt={`${movie.title} Movie Poster`}
           />
           <MovieTrailers trailers={trailers} />
         </div>

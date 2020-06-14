@@ -2,19 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import propShapes from 'Constants/propShapes';
-import { cardImageSrc } from 'Constants/utilities';
 
 import './ActorCard.styles.scss';
+import PosterImage from 'Components/PosterImage/PosterImage.component';
 
 const ActorCard = ({ actor }) => {
   return (
     <div className="actor-card">
       <div className="actor-card__image">
-        <img
-          srcSet={`${cardImageSrc(actor.profile_path)['1x']} 1x, ${
-            cardImageSrc(actor.profile_path)['2x']
-          } 2x`}
-          src={cardImageSrc(actor.profile_path)['2x']}
+        <PosterImage
+          imagePath={actor.profile_path}
+          targetSize={342}
           alt={`${actor.name} Profile Pic`}
         />
       </div>
