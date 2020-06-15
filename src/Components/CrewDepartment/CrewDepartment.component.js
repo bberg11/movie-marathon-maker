@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { MdAdd, MdRemove } from 'react-icons/md';
 
-import propShapes from 'Constants/propShapes';
+import propShapes from 'Utilities/propShapes';
 
 import './CrewDepartment.styles.scss';
 

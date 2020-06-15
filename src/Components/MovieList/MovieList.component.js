@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import propShapes from 'Constants/propShapes';
+import propShapes from 'Utilities/propShapes';
 import MovieListItem from 'Components/MovieListItem/MovieListItem.component';
 
 import './MovieList.styles.scss';

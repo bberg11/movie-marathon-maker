@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import config from 'Constants/config';
+import config from 'Utilities/config';
 
 const getTMDBSize = (targetSize) => {
   const sizes = config.TMDB_POSTER_SIZES.map((size) =>

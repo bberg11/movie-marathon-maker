@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import lineClamp from 'line-clamp';
 import classNames from 'classnames';
 
-import propShapes from 'Constants/propShapes';
+import propShapes from 'Utilities/propShapes';
 import {
   movieAlreadyExists,
   buttonText,
   buttonClassName,
   runtimeExceedsLength,
-} from 'Constants/utilities';
+} from 'Utilities/helpers';
 import { addMovie, updatePadding } from 'Redux/timeline/timeline.actions';
 import { toggleAutocomplete, setQuery } from 'Redux/search/search.actions';
 import { addMessage } from 'Redux/flash/flash.actions';

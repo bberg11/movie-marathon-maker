@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-import propShapes from 'Constants/propShapes';
+import propShapes from 'Utilities/propShapes';
 import { getResults } from 'Redux/search/search.actions';
 import MovieList from 'Components/MovieList/MovieList.component';
 import Pagination from 'Components/Pagination/Pagination.component';

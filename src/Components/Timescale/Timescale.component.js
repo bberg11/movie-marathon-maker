@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getDisplayTimeFromStart } from 'Constants/utilities';
+import { getDisplayTimeFromStart } from 'Utilities/helpers';
 
 import './Timescale.styles.scss';
 

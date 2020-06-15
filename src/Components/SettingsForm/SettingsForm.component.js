@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DateTimePicker from 'react-datetime-picker';
 
-import config from 'Constants/config';
-import propShapes from 'Constants/propShapes';
+import config from 'Utilities/config';
+import propShapes from 'Utilities/propShapes';
 import { updateSettings } from 'Redux/timeline/timeline.actions';
 import { addMessage } from 'Redux/flash/flash.actions';
 import ButtonProperty from 'Components/ButtonProperty/ButtonProperty.component';

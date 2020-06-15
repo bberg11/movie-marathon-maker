@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import config from 'Constants/config';
-import { getDisplayTimeFromStart } from 'Constants/utilities';
-import propShapes from 'Constants/propShapes';
+import config from 'Utilities/config';
+import { getDisplayTimeFromStart } from 'Utilities/helpers';
+import propShapes from 'Utilities/propShapes';
 import { removeMovie } from 'Redux/timeline/timeline.actions';
 import { addMessage } from 'Redux/flash/flash.actions';
 import Button from 'Components/Button/Button.component';

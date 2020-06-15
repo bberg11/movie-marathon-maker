@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import propShapes from 'Constants/propShapes';
-import config from 'Constants/config';
+import propShapes from 'Utilities/propShapes';
+import config from 'Utilities/config';
 import CrewDepartment from 'Components/CrewDepartment/CrewDepartment.component';
 
 import './CrewDetails.styles.scss';

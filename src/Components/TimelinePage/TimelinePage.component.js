@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
 
-import config from 'Constants/config';
-import propShapes from 'Constants/propShapes';
-import { convertMinutesForDisplay } from 'Constants/utilities';
+import config from 'Utilities/config';
+import propShapes from 'Utilities/propShapes';
+import { convertMinutesForDisplay } from 'Utilities/helpers';
 import { reorderMovies } from 'Redux/timeline/timeline.actions';
 import Timescale from 'Components/Timescale/Timescale.component';
 import TimelineMovie from 'Components/TimelineMovie/TimelineMovie.component';

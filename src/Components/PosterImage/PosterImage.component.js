@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { posterImageSources } from 'Constants/utilities';
+import { posterImageSources } from 'Utilities/helpers';
 import NoImage from 'Components/NoImage/NoImage.component';
 
 import './PosterImage.styles.scss';

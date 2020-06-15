@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 
-import config from 'Constants/config';
+import config from 'Utilities/config';
 import timelineActionTypes from 'Redux/timeline/timeline.types';
 
 export const updateStartFinishTimes = () => {

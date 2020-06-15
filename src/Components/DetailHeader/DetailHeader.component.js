@@ -10,9 +10,9 @@ import {
   movieAlreadyExists,
   buttonText,
   buttonClassName,
-} from 'Constants/utilities';
-import config from 'Constants/config';
-import propShapes from 'Constants/propShapes';
+} from 'Utilities/helpers';
+import config from 'Utilities/config';
+import propShapes from 'Utilities/propShapes';
 import { addMovie } from 'Redux/timeline/timeline.actions';
 import { addMessage } from 'Redux/flash/flash.actions';
 import MovieTrailers from 'Components/MovieTrailers/MovieTrailers.component';

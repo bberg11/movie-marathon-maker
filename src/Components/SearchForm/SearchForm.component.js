@@ -12,7 +12,7 @@ import {
   setQuery,
   updateActiveResultItem,
 } from 'Redux/search/search.actions';
-import config from 'Constants/config';
+import config from 'Utilities/config';
 import Autocomplete from 'Components/Autocomplete/Autocomplete.component';
 import Button from 'Components/Button/Button.component';
 

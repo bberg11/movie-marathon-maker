@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 import tmdbActionTypes from 'Redux/tmdb/tmdb.types';
-import config from 'Constants/config';
+import config from 'Utilities/config';
 
 export const getTMDBConfig = () => (dispatch) => {
   axios

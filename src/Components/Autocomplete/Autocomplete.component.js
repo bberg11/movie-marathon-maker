@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import propShapes from 'Constants/propShapes';
+import propShapes from 'Utilities/propShapes';
 import MovieList from 'Components/MovieList/MovieList.component';
 
 import './Autocomplete.styles.scss';

@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import config from 'Constants/config';
-import propShapes from 'Constants/propShapes';
+import config from 'Utilities/config';
+import propShapes from 'Utilities/propShapes';
 import DetailHeader from 'Components/DetailHeader/DetailHeader.component';
 import CastDetails from 'Components/CastDetails/CastDetails.component';
 import CrewDetails from 'Components/CrewDetails/CrewDetails.component';

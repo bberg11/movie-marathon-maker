@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import config from 'Constants/config';
+import config from 'Utilities/config';
 import searchActionTypes from 'Redux/search/search.types';
 
 export const getResults = (query, page = 1) => (dispatch) => {

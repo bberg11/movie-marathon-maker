@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import propShapes from 'Constants/propShapes';
-import config from 'Constants/config';
+import propShapes from 'Utilities/propShapes';
+import config from 'Utilities/config';
 import { getTMDBConfig } from 'Redux/tmdb/tmdb.actions';
 import Header from 'Components/Header/Header.component';
 import HomePage from 'Components/HomePage/HomePage.component';
