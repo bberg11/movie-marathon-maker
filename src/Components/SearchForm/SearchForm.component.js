@@ -144,9 +144,7 @@ const SearchForm = ({ activeResultItem, dispatch, query }) => {
             className="button-reset search-form__clear"
             onClick={handleClear}
           >
-            <MdClose style={{ width: '1.5rem', height: '1.5rem' }}>
-              Clear
-            </MdClose>
+            <MdClose className="search-form__clear-icon">Clear</MdClose>
           </button>
         ) : (
           ''
@@ -154,7 +152,7 @@ const SearchForm = ({ activeResultItem, dispatch, query }) => {
       </div>
       <Button
         type="button"
-        className="button button--secondary-color"
+        className="button"
         onClick={(event) => {
           event.preventDefault();
           goToSearchResults();

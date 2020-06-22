@@ -190,7 +190,10 @@ const SettingsForm = ({ dispatch, savedSettings, submitHandler }) => {
       )}
 
       <p>
-        <Button type="submit" className="button button--full">
+        <Button
+          type="submit"
+          className="button button--secondary-color button--full"
+        >
           Save
         </Button>
       </p>

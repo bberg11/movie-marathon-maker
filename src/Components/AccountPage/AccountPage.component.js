@@ -5,7 +5,7 @@ import './AccountPage.styles.scss';
 const AccountPage = () => {
   return (
     <section className="account-page">
-      <h1>Account Page</h1>
+      <h1>Coming Soon</h1>
     </section>
   );
 };

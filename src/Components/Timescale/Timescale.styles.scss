@@ -1,5 +1,8 @@
 @import 'Assets/styles/settings/colors';
 @import 'Assets/styles/settings/global';
+@import 'Assets/styles/settings/z-indexes';
+
+$timescale-color: $cultured-white;
 
 .timescale {
   display: flex;
@@ -8,7 +11,8 @@
   position: absolute;
   margin-left: $timescale-width;
   width: 2px;
-  background: $black;
+  background: $timescale-color;
+  z-index: index($timeline-page, timescale);
 }
 
 .timescale__tick {
@@ -16,7 +20,7 @@
   height: 1px;
   width: 5px;
   font-size: 0;
-  background: $black;
+  background: $timescale-color;
 
   &:nth-child(6n + 1) {
     height: 2px;

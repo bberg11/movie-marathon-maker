@@ -15,14 +15,18 @@ $image-width: 171px;
   align-items: flex-start;
   width: $image-width;
   height: 100%;
-  border: 1px solid $primary-color;
+  background: $secondary-color;
+  background: linear-gradient(
+    $secondary-color 0%,
+    #{rgba($secondary-color, 0.6)} 100%
+  );
   border-radius: $border-radius;
   overflow: hidden;
 }
 
 .actor-card__image {
   width: 100%;
-  min-height: 253px;
+  min-height: 257px;
 }
 
 .actor-card__info {

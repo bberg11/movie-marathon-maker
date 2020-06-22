@@ -17,6 +17,11 @@
 
 .pagination__node {
   padding: $spacing-unit;
+  font-weight: bold;
+}
+
+.pagination__node--current {
+  font-weight: normal;
 }
 
 .pagination__icon {

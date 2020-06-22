@@ -38,7 +38,9 @@ const Pagination = ({ currentPage, totalPages }) => {
     if (page === currentPage) {
       return (
         <li key={page} className="pagination__item">
-          <span className="pagination__node">{page}</span>
+          <span className="pagination__node pagination__node--current">
+            {page}
+          </span>
         </li>
       );
     }

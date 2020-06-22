@@ -22,12 +22,11 @@ const MovieTrailers = ({ trailers }) => {
       <li key={trailer.id} className="trailers__item">
         <button
           type="button"
-          className={`text-button ${
-            currentTrailer === trailer ? 'text-button--font-color' : ''
-          }`}
+          className="text-button text-button--dark"
           onClick={() => setCurrentTrailer(trailer)}
         >
           {trailer.name}
+          {currentTrailer === trailer ? ' (current)' : ''}
         </button>
       </li>
     );

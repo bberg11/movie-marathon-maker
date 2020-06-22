@@ -5,7 +5,7 @@
 @import 'Assets/styles/tools/respond-to';
 @import 'Assets/styles/objects/button-reset';
 
-$timeline-movie-node-color: $bright-red;
+$timeline-movie-node-color: $cultured-white;
 
 .timeline-movie {
   position: absolute;
@@ -24,7 +24,7 @@ $timeline-movie-node-color: $bright-red;
   left: 0;
   background-size: cover;
   background-position: center center;
-  opacity: 0.25;
+  opacity: 0.75;
 }
 
 .timeline-movie__content {

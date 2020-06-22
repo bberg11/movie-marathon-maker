@@ -42,10 +42,11 @@
 .modal__close {
   width: 30px;
   height: 30px;
-  fill: $background-color;
+  fill: $cultured-white;
 }
 
 .modal__body {
   padding: $spacing-unit;
-  background: $background-color;
+  background: $cultured-white;
+  color: $oxford-blue;
 }

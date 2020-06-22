@@ -23,5 +23,9 @@ html {
   letter-spacing: normal; /* [3] */
   text-size-adjust: 100%; /* [4] */
   background-color: $background-color;
+  background: linear-gradient(
+    $background-color 0%,
+    #{rgba($background-color, 0.8)} 100%
+  );
   overflow-y: scroll; /* [5] */
 }

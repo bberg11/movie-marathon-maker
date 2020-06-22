@@ -6,8 +6,9 @@
 .movie-list-item {
   margin: ($spacing-unit * 2) 0;
   overflow: hidden;
-  border: 1px solid $primary-color;
+  background: $cultured-white;
   border-radius: $border-radius;
+  box-shadow: 2px 4px 4px 2px $shadow-color;
   transition: transform 0.2s;
 
   @include respond-to($medium-breakpoint) {
@@ -33,11 +34,9 @@
 }
 
 .movie-list-item--will-overflow {
-  border-color: $warning-color;
 }
 
 .movie-list-item--already-exists {
-  border-color: $disabled-color;
 }
 
 .movie-list-item__link {
@@ -45,7 +44,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  color: $font-color;
+  color: $oxford-blue;
 
   &:hover {
     text-decoration: none;

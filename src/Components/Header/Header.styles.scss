@@ -5,7 +5,11 @@
 
 .header {
   text-align: center;
-  background: $primary-color;
+  background: $secondary-color;
+  background: linear-gradient(
+    $secondary-color 0%,
+    #{rgba($secondary-color, 0.6)} 100%
+  );
 }
 
 .header__container {
@@ -18,11 +22,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    padding: ($spacing-unit * 3) $spacing-unit;
   }
 }
 
 .header__logo {
-  color: $white;
 }
 
 .header__nav {
@@ -46,7 +50,6 @@
 }
 
 .header__nav-link {
-  color: $white;
 }
 
 .header__search {
