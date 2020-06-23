@@ -12,9 +12,7 @@
  * https://www.smashingmagazine.com/2014/06/sassy-z-index-management-for-complex-layouts/
  */
 
-$components: (autocomplete, drawer, modal, flash-messages);
-
-$timeline-page: (timescale);
+$components: (timescale, autocomplete, drawer, modal, flash-messages);
 
 $timeline-movie: (start-finish-node);
 

@@ -12,7 +12,7 @@ $timescale-color: $cultured-white;
   margin-left: $timescale-width;
   width: 2px;
   background: $timescale-color;
-  z-index: index($timeline-page, timescale);
+  z-index: index($components, timescale);
 }
 
 .timescale__tick {
